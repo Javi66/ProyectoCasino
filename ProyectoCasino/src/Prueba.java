@@ -1,4 +1,4 @@
 
 public class Prueba {
-private int num;
+private int num1;x
 }
