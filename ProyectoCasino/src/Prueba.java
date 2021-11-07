@@ -1,4 +1,6 @@
 
 public class Prueba {
-private int num1;x
+private int num1;
+huyp
+
 }
