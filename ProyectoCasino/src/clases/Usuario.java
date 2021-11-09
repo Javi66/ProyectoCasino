@@ -1,4 +1,4 @@
-package Clases;
+package clases;
 
 public class Usuario implements Comparable<Usuario>{
 	private String dni;
