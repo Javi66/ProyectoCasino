@@ -1,6 +1,7 @@
 package Clases;
 
-public class Usuario {
+public class Usuario implements Comparable<Usuario>{
+	private String dni;
 	private String nombre;
 	private String apellido;
 	private int edad;
@@ -13,8 +14,9 @@ public class Usuario {
 		super();
 	}
 	
-	public Usuario(String nombre, String apellido, int edad, String gmail, String contrasenia, int numerotargeta) {
-		super();
+	public Usuario(String dni, String nombre, String apellido, int edad, String gmail, String contrasenia, int numerotargeta) {
+		super(); 
+		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
@@ -23,9 +25,13 @@ public class Usuario {
 		this.numerotargeta = numerotargeta;
 	}
 
+	public String getDni() {
+		return dni;
+	}
 
-
-
+	public void setDni(String dni) {
+		this.dni = dni;
+	}
 
 	public String getNombre() {
 		return nombre;
@@ -88,12 +94,16 @@ public class Usuario {
 		this.numerotargeta = numerotargeta;
 	}
 
-
-
 	@Override
 	public String toString() {
-		return "Usuario [nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", gmail=" + gmail
-				+ ", contrasenia=" + contrasenia + ", numerotargeta=" + numerotargeta + "]";
+		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", gmail="
+				+ gmail + ", contrasenia=" + contrasenia + ", numerotargeta=" + numerotargeta + "]";
+	}
+
+	@Override
+	public int compareTo(Usuario o) {
+		// TODO Auto-generated method stub
+		return o.dni.compareTo(this.dni);
 	}
 
 
