@@ -12,6 +12,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
@@ -132,8 +134,35 @@ public class Main extends JFrame implements ActionListener {
 		btnRegistrarse.addActionListener(this);
 		btnIniciarSesion.addActionListener(this);
 		contentPane.setLayout(gl_contentPane);	
-	}
 
+	btnSalir.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			System.exit(0);
+		}
+	});
+
+Thread reloj = new Thread(new Runnable() {
+	public void run() {
+		while(true)
+		{
+			DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss");
+			String timeLabel = new String(LocalTime.now().format(dtf));
+								
+			setTitle(timeLabel);				
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}				
+	}
+});
+
+reloj.start();
+
+}
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
