@@ -3,12 +3,13 @@ package main;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-
-
 import javax.swing.GroupLayout;
+import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -64,11 +65,15 @@ public class Main extends JFrame implements ActionListener {
 		JPanel panel = new JPanel();
 		panel.setBackground(new Color(255, 255, 255));
 		
+		ImageIcon icon = createImageIcon("\\images\\Casino.jpg", "");
+		JLabel lblNewLabel = new JLabel("", icon, SwingConstants.CENTER);
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(298)
+					.addComponent(lblNewLabel)
 					.addContainerGap(315, Short.MAX_VALUE))
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addContainerGap(374, Short.MAX_VALUE)
@@ -79,6 +84,7 @@ public class Main extends JFrame implements ActionListener {
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.UNRELATED)
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
 					.addGap(261))
@@ -163,6 +169,17 @@ Thread reloj = new Thread(new Runnable() {
 reloj.start();
 
 }
+	private ImageIcon createImageIcon(String path, String description) {
+		java.net.URL imgURL = Main.class.getClassLoader().getResource(path);
+		if (imgURL != null) {
+			return new ImageIcon(imgURL, description);
+		} else {
+			System.err.println("Couldn't find file: " + path);
+			return null;
+		}
+	}
+
+	
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
