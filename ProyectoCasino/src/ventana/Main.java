@@ -1,4 +1,4 @@
-package main;
+package ventana;
 
 import java.awt.EventQueue;
 
@@ -103,10 +103,23 @@ public class Main extends JFrame implements ActionListener {
 		btnSalir.addActionListener(this);
 		
 		btnRuleta = new JButton("Ruleta");
+		btnRuleta.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaRuleta vr = new VentanaRuleta();
+				vr.setVisible(true);
+				
+			}
+		});
 		btnRuleta.setForeground(Color.BLACK);
 		btnRuleta.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
 		btnTragaperras = new JButton("Tragaperras");
+		btnTragaperras.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VentanaTragaperras vt = new VentanaTragaperras();
+				vt.setVisible(true);
+			}
+		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
 		GroupLayout gl_panel = new GroupLayout(panel);
