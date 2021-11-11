@@ -174,7 +174,8 @@ public class Main extends JFrame implements ActionListener {
 			VentanaRegistrar v= new VentanaRegistrar();
 			
 			v.setVisible(true);
-			
+		}
+	});
 
 	
 	btnIniciarSesion.addActionListener(new ActionListener() {
@@ -182,9 +183,9 @@ public class Main extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			VentanaLogin ventana = new VentanaLogin();
 			ventana.setVisible(true);
->>>>>>> branch 'master' of https://github.com/Javi66/ProyectoCasino.git
 		}
 	});
+		
 
 Thread reloj = new Thread(new Runnable() {
 	public void run() {
@@ -224,3 +225,4 @@ reloj.start();
 			
 		}
 	}
+		
