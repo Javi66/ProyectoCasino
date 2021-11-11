@@ -50,8 +50,7 @@ public class VentanaAdmin extends JFrame{
 					public void run() {
 						for (Usuario usuario : GestorUsuario.obtenerUsuariosOrdenados()) {
 							System.out.println(usuario);
-							//Cambiar
-							//txtusuarios.setText(usuario);
+							txtusuarios.setText("Usuarios:"+" "+usuario);
 							try {
 								Thread.sleep(2000);
 							} catch (Exception e) {
