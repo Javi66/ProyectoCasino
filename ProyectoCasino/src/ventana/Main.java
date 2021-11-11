@@ -160,6 +160,14 @@ public class Main extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 	});
+	
+	btnIniciarSesion.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			VentanaLogin ventana = new VentanaLogin();
+			ventana.setVisible(true);
+		}
+	});
 
 Thread reloj = new Thread(new Runnable() {
 	public void run() {
