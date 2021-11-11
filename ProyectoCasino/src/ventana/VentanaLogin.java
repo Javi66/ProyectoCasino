@@ -16,9 +16,9 @@ public class VentanaLogin extends JFrame{
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
 		setSize(500,400);
+		setTitle( "Inicio Sesion" );
 		Container cp = this.getContentPane();
 		JPanel login = new JPanel();
-		login.setLayout(new GridLayout(1, 2));
 		cp.add(login);
 	}
 
