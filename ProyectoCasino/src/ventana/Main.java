@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import clases.GestorUsuario;
+import clases.Usuario;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
@@ -31,7 +34,6 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnRegistrarse;
 	private JButton btnRuleta;
 	private JButton btnTragaperras;
-
 	/**
 	 * Cargar la aplicación
 	 */
@@ -106,6 +108,7 @@ public class Main extends JFrame implements ActionListener {
 		btnRuleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaRuleta vr = new VentanaRuleta();
+				dispose();
 				vr.setVisible(true);
 				
 			}
@@ -117,23 +120,26 @@ public class Main extends JFrame implements ActionListener {
 		btnTragaperras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaTragaperras vt = new VentanaTragaperras();
+				dispose();
 				vt.setVisible(true);
 			}
 		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 						.addComponent(btnSalir, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-					.addContainerGap())
+						.addGroup(Alignment.LEADING, gl_panel.createParallelGroup(Alignment.TRAILING, false)
+							.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+					.addContainerGap(31, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -146,8 +152,8 @@ public class Main extends JFrame implements ActionListener {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(68, Short.MAX_VALUE))
+					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		btnRegistrarse.addActionListener(this);
@@ -188,8 +194,8 @@ Thread reloj = new Thread(new Runnable() {
 });
 
 reloj.start();
-
 }
+	
 	private ImageIcon createImageIcon(String path, String description) {
 		java.net.URL imgURL = Main.class.getClassLoader().getResource(path);
 		if (imgURL != null) {
@@ -206,5 +212,4 @@ reloj.start();
 			// TODO Auto-generated method stub
 			
 		}
-		
 	}
