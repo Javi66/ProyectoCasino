@@ -14,7 +14,7 @@ public class GestorUsuario {
 	}
 
 
-	public void añadirUsuario(Usuario u) {
+	public void anadirUsuario(Usuario u) {
 		usuarios.put(u.getKey(), u.getValue());
 	}
 
