@@ -1,6 +1,6 @@
 package clases;
 
-public class Juego {
+public abstract class Juego {
 
 }
  
