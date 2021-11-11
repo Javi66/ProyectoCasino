@@ -160,6 +160,16 @@ public class Main extends JFrame implements ActionListener {
 			System.exit(0);
 		}
 	});
+	btnRegistrarse.addActionListener(new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			VentanaRegistrar v= new VentanaRegistrar();
+			
+			v.setVisible(true);
+			
+		}
+	});
 
 Thread reloj = new Thread(new Runnable() {
 	public void run() {
