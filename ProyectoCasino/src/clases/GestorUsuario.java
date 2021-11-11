@@ -44,9 +44,6 @@ public class GestorUsuario {
 		}
 		return new ArrayList<Usuario>(conjuntoOrdenadoDeUsuarios);
 	}
-	public static int obtenerNumeroDeSocio(int dni) {
-		return 0;
-	}
 
 	public static HashMap<String, Usuario> getUsuarios() {
 		return usuarios;
