@@ -3,7 +3,7 @@ package clases;
 
 public abstract class Juego {
 	
-		
+
 		private int giros;
 		private double dineroapostado;
 		private Usuario usuario;
