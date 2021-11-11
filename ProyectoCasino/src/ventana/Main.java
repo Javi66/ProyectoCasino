@@ -8,6 +8,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import clases.GestorUsuario;
+import clases.Usuario;
+
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
@@ -31,7 +34,7 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnRegistrarse;
 	private JButton btnRuleta;
 	private JButton btnTragaperras;
-
+	private JButton btnImprimirUsuarios;
 	/**
 	 * Cargar la aplicación
 	 */
@@ -122,18 +125,29 @@ public class Main extends JFrame implements ActionListener {
 		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		btnImprimirUsuarios = new JButton("Imprimir");
+		btnImprimirUsuarios.setForeground(Color.BLACK);
+		btnImprimirUsuarios.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(btnSalir, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
-					.addContainerGap())
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addContainerGap())
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnSalir, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(btnImprimirUsuarios, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addContainerGap(31, Short.MAX_VALUE))))
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -146,8 +160,10 @@ public class Main extends JFrame implements ActionListener {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnImprimirUsuarios, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(68, Short.MAX_VALUE))
+					.addContainerGap(24, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
 		btnRegistrarse.addActionListener(this);
@@ -181,7 +197,28 @@ Thread reloj = new Thread(new Runnable() {
 
 reloj.start();
 
+	btnImprimirUsuarios.addActionListener(new ActionListener() {
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			Thread t = new Thread() {
+				@Override
+				public void run() {
+					for (Usuario usuario : GestorUsuario.obtenerUsuariosOrdenados()) {
+						System.out.println(usuario);
+						try {
+							Thread.sleep(2000);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				}
+			};
+			
+			t.start();
+		}
+	});
 }
+	
 	private ImageIcon createImageIcon(String path, String description) {
 		java.net.URL imgURL = Main.class.getClassLoader().getResource(path);
 		if (imgURL != null) {
@@ -198,5 +235,4 @@ reloj.start();
 			// TODO Auto-generated method stub
 			
 		}
-		
 	}
