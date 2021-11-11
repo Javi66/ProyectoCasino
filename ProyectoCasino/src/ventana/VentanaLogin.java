@@ -39,7 +39,7 @@ public class VentanaLogin extends JFrame{
 		textousuario.setBounds(50, 50, 200, 20);
 		contentPane.add(textousuario);
 	
-		contrasenia = new JLabel("Introduzca su contraseña: ");
+		contrasenia = new JLabel("Introduzca su contraseï¿½a: ");
 		contrasenia.setBounds(10, 80, 250, 25);
 		contentPane.add(contrasenia);
 		contrasenia.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -71,7 +71,7 @@ public class VentanaLogin extends JFrame{
 				if (textousuario.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario");
 				} else if (textocontra.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Escribe una contraseña");
+					JOptionPane.showMessageDialog(null, "Escribe una contraseï¿½a");
 				} else {
 					dispose();
 				}

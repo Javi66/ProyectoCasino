@@ -1,11 +1,12 @@
 package ventana;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.ActionListener; 
 
 import javax.swing.*;
 
@@ -25,6 +26,7 @@ public class VentanaRegistrar extends JFrame  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 975, 650);
 		contentpane = new JPanel();
+		contentpane.setBackground(new Color(255, 255, 255));
 		contentpane.setLayout(new BorderLayout());
 		//Aniadir Jlabels y Jtextfields
 		JLabel Dnijp = new JLabel("DNI:");
@@ -60,15 +62,15 @@ public class VentanaRegistrar extends JFrame  {
 		JPanel panelbotones = new JPanel();
 		
 		
-		btnGuardar= new JButton("GUARDAR");
+		btnGuardar= new JButton("GUARDA");
 		btnSalir= new JButton("SALIR");
 		btnGuardar.setBounds(10, 290, 100, 25);
 		btnSalir.setBounds(150, 290, 100, 25);
 		btnGuardar.addActionListener(new ActionListener() {
 			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+		@Override
+		public void actionPerformed(ActionEvent e) {
+				
 				dispose();
 			}
 		}); 
@@ -100,7 +102,7 @@ public class VentanaRegistrar extends JFrame  {
 		contentpane.add(panelbotones);
 		contentpane.add(btnGuardar);
 		contentpane.add(btnSalir);
-		this.setSize(200, 200);
+		this.setSize(400, 400);
 		
 		setContentPane(contentpane);
 		
