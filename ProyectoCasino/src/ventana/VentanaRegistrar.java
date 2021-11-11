@@ -64,7 +64,22 @@ public class VentanaRegistrar extends JFrame  {
 		btnSalir= new JButton("SALIR");
 		btnGuardar.setBounds(10, 290, 100, 25);
 		btnSalir.setBounds(150, 290, 100, 25);
-		
+		btnGuardar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				dispose();
+			}
+		}); 
+		btnSalir.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				
+			}
+		});
 		
 		contentpane.setLayout(new GroupLayout(contentpane));
 		
@@ -85,7 +100,8 @@ public class VentanaRegistrar extends JFrame  {
 		contentpane.add(panelbotones);
 		contentpane.add(btnGuardar);
 		contentpane.add(btnSalir);
-		this.setSize(600, 800);
+		this.setSize(200, 200);
+		
 		setContentPane(contentpane);
 		
 		
