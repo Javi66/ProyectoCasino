@@ -62,7 +62,7 @@ public class VentanaRegistrar extends JFrame  {
 		JPanel panelbotones = new JPanel();
 		
 		
-		btnGuardar= new JButton("GUARDAR");
+		btnGuardar= new JButton("GUARD");
 		btnSalir= new JButton("SALIR");
 		btnGuardar.setBounds(10, 290, 100, 25);
 		btnSalir.setBounds(150, 290, 100, 25);
