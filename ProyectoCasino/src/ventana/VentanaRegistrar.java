@@ -22,12 +22,16 @@ public class VentanaRegistrar extends JFrame  {
 	private JTextField contraseniajt;
 	private JButton btnGuardar;
 	private JButton btnSalir;
+	
 	public VentanaRegistrar() {
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 975, 650);
+		setBounds(300, 200, 975, 650);
+		
 		contentpane = new JPanel();
 		contentpane.setBackground(new Color(255, 255, 255));
 		contentpane.setLayout(new BorderLayout());
+	
 		//Aniadir Jlabels y Jtextfields
 		JLabel Dnijp = new JLabel("DNI:");
 		Dnijp.setBounds(10, 10, 80, 25);
