@@ -41,7 +41,7 @@ public class VentanaRegistrar extends JFrame  {
 		Gmailjp.setBounds(10, 170, 80, 25);
 		JLabel nomusuariojp=new JLabel("Usuario:");
 		nomusuariojp.setBounds(10, 210, 80, 25);
-		JLabel contraseniajp =new JLabel("contraseña:");
+		JLabel contraseniajp =new JLabel("Contraseña:");
 		contraseniajp.setBounds(10, 250, 80, 25);
 		Dnijt = new JTextField(50);
 		Dnijt.setBounds(80, 10, 200, 25);
