@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
+import ventana.Main;
 public class VentanaLogin extends JFrame{
 	private JLabel nombreusuario;
 	private JLabel contrasenia;
@@ -74,6 +74,7 @@ public class VentanaLogin extends JFrame{
 					JOptionPane.showMessageDialog(null, "Escribe una contrase�a");
 				} else {
 					dispose();
+					Main.activarBotones();
 				}
 			}
 		});

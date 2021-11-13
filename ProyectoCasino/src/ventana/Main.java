@@ -32,8 +32,8 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnSalir;
 	private JButton btnIniciarSesion;
 	private JButton btnRegistrarse;
-	private JButton btnRuleta;
-	private JButton btnTragaperras;
+	private static JButton btnRuleta;
+	private static JButton btnTragaperras;
 	/**
 	 * Cargar la aplicación
 	 */
@@ -183,9 +183,10 @@ public class Main extends JFrame implements ActionListener {
 		public void actionPerformed(ActionEvent arg0) {
 			VentanaLogin ventana = new VentanaLogin();
 			ventana.setVisible(true);
+			
 		}
 	});
-		
+	desactivarBotones();	
 
 Thread reloj = new Thread(new Runnable() {
 	public void run() {
@@ -224,5 +225,16 @@ reloj.start();
 			// TODO Auto-generated method stub
 			
 		}
-	}
+		private void desactivarBotones() {
+			btnRuleta.setEnabled(false);
+			btnTragaperras.setEnabled(false);
+		 
+		}
+		
+		public static void activarBotones() {
+			btnRuleta.setEnabled(true);
+			btnTragaperras.setEnabled(true);
+		 
+		}
+}
 		
