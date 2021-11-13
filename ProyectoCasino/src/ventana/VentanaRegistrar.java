@@ -76,6 +76,8 @@ public class VentanaRegistrar extends JFrame  {
 		public void actionPerformed(ActionEvent e) {
 				
 				dispose();
+				Main vl = new Main();
+				vl.setVisible(true);
 			}
 		}); 
 		btnSalir.addActionListener(new ActionListener() {
@@ -83,7 +85,8 @@ public class VentanaRegistrar extends JFrame  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				
+				Main vl = new Main();
+				vl.setVisible(true);
 			}
 		});
 		
