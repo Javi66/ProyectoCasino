@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
 import ventana.Main;
 public class VentanaLogin extends JFrame{
 	private JLabel nombreusuario;
@@ -68,12 +69,19 @@ public class VentanaLogin extends JFrame{
 		btnEntrar.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				String usuario = textousuario.getText();
+				String contrasenya = String.valueOf(textocontra.getPassword());
 				if (textousuario.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario");
 				} else if (textocontra.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contrase�a");
 				} else {
+					JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.",
+							JOptionPane.INFORMATION_MESSAGE);
+					//Si el usuario es correcto cerramos esta y abrimos la principal:
 					dispose();
+					Main vl = new Main();
+					vl.setVisible(true);
 					Main.activarBotones();
 				}
 			}

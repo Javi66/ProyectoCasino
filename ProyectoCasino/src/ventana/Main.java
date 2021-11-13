@@ -172,7 +172,7 @@ public class Main extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			VentanaRegistrar v= new VentanaRegistrar();
-			
+			dispose();
 			v.setVisible(true);
 		}
 	});
@@ -182,6 +182,7 @@ public class Main extends JFrame implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			VentanaLogin ventana = new VentanaLogin();
+			dispose();
 			ventana.setVisible(true);
 			
 		}
