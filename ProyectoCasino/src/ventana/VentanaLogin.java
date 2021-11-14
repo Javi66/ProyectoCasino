@@ -63,6 +63,8 @@ public class VentanaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
+				Main vl = new Main();
+				vl.setVisible(true);
 			}
 		});
 		
