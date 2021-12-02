@@ -74,9 +74,9 @@ public class VentanaLogin extends JFrame{
 				String usuario = textousuario.getText();
 				String contrasenya = String.valueOf(textocontra.getPassword());
 				if (textousuario.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario");
+					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
 				} else if (textocontra.getText().isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Escribe una contraseï¿½a");
+					JOptionPane.showMessageDialog(null, "Escribe una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
 					JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.",
 							JOptionPane.INFORMATION_MESSAGE);
