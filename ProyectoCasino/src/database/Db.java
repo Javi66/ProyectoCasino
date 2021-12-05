@@ -40,33 +40,19 @@ public class Db {
 			}
 		}
 	}
-	public static Statement usarCrearTablasBD( Connection con ) {
-		try {
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(30);  // poner timeout 30 msg
-			try {
-				statement.executeUpdate("create table usuario " +
-					"(dni string" +                    
-					", nom string" +           
-					", nomUsuario string, contrasenia string" +  
-					")");
-			} catch (SQLException e) {} // Tabla ya existe. Nada que hacer
+public void crearTablaCliente() {
+		
+		try(Statement stmt = con.createStatement()){
+			stmt.executeQuery("CREATE TABLE usuario ( dni varchar(9), nombre varchar(55), nomUsuario varchar(55), pass varchar(55));");
+			System.out.println("Valores introducidos correctamente");
 			
-			return statement;
-		} catch (SQLException e) {
-			return null;
 		}
-	}
-	public static Statement reiniciarBD( Connection con ) {
-		try {
-			Statement statement = con.createStatement();
-			statement.setQueryTimeout(30);  // poner timeout 30 msg
-			statement.executeUpdate("drop table if exists usuario");
-			return usarCrearTablasBD( con );
-		} catch (SQLException e) {
-			return null;
+		catch(SQLException e) {
+			System.out.println("No se ha podido ejecutar la sentencia");
 		}
+		
 	}
+	
 	public static void anadirUsuario(Connection con, String dni, String nom, String nomUsuario, String contrasenia) {
 		String sentSQL = "INSERT INTO usuario VALUES('"+dni+"','"+nom+"','"+nomUsuario+"','"+contrasenia+"')";
 		try {
@@ -78,22 +64,7 @@ public class Db {
 			e.printStackTrace();
 		}
 	}
-public void registrarCliente(Usuario usuario) throws SQLException{
-		
-		
-		try (PreparedStatement stmt = con.prepareStatement("INSERT INTO usuario (dni, nom, nomUsuario, contrasenia) VALUES (?, ?, ?, ?)");
-			Statement stmtForId = con.createStatement()) {
-			stmt.setString(1,usuario.getDni());
-			stmt.setString(2, usuario.getNombre());
-			stmt.setString(3,usuario.getNomUsuario());
-			stmt.setString(4,usuario.getContrasenia());
-			
-			stmt.executeUpdate();
-			
-		} catch (SQLException e) {
-			System.out.println("No se pudo guardar el usuario en la BD");
-		}
-	}
+
 	
 	public static void borrarUsuario(Connection con, String nomUsuario, String contrasenia) {
 		String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsuario+"' AND contrasenia = '"+contrasenia+"'";
@@ -106,7 +77,11 @@ public void registrarCliente(Usuario usuario) throws SQLException{
 			e.printStackTrace();
 		}
 	}
-	
+	public static void modificarUsuario(String dni, String nom,String nomUsuario,String pass) throws SQLException {
+		Statement statement = con.createStatement();
+		String sent = "update usuario set nombre='"+nom+"',nomUsuario="+nomUsuario+"',pass="+pass+" where dni="+dni;
+		statement.executeUpdate(sent);
+	}
 
 	public static TreeMap<String, Usuario> obtenerMapaUsuario(Connection con){
 		TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
