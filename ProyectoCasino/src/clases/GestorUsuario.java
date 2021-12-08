@@ -66,7 +66,6 @@ public class GestorUsuario {
 			ois = new ObjectInputStream(new FileInputStream(nomFic));
 			while (true) {
 				Usuario u = (Usuario) ois.readObject();
-				// ret.add( u );
 				ret.put(u.getKey(), u.getValue());
 			}
 		} catch (EOFException e) {
