@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import clases.Usuario;
+
 
 
 public class Db {
@@ -34,7 +36,7 @@ public class Db {
 		}
 	}
 	
-	public static Connection initBD(String nombreBD) {
+	public static Connection initDB(String nombreBD) {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
@@ -104,13 +106,14 @@ public void crearTablaCliente() {
 			e.printStackTrace();
 		}
 	}
-	public static void modificarUsuario(String dni, String nom,String nomUsuario,String pass) throws SQLException {
+	public static void modificarUsuario(String dni, String nom,String nomUsuario,String contrasenia) throws SQLException {
 		Statement statement = con.createStatement();
-		String sent = "update usuario set nombre='"+nom+"',nomUsuario="+nomUsuario+"',pass="+pass+" where dni="+dni;
+		String sent = "update usuario set nombre='"+nom+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+" where dni="+dni;
 		logger.log( Level.INFO, "Statement: " + sent );
 		statement.executeUpdate(sent);
 	}
-
+	
+	
 	public static TreeMap<String, Usuario> obtenerMapaUsuario(Connection con){
 		TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
 		
