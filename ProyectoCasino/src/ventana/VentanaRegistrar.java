@@ -6,9 +6,16 @@ import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener; 
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.sql.Connection;
 
 import javax.swing.*;
+
+import database.Db;
+
 
 public class VentanaRegistrar extends JFrame  {
 	private static final long  serialVersionUID = 1L;
@@ -22,6 +29,7 @@ public class VentanaRegistrar extends JFrame  {
 	private JTextField contraseniajt;
 	private JButton btnGuardar;
 	private JButton btnSalir;
+	private static Connection conexion;
 	
 	public VentanaRegistrar() {
 		
@@ -61,6 +69,22 @@ public class VentanaRegistrar extends JFrame  {
 		nomusuariojt.setBounds(80, 210, 200, 25);
 		contraseniajt =new JTextField(30);
 		contraseniajt.setBounds(80, 250, 200, 25);
+		addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				if (new File("casino.db").exists()) {
+					// Poner el parámetro a true si se quiere reiniciar la base de datos
+					Db.initDB( "casino.db");  // Abrir base de datos existente
+				} else {
+					Db.initDB( "casino.db");  // Crear base de datos con datos iniciales
+				}
+				
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Db.closeBD(conexion);
+			}
+		});
 		
 		//Aniadir Botones 
 		JPanel panelbotones = new JPanel();
@@ -74,7 +98,11 @@ public class VentanaRegistrar extends JFrame  {
 			
 		@Override
 		public void actionPerformed(ActionEvent e) {
-				
+				String dni = Dnijt.getText();
+				String nombre = Nombrejt.getText();
+				String nombreus = nomusuariojt.getText();
+				String contrasenia = contraseniajt.getText();
+				Db.anadirUsuario(conexion,dni,nombre,nombreus,contrasenia);
 				dispose();
 				Main vl = new Main();
 				vl.setVisible(true);
@@ -115,11 +143,4 @@ public class VentanaRegistrar extends JFrame  {
 		
 		
 	}
-	public static void main (String[] args) {
-		VentanaRegistrar v= new VentanaRegistrar();
-		
-		v.setVisible(true);
-		
-	}
-
 }
