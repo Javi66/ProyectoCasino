@@ -99,11 +99,11 @@ public class GestorUsuario {
 
 
 	public void escribirFicheroUsuarios() {
-		escribirFicheroUsuarios("socios.txt", obtenerUsuarios());
+		escribirFicheroUsuarios("usuarios.txt", obtenerUsuarios());
 	}
 
 	public void leerFicheroUsuarios() {
-		usuarios = leerFicheroUsuarios("socios.txt");
+		usuarios = leerFicheroUsuarios("usuarios.txt");
 	}
 
 }
