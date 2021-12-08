@@ -53,4 +53,57 @@ public class GestorUsuario {
 		GestorUsuario.usuarios = usuarios;
 	}
 
+	public HashMap<String, Usuario> leerFicheroUsuarios(String nomFic) {
+		HashMap<String, Usuario> ret = new HashMap<>();
+		ObjectInputStream ois = null;
+		try {
+			ois = new ObjectInputStream(new FileInputStream(nomFic));
+			while (true) {
+				Usuario u = (Usuario) ois.readObject();
+				// ret.add( u );
+				ret.put(u.getKey(), u.getValue());
+			}
+		} catch (EOFException e) {
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if (ois != null)
+				try {
+					ois.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+		}
+		return ret;
+	}
+
+	public void escribirFicheroUsuarios(String nomFic, HashMap<String, Usuario> l) {
+		ObjectOutputStream oos = null;
+		try {
+			oos = new ObjectOutputStream(new FileOutputStream(nomFic));
+
+			for (Usuario u : l.values()) {
+				oos.writeObject(u);
+			}
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		} finally {
+			if (oos != null)
+				try {
+					oos.close();
+				} catch (IOException ex) {
+					ex.printStackTrace();
+				}
+		}
+	}
+
+
+	public void escribirFicheroUsuarios() {
+		escribirFicheroUsuarios("usuarios.txt", obtenerUsuarios());
+	}
+
+	public void leerFicheroUsuarios() {
+		usuarios = leerFicheroUsuarios("usuarios.txt");
+	}
+
 }
