@@ -143,4 +143,9 @@ public class VentanaRegistrar extends JFrame  {
 		
 		
 	}
+	public static void main (String[] args) {
+		VentanaRegistrar v= new VentanaRegistrar();
+		v.setVisible(true);
+
+	}
 }
