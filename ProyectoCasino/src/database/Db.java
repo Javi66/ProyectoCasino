@@ -48,6 +48,7 @@ public class Db {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
 		
@@ -61,11 +62,12 @@ public class Db {
 				con.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
+				logger.log( Level.SEVERE, "Excepción", e );
 				e.printStackTrace();
 			}
 		}
 	}
-public void crearTablaCliente() {
+public static void crearTablaCliente() {
 		
 		try(Statement stmt = con.createStatement()){
 			stmt.executeQuery("CREATE TABLE usuario ( dni varchar(9), nombre varchar(55), nomUsuario varchar(55), pass varchar(55));");
@@ -74,7 +76,7 @@ public void crearTablaCliente() {
 			
 		}
 		catch(SQLException e) {
-			System.out.println("No se ha podido ejecutar la sentencia");
+			logger.log( Level.SEVERE, "No se ha podido ejecutar la sentencia" );
 		}
 		
 	}
@@ -89,6 +91,7 @@ public void crearTablaCliente() {
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
 	}
@@ -103,6 +106,7 @@ public void crearTablaCliente() {
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
 	}
@@ -139,6 +143,7 @@ public void crearTablaCliente() {
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
 		

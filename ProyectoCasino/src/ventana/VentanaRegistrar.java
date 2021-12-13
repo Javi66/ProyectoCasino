@@ -102,7 +102,9 @@ public class VentanaRegistrar extends JFrame  {
 				String nombre = Nombrejt.getText();
 				String nombreus = nomusuariojt.getText();
 				String contrasenia = contraseniajt.getText();
-				Db.anadirUsuario(conexion,dni,nombre,nombreus,contrasenia);
+				Connection con = Db.initDB("casino.db");
+				Db.crearTablaCliente();
+				Db.anadirUsuario(con,dni,nombre,nombreus,contrasenia);
 				dispose();
 				Main vl = new Main();
 				vl.setVisible(true);
