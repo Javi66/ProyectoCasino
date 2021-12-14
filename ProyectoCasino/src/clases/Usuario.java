@@ -3,7 +3,7 @@ package clases;
 import java.io.Serializable;
 import java.util.Map.Entry;
 
-public class Usuario implements Serializable, Comparable<Usuario>, Entry<String, Usuario>{
+public class Usuario implements Serializable, Entry<String, Usuario>{
 	
 	private static final long serialVersionUID = 1L;
 	private String dni;
@@ -11,35 +11,25 @@ public class Usuario implements Serializable, Comparable<Usuario>, Entry<String,
 	private String apellido;
 	private int edad;
 	private String gmail;
-	private int numUsuario;
 	private String nomUsuario;
 	private String contrasenia;
-	private int numerotargeta;
+	private int numerotarjeta;
 	
 	
 	public Usuario() {
 		super();
 	}
 	
-	public Usuario(String dni, String nombre, String apellido, int edad, String gmail, int numUsuario, String nomUsuario, String contrasenia, int numerotargeta) {
+	public Usuario(String dni, String nombre, String apellido, int edad, String gmail, String nomUsuario, String contrasenia, int numerotarjeta) {
 		super(); 
 		this.dni = dni;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.edad = edad;
-		this.numUsuario = numUsuario;
 		this.nomUsuario = nomUsuario;
 		this.gmail = gmail;
 		this.contrasenia = contrasenia;
-		this.numerotargeta = numerotargeta;
-	}
-
-	public int getNumUsuario() {
-		return numUsuario;
-	}
-
-	public void setNumUsuario(int numUsuario) {
-		this.numUsuario = numUsuario;
+		this.numerotarjeta = numerotarjeta;
 	}
 
 	public String getNomUsuario() {
@@ -110,13 +100,13 @@ public class Usuario implements Serializable, Comparable<Usuario>, Entry<String,
 
 
 
-	public int getNumerotargeta() {
-		return numerotargeta;
+	public int getNumerotarjeta() {
+		return numerotarjeta;
 	}
 
 
-	public void setNumerotargeta(int numerotargeta) {
-		this.numerotargeta = numerotargeta;
+	public void setNumerotarjeta(int numerotarjeta) {
+		this.numerotarjeta = numerotarjeta;
 	}
 
 	
@@ -124,8 +114,8 @@ public class Usuario implements Serializable, Comparable<Usuario>, Entry<String,
 	@Override
 	public String toString() {
 		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", gmail="
-				+ gmail + ", numUsuario=" + numUsuario + ", nomUsuario=" + nomUsuario + ", contrasenia=" + contrasenia
-				+ ", numerotargeta=" + numerotargeta + "]";
+				+ gmail + ", nomUsuario=" + nomUsuario + ", contrasenia=" + contrasenia
+				+ ", numerotargeta=" + numerotarjeta + "]";
 	}
 
 	@Override
@@ -156,10 +146,6 @@ public class Usuario implements Serializable, Comparable<Usuario>, Entry<String,
 		return result;
 	}
 
-	public int compareTo(Usuario elOtroUsuario) {
-
-		return numUsuario - elOtroUsuario.numUsuario;
-	}
 
 	@Override
 	public String getKey() {

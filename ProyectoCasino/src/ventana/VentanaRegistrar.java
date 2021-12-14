@@ -91,11 +91,11 @@ public class VentanaRegistrar extends JFrame  {
 				String apellido = Apellidojt.getText();
 				String gmail = Gmailjt.getText();
 				int edad = Integer.parseInt(Edadjt.getText());
-				Usuario u = new Usuario(dni, nombre, apellido, edad, gmail, 1, nombreus, contrasenia, 0);
-				Db.initDB("casino.db", false);
-				Db.crearTablaCliente("casino.db");
+				Usuario u = new Usuario(dni, nombre, apellido, edad, gmail, nombreus, contrasenia, 0);
+				Db.initDB("casino1.db", true);
 				Db.anadirUsuario(u);
 				dispose();
+				Db.closeBD();
 				Main vl = new Main();
 				vl.setVisible(true);
 			}

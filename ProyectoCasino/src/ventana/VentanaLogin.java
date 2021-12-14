@@ -82,17 +82,18 @@ public class VentanaLogin extends JFrame{
 				} else if (contrasenya.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Db.initDB("casino.db", false);
+					Db.initDB("casino1.db", false);
 					TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
 					tmUsuarios = Db.obtenerMapaUsuario();
 					if(tmUsuarios.containsKey(usuario)) {
 						Usuario u = new Usuario();
 						u = tmUsuarios.get(usuario);
-						if(u.getContrasenia()==contrasenya) {
-							JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.",
-									JOptionPane.INFORMATION_MESSAGE);
+						String c = u.getContrasenia();
+						if(contrasenya == c) {
+							JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.", JOptionPane.INFORMATION_MESSAGE);
 							//Si el usuario es correcto cerramos esta y abrimos la principal
 							dispose();
+							Db.closeBD();
 							Main vl = new Main();
 							vl.setVisible(true);
 							Main.activarBotones();
@@ -104,7 +105,7 @@ public class VentanaLogin extends JFrame{
 							
 						}
 					} else {
-						JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error",
+						JOptionPane.showMessageDialog(null, "Ese usuario no existe", "Error",
 								JOptionPane.ERROR_MESSAGE);	
 					}
 				}

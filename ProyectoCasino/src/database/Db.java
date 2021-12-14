@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -42,25 +41,19 @@ public class Db {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			logger.log( Level.INFO, "Abriendo conexion con " + nombreBD );
-			con = DriverManager.getConnection("jdbc:sqlite:"+nombreBD);
+			con = DriverManager.getConnection("jdbc:sqlite:"+ nombreBD );
 			
-			if(primeraVez) {
-				Statement stmt = con.createStatement();
-				String sentSQL = "DROP TABLE IF EXISTS usuario";
-				logger.log( Level.INFO, "Statement: " + sentSQL );
-				stmt.executeUpdate( sentSQL );
+			if(primeraVez) {  //Si queremos reiniciar la BD esto será true
+				crearTablaCliente(nombreBD);
+				logger.log(Level.INFO, "Creada nueva tabla clientes");
 			}
-					
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SQLException e) {
+			return con;		
+		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			e.printStackTrace();
+			return null;
 		}
-		
-		return con;
 	}
 	
 	public static void closeBD() {
@@ -75,14 +68,21 @@ public class Db {
 			}
 		}
 	}
-public static void crearTablaCliente(String nombreBD) {
+	
+public static void crearTablaCliente(String nombreBD) throws SQLException{
 		try{
 			Statement stmt = con.createStatement();
-			String sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), numUsuario int, nomUsuario varchar(55), pass varchar(55), numerotargeta int);";
+			String sentSQL = "DROP TABLE IF EXISTS usuario;";  //La eliminamos si ya existe
 			logger.log( Level.INFO, "Statement: " + sentSQL );
-			stmt.executeUpdate(sentSQL);
-			System.out.println("Valores introducidos correctamente");
+			stmt.execute( sentSQL );
 			
+			//Después creamos la tabla nueva
+			sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), nomUsuario varchar(55), contrasenia varchar(55), numerotarjeta int);";
+			logger.log( Level.INFO, "Statement: " + sentSQL );
+			stmt.execute(sentSQL);
+			
+			stmt.close();
+			System.out.println("Valores introducidos correctamente");
 		}
 		catch(SQLException e) {
 			logger.log( Level.SEVERE, "No se ha podido ejecutar la sentencia" );
@@ -91,11 +91,8 @@ public static void crearTablaCliente(String nombreBD) {
 	}
 	
 	public static void anadirUsuario(Usuario u) {
-		String sentSQL = "INSERT INTO usuario VALUES('"+u.getDni()+"','"+u.getNombre()+"','"+u.getApellido()+"','"+u.getEdad()+"','"+u.getGmail()+"','"+u.getNumUsuario()+"','"+u.getNomUsuario()+"','"+u.getContrasenia()+"','"+u.getNumerotargeta()+"')";
-		
-		try {
-			
-			Statement stmt = con.createStatement();
+		try (Statement stmt = con.createStatement()){
+			String sentSQL = "INSERT INTO usuario VALUES('"+u.getDni()+"','"+u.getNombre()+"','"+u.getApellido()+"',"+u.getEdad()+",'"+u.getGmail()+"','"+u.getNomUsuario()+"','"+u.getContrasenia()+"',"+u.getNumerotarjeta()+")";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
@@ -129,34 +126,32 @@ public static void crearTablaCliente(String nombreBD) {
 	
 	
 	public static TreeMap<String, Usuario> obtenerMapaUsuario(){
-		TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
-		String sentSQL = "SELECT * FROM usuario";
-		try {
-			Statement stmt = con.createStatement();
+		try (Statement stmt = con.createStatement()){
+			TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
+			String sentSQL = "SELECT * FROM usuario;";
+			logger.log( Level.INFO, "Statement: " + sentSQL );
 			ResultSet rs = stmt.executeQuery(sentSQL);
-			while(rs.next()) { 
+			while(rs.next()) {  //repasa rs y añade todos los usuarios al treemap
 				String dni = rs.getString("dni");
 				String nom = rs.getString("nombre");
 				String apellido = rs.getString("apellido");
 				int edad = rs.getInt("edad");
 				String gmail = rs.getString("gmail");
-				int numUsuario = rs.getInt("numUsuario");
 				String nomUsuario = rs.getString("nomUsuario");
 				String contrasenia = rs.getString("contrasenia");
 				int numerotarjeta = rs.getInt("numerotarjeta");
-				Usuario u = new Usuario(dni,nom,apellido, edad, gmail, numUsuario, nomUsuario, contrasenia, numerotarjeta);
+				Usuario u = new Usuario(dni, nom, apellido, edad, gmail, nomUsuario, contrasenia, numerotarjeta);
 				tmUsuarios.put(nomUsuario, u);
-				logger.log( Level.INFO, "Statement: " + sentSQL );
 			}
-			rs.close();
-			stmt.close();
+			logger.log(Level.INFO, "TreeMap cargado");
+			return tmUsuarios;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			logger.log( Level.SEVERE, "ExcepciÃ³n", e );
 			e.printStackTrace();
+			return null;
 		}
 		
-		return tmUsuarios;
 	}
 	
 

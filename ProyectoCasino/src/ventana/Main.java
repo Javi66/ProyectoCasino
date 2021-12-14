@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -41,6 +42,7 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnRegistrarse;
 	private static JButton btnRuleta;
 	private static JButton btnTragaperras;
+	private JButton btnReinicio;
 	/**
 	 * Cargar la aplicación
 	 */
@@ -99,23 +101,7 @@ public class Main extends JFrame implements ActionListener {
 					.addGap(261))
 		);
 		
-		//ABRIMOS Y REINICIAMOS LA BD AL PRINCIPIO DEL MAIN
-		addWindowListener( new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				if (new File("casino.db").exists()) {
-					Db.initDB( "casino.db", false );
-					Db.crearTablaCliente("casino.db");
-				} else {
-					Db.initDB( "casino.db", true );
-					Db.crearTablaCliente("casino.db");
-				}
-			}
-			@Override
-			public void windowClosed(WindowEvent e) {
-				Db.closeBD();
-			}
-		});
+		
 		
 		btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setForeground(new Color(0, 0, 0));
@@ -152,6 +138,20 @@ public class Main extends JFrame implements ActionListener {
 		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
+		//Boton para reiniciar BD
+		btnReinicio = new JButton("Reiniciar BD");
+		btnReinicio.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Db.initDB("casino1.db", true);
+				Db.closeBD();
+				JOptionPane.showMessageDialog(null, "Base de datos reiniciada" , "Reinicio", JOptionPane.INFORMATION_MESSAGE);
+			}
+		});
+		btnReinicio.setForeground(Color.BLACK);
+		btnReinicio.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnReinicio.setBounds(700, 50, 200, 100);
+		contentPane.add(btnReinicio);
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
