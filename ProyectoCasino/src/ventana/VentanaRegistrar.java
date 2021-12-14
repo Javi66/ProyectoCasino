@@ -29,7 +29,7 @@ public class VentanaRegistrar extends JFrame  {
 	private JTextField contraseniajt;
 	private JButton btnGuardar;
 	private JButton btnSalir;
-	private static Connection conexion;
+	
 	
 	public VentanaRegistrar() {
 		
@@ -69,22 +69,7 @@ public class VentanaRegistrar extends JFrame  {
 		nomusuariojt.setBounds(80, 210, 200, 25);
 		contraseniajt =new JTextField(30);
 		contraseniajt.setBounds(80, 250, 200, 25);
-		addWindowListener( new WindowAdapter() {
-			@Override
-			public void windowOpened(WindowEvent e) {
-				if (new File("casino.db").exists()) {
-					// Poner el parámetro a true si se quiere reiniciar la base de datos
-					Db.initDB( "casino.db");  // Abrir base de datos existente
-				} else {
-					Db.initDB( "casino.db");  // Crear base de datos con datos iniciales
-				}
-				
-			}
-			@Override
-			public void windowClosed(WindowEvent e) {
-				Db.closeBD(conexion);
-			}
-		});
+		
 		
 		//Aniadir Botones 
 		JPanel panelbotones = new JPanel();
@@ -96,8 +81,8 @@ public class VentanaRegistrar extends JFrame  {
 		btnSalir.setBounds(150, 290, 100, 25);
 		btnGuardar.addActionListener(new ActionListener() {
 			
-		@Override
-		public void actionPerformed(ActionEvent e) {
+			@Override
+			public void actionPerformed(ActionEvent e) {
 				String dni = Dnijt.getText();
 				String nombre = Nombrejt.getText();
 				String nombreus = nomusuariojt.getText();

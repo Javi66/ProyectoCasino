@@ -6,10 +6,14 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.util.TreeMap;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import clases.Usuario;
+import database.Db;
 import ventana.Main;
 public class VentanaLogin extends JFrame{
 	private JLabel nombreusuario;
@@ -73,18 +77,33 @@ public class VentanaLogin extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario = textousuario.getText();
 				String contrasenya = String.valueOf(textocontra.getPassword());
-				if (textousuario.getText().isEmpty()) {
+				if (usuario.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
-				} else if (textocontra.getText().isEmpty()) {
+				} else if (contrasenya.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.",
-							JOptionPane.INFORMATION_MESSAGE);
-					//Si el usuario es correcto cerramos esta y abrimos la principal:
-					dispose();
-					Main vl = new Main();
-					vl.setVisible(true);
-					Main.activarBotones();
+					Connection con = Db.initDB("casino.db");
+					TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
+					tmUsuarios = Db.obtenerMapaUsuario(con);
+					if(tmUsuarios.containsKey(usuario)) {
+						Usuario u = new Usuario();
+						u = tmUsuarios.get(usuario);
+						if(u.getContrasenia()==contrasenya) {
+							JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.",
+									JOptionPane.INFORMATION_MESSAGE);
+							//Si el usuario es correcto cerramos esta y abrimos la principal
+							dispose();
+							Main vl = new Main();
+							vl.setVisible(true);
+							Main.activarBotones();
+							
+						} else {
+							JOptionPane.showMessageDialog(null, "Datos incorrectos", "Error",
+									JOptionPane.ERROR_MESSAGE);
+							//Si el usuario no es correcto damos mensaje de error
+							
+						}
+					}		
 				}
 			}
 		});
