@@ -36,12 +36,20 @@ public class Db {
 		}
 	}
 	
-	public static Connection initDB(String nombreBD) {
+	
+	public static Connection initDB(String nombreBD, boolean primeraVez) {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
 			logger.log( Level.INFO, "Abriendo conexion con " + nombreBD );
 			con = DriverManager.getConnection("jdbc:sqlite:"+nombreBD);
+			
+			if(primeraVez) {
+				Statement stmt = con.createStatement();
+				String sentSQL = "DROP TABLE IF EXISTS usuario";
+				logger.log( Level.INFO, "Statement: " + sentSQL );
+				stmt.executeUpdate( sentSQL );
+			}
 					
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -67,10 +75,10 @@ public class Db {
 			}
 		}
 	}
-public static void crearTablaCliente() {
-		
+public static void crearTablaCliente(String nombreBD) {
+	con = initDB(nombreBD, false);
 		try(Statement stmt = con.createStatement()){
-			stmt.executeQuery("CREATE TABLE usuario ( dni varchar(9), nombre varchar(55), nomUsuario varchar(55), pass varchar(55));");
+			stmt.executeUpdate("CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int(2), gmail varchar(55), numUsuario int(3), nomUsuario varchar(55), pass varchar(55), numerotargeta int(16));");
 			logger.log( Level.INFO, "Statement: " + stmt );
 			System.out.println("Valores introducidos correctamente");
 			
@@ -81,8 +89,9 @@ public static void crearTablaCliente() {
 		
 	}
 	
-	public static void anadirUsuario(Connection con, String dni, String nom, String nomUsuario, String contrasenia) {
-		String sentSQL = "INSERT INTO usuario VALUES('"+dni+"','"+nom+"','"+nomUsuario+"','"+contrasenia+"')";
+	public static void anadirUsuario(Connection con, Usuario u) {
+		String sentSQL = "INSERT INTO usuario VALUES('"+u.getDni()+"','"+u.getNombre()+"','"+u.getApellido()+"','"+u.getEdad()+"','"+u.getGmail()+"','"+u.getNumUsuario()+"','"+u.getNomUsuario()+"','"+u.getContrasenia()+"','"+u.getNumerotargeta()+"')";
+		
 		try {
 			
 			Statement stmt = con.createStatement();
@@ -120,7 +129,6 @@ public static void crearTablaCliente() {
 	
 	public static TreeMap<String, Usuario> obtenerMapaUsuario(Connection con){
 		TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
-		
 		String sentSQL = "SELECT * FROM usuario";
 		try {
 			Statement stmt = con.createStatement();

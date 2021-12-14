@@ -14,6 +14,7 @@ import java.sql.Connection;
 
 import javax.swing.*;
 
+import clases.Usuario;
 import database.Db;
 
 
@@ -87,9 +88,13 @@ public class VentanaRegistrar extends JFrame  {
 				String nombre = Nombrejt.getText();
 				String nombreus = nomusuariojt.getText();
 				String contrasenia = contraseniajt.getText();
-				Connection con = Db.initDB("casino.db");
-				Db.crearTablaCliente();
-				Db.anadirUsuario(con,dni,nombre,nombreus,contrasenia);
+				String apellido = Apellidojt.getText();
+				String gmail = Gmailjt.getText();
+				int edad = Integer.parseInt(Edadjt.getText());
+				Usuario u = new Usuario(dni, nombre, apellido, edad, gmail, 1, nombreus, contrasenia, 0);
+				Connection con = Db.initDB("casino.db", false);
+				Db.crearTablaCliente("casino.db");
+				Db.anadirUsuario(con, u);
 				dispose();
 				Main vl = new Main();
 				vl.setVisible(true);

@@ -10,18 +10,23 @@ import javax.swing.border.EmptyBorder;
 
 import clases.GestorUsuario;
 import clases.Usuario;
+import database.Db;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.Color;
+import java.sql.Connection;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -91,6 +96,23 @@ public class Main extends JFrame implements ActionListener {
 					.addComponent(panel, GroupLayout.PREFERRED_SIZE, 272, GroupLayout.PREFERRED_SIZE)
 					.addGap(261))
 		);
+		
+		//ABRIMOS Y REINICIAMOS LA BD AL PRINCIPIO DEL MAIN
+		addWindowListener( new WindowAdapter() {
+			@Override
+			public void windowOpened(WindowEvent e) {
+				if (new File("casino.db").exists()) {
+					Connection con = Db.initDB( "casino.db", false );  
+				} else {
+					Connection con = Db.initDB( "casino.db", true ); 
+				}
+			}
+			@Override
+			public void windowClosed(WindowEvent e) {
+				Db.closeBD(con);
+			}
+		});
+		
 		btnIniciarSesion = new JButton("Iniciar Sesión");
 		btnIniciarSesion.setForeground(new Color(0, 0, 0));
 		btnIniciarSesion.setFont(new Font("Tahoma", Font.BOLD, 12));
