@@ -27,6 +27,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.Color;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -102,14 +104,16 @@ public class Main extends JFrame implements ActionListener {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				if (new File("casino.db").exists()) {
-					Connection con = Db.initDB( "casino.db", false );  
+					Db.initDB( "casino.db", false );
+					Db.crearTablaCliente("casino.db");
 				} else {
-					Connection con = Db.initDB( "casino.db", true ); 
+					Db.initDB( "casino.db", true );
+					Db.crearTablaCliente("casino.db");
 				}
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
-				Db.closeBD(con);
+				Db.closeBD();
 			}
 		});
 		

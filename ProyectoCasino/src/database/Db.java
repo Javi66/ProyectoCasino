@@ -63,7 +63,7 @@ public class Db {
 		return con;
 	}
 	
-	public static void closeBD(Connection con) {
+	public static void closeBD() {
 		if(con!=null) {
 			try {
 				logger.log( Level.INFO, "Cerrando conexion" );
@@ -76,10 +76,11 @@ public class Db {
 		}
 	}
 public static void crearTablaCliente(String nombreBD) {
-	con = initDB(nombreBD, false);
-		try(Statement stmt = con.createStatement()){
-			stmt.executeUpdate("CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int(2), gmail varchar(55), numUsuario int(3), nomUsuario varchar(55), pass varchar(55), numerotargeta int(16));");
-			logger.log( Level.INFO, "Statement: " + stmt );
+		try{
+			Statement stmt = con.createStatement();
+			String sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), numUsuario int, nomUsuario varchar(55), pass varchar(55), numerotargeta int);";
+			logger.log( Level.INFO, "Statement: " + sentSQL );
+			stmt.executeUpdate(sentSQL);
 			System.out.println("Valores introducidos correctamente");
 			
 		}
@@ -89,7 +90,7 @@ public static void crearTablaCliente(String nombreBD) {
 		
 	}
 	
-	public static void anadirUsuario(Connection con, Usuario u) {
+	public static void anadirUsuario(Usuario u) {
 		String sentSQL = "INSERT INTO usuario VALUES('"+u.getDni()+"','"+u.getNombre()+"','"+u.getApellido()+"','"+u.getEdad()+"','"+u.getGmail()+"','"+u.getNumUsuario()+"','"+u.getNomUsuario()+"','"+u.getContrasenia()+"','"+u.getNumerotargeta()+"')";
 		
 		try {
@@ -106,7 +107,7 @@ public static void crearTablaCliente(String nombreBD) {
 	}
 
 	
-	public static void borrarUsuario(Connection con, String nomUsuario, String contrasenia) {
+	public static void borrarUsuario(String nomUsuario, String contrasenia) {
 		String sentSQL = "DELETE FROM usuario WHERE nomUsuario ='"+nomUsuario+"' AND contrasenia = '"+contrasenia+"'";
 		try {
 			Statement stmt = con.createStatement();
@@ -127,7 +128,7 @@ public static void crearTablaCliente(String nombreBD) {
 	}
 	
 	
-	public static TreeMap<String, Usuario> obtenerMapaUsuario(Connection con){
+	public static TreeMap<String, Usuario> obtenerMapaUsuario(){
 		TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
 		String sentSQL = "SELECT * FROM usuario";
 		try {

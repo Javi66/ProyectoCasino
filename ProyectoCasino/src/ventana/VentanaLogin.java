@@ -82,9 +82,9 @@ public class VentanaLogin extends JFrame{
 				} else if (contrasenya.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Connection con = Db.initDB("casino.db", false);
+					Db.initDB("casino.db", false);
 					TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
-					tmUsuarios = Db.obtenerMapaUsuario(con);
+					tmUsuarios = Db.obtenerMapaUsuario();
 					if(tmUsuarios.containsKey(usuario)) {
 						Usuario u = new Usuario();
 						u = tmUsuarios.get(usuario);
