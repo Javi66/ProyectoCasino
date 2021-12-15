@@ -36,14 +36,14 @@ public class Db {
 	}
 	
 	
-	public static Connection initDB(String nombreBD, boolean primeraVez) {
+	public static Connection initDB(String nombreBD, boolean primeraVez) throws SQLException {
 		
 		try {
 			Class.forName("org.sqlite.JDBC");
 			logger.log( Level.INFO, "Abriendo conexion con " + nombreBD );
 			con = DriverManager.getConnection("jdbc:sqlite:"+ nombreBD );
 			
-			if(primeraVez) {  //Si queremos reiniciar la BD esto será true
+			if(primeraVez) {  //Si queremos reiniciar la BD esto serï¿½ true
 				crearTablaCliente(nombreBD);
 				logger.log(Level.INFO, "Creada nueva tabla clientes");
 			}
@@ -76,7 +76,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			stmt.execute( sentSQL );
 			
-			//Después creamos la tabla nueva
+			//Despuï¿½s creamos la tabla nueva
 			sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), nomUsuario varchar(55), contrasenia varchar(55), numerotarjeta int);";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			stmt.execute(sentSQL);
@@ -131,7 +131,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			String sentSQL = "SELECT * FROM usuario;";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			ResultSet rs = stmt.executeQuery(sentSQL);
-			while(rs.next()) {  //repasa rs y añade todos los usuarios al treemap
+			while(rs.next()) {  //repasa rs y aï¿½ade todos los usuarios al treemap
 				String dni = rs.getString("dni");
 				String nom = rs.getString("nombre");
 				String apellido = rs.getString("apellido");

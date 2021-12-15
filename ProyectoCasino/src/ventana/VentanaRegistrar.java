@@ -11,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.swing.*;
 
@@ -92,10 +93,16 @@ public class VentanaRegistrar extends JFrame  {
 				String gmail = Gmailjt.getText();
 				int edad = Integer.parseInt(Edadjt.getText());
 				Usuario u = new Usuario(dni, nombre, apellido, edad, gmail, nombreus, contrasenia, 0);
-				Db.initDB("casino1.db", true);
-				Db.anadirUsuario(u);
-				dispose();
-				Db.closeBD();
+				try {
+					Db.initDB("data/casino1.db", false);
+					Db.anadirUsuario(u);
+					dispose();
+					Db.closeBD();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				Main vl = new Main();
 				vl.setVisible(true);
 			}
