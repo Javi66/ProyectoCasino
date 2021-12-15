@@ -89,7 +89,7 @@ public class VentanaLogin extends JFrame{
 						Usuario u = new Usuario();
 						u = tmUsuarios.get(usuario);
 						String c = u.getContrasenia();
-						if(contrasenya == c) {
+						if(contrasenya.equals(c)) {
 							JOptionPane.showMessageDialog(null, "Bienvenido usuario: " + usuario, "Credenciales correctas.", JOptionPane.INFORMATION_MESSAGE);
 							//Si el usuario es correcto cerramos esta y abrimos la principal
 							dispose();
