@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.TreeMap;
 
 import javax.swing.*;
@@ -80,9 +81,14 @@ public class VentanaLogin extends JFrame{
 				if (usuario.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
 				} else if (contrasenya.isEmpty()) {
-					JOptionPane.showMessageDialog(null, "Escribe una contraseña", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Escribe una contraseï¿½a", "Error", JOptionPane.ERROR_MESSAGE);
 				} else {
-					Db.initDB("casino1.db", false);
+					try {
+						Db.initDB("casino1.db", false);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
 					tmUsuarios = Db.obtenerMapaUsuario();
 					if(tmUsuarios.containsKey(usuario)) {

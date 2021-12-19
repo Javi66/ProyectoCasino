@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.TreeMap;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
@@ -13,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import clases.Usuario;
+
 
 
 
@@ -117,9 +119,9 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			e.printStackTrace();
 		}
 	}
-	public static void modificarUsuario(String dni, String nom,String nomUsuario,String contrasenia) throws SQLException {
+	public static void modificarUsuario(String dni, String nom,String apellido,Integer edad,String gmail,String nomUsuario,String contrasenia, Integer tarjeta) throws SQLException {
 		Statement statement = con.createStatement();
-		String sent = "update usuario set nombre='"+nom+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+" where dni="+dni;
+		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"',edad='"+edad+"',gmail="+gmail+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+"',numerotarjeta='"+tarjeta+" where dni="+dni;
 		logger.log( Level.INFO, "Statement: " + sent );
 		statement.executeUpdate(sent);
 	}
@@ -153,7 +155,30 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 		}
 		
 	}
-	
+	public static ArrayList<Usuario> getUsuarios() {
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Usuario> ret = new ArrayList<>();
+			String sent = "select * from usuario;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String dni = rs.getString("dni");
+				String nom = rs.getString("nombre");
+				String apellido = rs.getString("apellido");
+				int edad = rs.getInt("edad");
+				String gmail = rs.getString("gmail");
+				String nomUsuario = rs.getString("nomUsuario");
+				String contrasenia = rs.getString("contrasenia");
+				int numerotarjeta = rs.getInt("numerotarjeta");
+				Usuario u = new Usuario(dni, nom, apellido, edad, gmail, nomUsuario, contrasenia, numerotarjeta);
+				ret.add(u);
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
 
 	
 }

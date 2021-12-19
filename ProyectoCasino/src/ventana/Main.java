@@ -144,7 +144,12 @@ public class Main extends JFrame implements ActionListener {
 		btnReinicio = new JButton("Reiniciar BD");
 		btnReinicio.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Db.initDB("casino1.db", true);
+				try {
+					Db.initDB("casino1.db", true);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				Db.closeBD();
 				JOptionPane.showMessageDialog(null, "Base de datos reiniciada" , "Reinicio", JOptionPane.INFORMATION_MESSAGE);
 			}
