@@ -37,6 +37,7 @@ public class VentanaRegistrar extends JFrame  {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
+		setResizable(false);
 		
 		contentpane = new JPanel();
 		contentpane.setBackground(new Color(255, 255, 255));
