@@ -43,7 +43,7 @@ public class Db {
 		try {
 			Class.forName("org.sqlite.JDBC");
 			logger.log( Level.INFO, "Abriendo conexion con " + nombreBD );
-			con = DriverManager.getConnection("jdbc:sqlite:"+ nombreBD );
+			con = DriverManager.getConnection("jdbc:sqlite:data/"+ nombreBD );
 			
 			if(primeraVez) {  //Si queremos reiniciar la BD esto ser� true
 				crearTablaCliente(nombreBD);

@@ -25,6 +25,7 @@ import java.util.Vector;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 public class VentanaAdmin extends JFrame{
@@ -143,53 +144,54 @@ public class VentanaAdmin extends JFrame{
 			}
 		};
 		
+		Db.anadirUsuario(new Usuario("ev", "bm", "hj", ALLBITS, "ghfj", "gj", "vjhj", ABORT));
+		
 		usuarios = Db.getUsuarios();
 		for (Usuario u : usuarios) {
 			mDatos.addRow( new Object[] { u.getDni(), u.getNombre(),u.getApellido(),u.getEdad(),u.getGmail(), u.getNomUsuario(), u.getContrasenia(), u.getNumerotarjeta() } );
 		}
 		table.setModel( mDatos );
 		// Pone tamaños a las columnas de la tabla
-		table.getColumnModel().getColumn(0).setMinWidth(40);
-		table.getColumnModel().getColumn(0).setMaxWidth(40);
-		table.getColumnModel().getColumn(1).setMinWidth(60);
-		table.getColumnModel().getColumn(1).setMaxWidth(60);
-		table.getColumnModel().getColumn(2).setMinWidth(60);
-		table.getColumnModel().getColumn(2).setMaxWidth(60);		
-		table.getColumnModel().getColumn(3).setMinWidth(40);
-		table.getColumnModel().getColumn(3).setMaxWidth(40);
-		table.getColumnModel().getColumn(4).setMinWidth(80);
-		table.getColumnModel().getColumn(4).setMaxWidth(80);		
-		table.getColumnModel().getColumn(5).setMinWidth(80);
-		table.getColumnModel().getColumn(5).setMaxWidth(80);
-		table.getColumnModel().getColumn(6).setMinWidth(60);
-		table.getColumnModel().getColumn(6).setMaxWidth(60);		
-		table.getColumnModel().getColumn(7).setMinWidth(80);
-		table.getColumnModel().getColumn(7).setMaxWidth(80);
+		table.getColumnModel().getColumn(0).setMinWidth(140);
+		table.getColumnModel().getColumn(0).setMaxWidth(140);
+		table.getColumnModel().getColumn(1).setMinWidth(160);
+		table.getColumnModel().getColumn(1).setMaxWidth(160);
+		table.getColumnModel().getColumn(2).setMinWidth(160);
+		table.getColumnModel().getColumn(2).setMaxWidth(160);		
+		table.getColumnModel().getColumn(3).setMinWidth(140);
+		table.getColumnModel().getColumn(3).setMaxWidth(140);
+		table.getColumnModel().getColumn(4).setMinWidth(180);
+		table.getColumnModel().getColumn(4).setMaxWidth(180);		
+		table.getColumnModel().getColumn(5).setMinWidth(180);
+		table.getColumnModel().getColumn(5).setMaxWidth(180);
+		table.getColumnModel().getColumn(6).setMinWidth(160);
+		table.getColumnModel().getColumn(6).setMaxWidth(160);		
+		table.getColumnModel().getColumn(7).setMinWidth(180);
+		table.getColumnModel().getColumn(7).setMaxWidth(180);
 		
-//		table.getModel().addTableModelListener(new TableModelListener() {
-//			
-//			public void tableChanged(TableModelEvent e) {
-//				// TODO Auto-generated method stub
-//				int fil = e.getFirstRow();
-//				String dni = (String) mDatos.getValueAt(fil, 1);
-//				String nom = (String) mDatos.getValueAt(fil, 2);
-//				String ape = (String) mDatos.getValueAt(fil, 3);
-//				int edad = (int) mDatos.getValueAt(fil, 4);
-//				String gmail = (String) mDatos.getValueAt(fil, 5);
-//				String nomus = (String) mDatos.getValueAt(fil, 6);
-//				String con = (String) mDatos.getValueAt(fil, 7);
-//				int tarjeta = (int) mDatos.getValueAt(fil, 8);
-//				
-//				try {
-//					Db.modificarUsuario(dni, nom, ape,edad,gmail,nomus,con,tarjeta);
-//				} catch (SQLException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
+		table.getModel().addTableModelListener(new TableModelListener() {
+			
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				int fil = e.getFirstRow();
+				String dni = (String) mDatos.getValueAt(fil, 1);
+				String nom = (String) mDatos.getValueAt(fil, 2);
+				String ape = (String) mDatos.getValueAt(fil, 3);
+				int edad = (int) mDatos.getValueAt(fil, 4);
+				String gmail = (String) mDatos.getValueAt(fil, 5);
+				String nomus = (String) mDatos.getValueAt(fil, 6);
+				String con = (String) mDatos.getValueAt(fil, 7);
+				int tarjeta = (int) mDatos.getValueAt(fil, 8);
+				
+				try {
+					Db.modificarUsuario(dni, nom, ape,edad,gmail,nomus,con,tarjeta);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 	}
-	
 	
 	
 }
