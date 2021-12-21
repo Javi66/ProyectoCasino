@@ -1,6 +1,8 @@
 package ventana;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import javax.swing.*;
@@ -9,18 +11,16 @@ public class VentanaTragaperras extends JFrame {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private JPanel contentPane;
-	
 	private JButton btnPlay;
 	private JButton btnMenu;
 	
 	private JLabel lblCreditos;
 	private JLabel lblResult;
 	
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		VentanaTragaperras frame = new VentanaTragaperras();
 		frame.setVisible(true);
-	}*/
+	}
 	
 	public class PanelImagen extends JPanel{
 		ImageIcon imagen;
@@ -44,10 +44,19 @@ public class VentanaTragaperras extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setExtendedState(MAXIMIZED_BOTH);
 		setResizable(false);
+		setTitle("Tragaperras");
 		
 		PanelImagen p = new PanelImagen("/images/fondo.jpg");
-		this.add(p);
+		setContentPane(p);
 		
+		JPanel pInferior = new JPanel(new BorderLayout());
+		
+		btnMenu = new JButton("MENU");
+		btnMenu.setBounds(10, 400, 100, 75);
+		pInferior.add(btnMenu);
+		btnMenu.setFont(new Font("Tahoma", Font.BOLD, 20));
+		
+		getContentPane().add(pInferior, BorderLayout.SOUTH);
 		
 	}
 	
