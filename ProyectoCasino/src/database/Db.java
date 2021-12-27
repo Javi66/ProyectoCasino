@@ -119,6 +119,11 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			e.printStackTrace();
 		}
 	}
+	public static void eliminarUsuario(String dni) throws SQLException {
+		Statement statement = con.createStatement();
+		String sent = "delete from producto where dni = "+dni;
+		statement.executeUpdate(sent);
+	}
 	public static void modificarUsuario(String dni, String nom,String apellido,Integer edad,String gmail,String nomUsuario,String contrasenia, Integer tarjeta) throws SQLException {
 		Statement statement = con.createStatement();
 		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"',edad='"+edad+"',gmail="+gmail+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+"',numerotarjeta='"+tarjeta+" where dni="+dni;
@@ -182,6 +187,4 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 
 	
 }
-
-
 

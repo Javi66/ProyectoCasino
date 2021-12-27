@@ -9,8 +9,6 @@ import javax.swing.JTable;
 
 import clases.Usuario;
 import database.Db;
-
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
@@ -42,6 +40,7 @@ public class VentanaAdmin extends JFrame{
 		VentanaAdmin va = new VentanaAdmin();
 		va.getContentPane().setBackground(Color.BLACK);
 		va.setTitle("Ventana Admin");
+		va.setSize(1000, 500);
 		va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		va.setVisible(true);
 		
@@ -91,6 +90,28 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				verUsuarios();
+			}
+		});
+		
+		b = new JButton( "Borrar" );
+		b.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
+		pBotonera.add( b );
+		b.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int fil = table.getSelectedRow();
+				if(fil!=-1) {
+					int dni = (int) mDatos.getValueAt(fil, 0);
+					String dnis= String.valueOf(dni);
+					try {
+						Db.eliminarUsuario(dnis);;
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					mDatos.removeRow(fil);
+					
+				}
 			}
 		});
 		
@@ -144,7 +165,6 @@ public class VentanaAdmin extends JFrame{
 			}
 		};
 		
-		Db.anadirUsuario(new Usuario("ev", "bm", "hj", ALLBITS, "ghfj", "gj", "vjhj", ABORT));
 		
 		usuarios = Db.getUsuarios();
 		for (Usuario u : usuarios) {
