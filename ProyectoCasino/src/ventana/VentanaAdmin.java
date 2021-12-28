@@ -3,6 +3,7 @@ package ventana;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -96,6 +97,25 @@ public class VentanaAdmin extends JFrame{
 		b = new JButton( "Borrar" );
 		b.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add( b );
+		
+		JButton baniadir = new JButton("Añadir");
+		baniadir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String dni =  JOptionPane.showInputDialog("Introduce el dni: ");
+				String nom =  JOptionPane.showInputDialog("Introduce el nombre: ");
+				String apellido =  JOptionPane.showInputDialog("Introduce el apellido: ");
+				int edad = Integer.parseInt(JOptionPane.showInputDialog("Introduce la edad: "));
+				String gmail = JOptionPane.showInputDialog("Introduce el gmail: ");
+				String nomUsuario = JOptionPane.showInputDialog("Introduce el nombre de usuario: ");
+				String contrasenia = JOptionPane.showInputDialog("Introduce la contrasenia: ");
+				int numerotarjeta = Integer.parseInt(JOptionPane.showInputDialog("Introduce el numero de tarjeta: "));
+				Usuario u = new Usuario(dni, nom, apellido, edad, gmail, nomUsuario, contrasenia, numerotarjeta);
+				usuarios.add(u);
+				verUsuarios();
+			}
+		});
+		baniadir.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
+		pBotonera.add(baniadir);
 		b.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

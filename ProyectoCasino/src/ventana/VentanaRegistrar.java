@@ -95,7 +95,7 @@ public class VentanaRegistrar extends JFrame  {
 				int edad = Integer.parseInt(Edadjt.getText());
 				Usuario u = new Usuario(dni, nombre, apellido, edad, gmail, nombreus, contrasenia, 0);
 				try {
-					Db.initDB("data/casino1.db", false);
+					Db.initDB("casino1.db", false);
 					Db.anadirUsuario(u);
 					dispose();
 					Db.closeBD();

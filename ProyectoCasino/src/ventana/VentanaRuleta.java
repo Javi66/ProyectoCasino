@@ -7,6 +7,7 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
@@ -22,8 +23,10 @@ public class VentanaRuleta extends JFrame {
 	 private JButton jBverde;
 	 private JLabel jLimg;
 	 private JButton jBaniadir;
+	 private JButton jBmenu;
 	 private JFrame jFrame1;
 	 private JLabel jLsaldo;
+	 private JLabel jLsaldodinero;
 	 private JLabel jLapuesta;
 	 private JPanel jPsaldo;
 	 private JTextField jTxtapuesta;
@@ -60,6 +63,8 @@ public class VentanaRuleta extends JFrame {
         jBaniadir = new JButton("Añadir dinero");
         jBaniadir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		int cant = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dinero que quieres ingresar: "));
+        		jLsaldodinero.setText(cant+"€");
         	}
         });
 
@@ -81,24 +86,32 @@ public class VentanaRuleta extends JFrame {
    
 
         jTxtapuesta.setFont(new java.awt.Font("Arial", 0, 16));
-        jTxtapuesta.setText("50");
+        jTxtapuesta.setText("0");
        
         jLsaldo.setFont(new java.awt.Font("Arial", 1, 16)); 
         jLsaldo.setForeground(new java.awt.Color(51, 51, 51));
-        jLsaldo.setText("SALDO: 100");
+        jLsaldo.setText("Saldo:");
+        
+        jLsaldodinero = new JLabel("0€");
+        jLsaldodinero.setFont(new java.awt.Font("Arial", 1, 16)); 
+        jLsaldodinero.setForeground(new java.awt.Color(51, 51, 51));
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPsaldo);
         jPanel12Layout.setHorizontalGroup(
         	jPanel12Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel12Layout.createSequentialGroup()
-        			.addComponent(jLsaldo, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-        			.addContainerGap(25, Short.MAX_VALUE))
+        			.addComponent(jLsaldo, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addComponent(jLsaldodinero, GroupLayout.PREFERRED_SIZE, 49, GroupLayout.PREFERRED_SIZE)
+        			.addContainerGap(22, Short.MAX_VALUE))
         );
         jPanel12Layout.setVerticalGroup(
         	jPanel12Layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(jPanel12Layout.createSequentialGroup()
         			.addContainerGap()
-        			.addComponent(jLsaldo)
+        			.addGroup(jPanel12Layout.createParallelGroup(Alignment.BASELINE)
+        				.addComponent(jLsaldo)
+        				.addComponent(jLsaldodinero))
         			.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPsaldo.setLayout(jPanel12Layout);
@@ -127,6 +140,17 @@ public class VentanaRuleta extends JFrame {
         jLapuesta.setFont(new Font("Arial", 1, 14)); 
         jLapuesta.setText("Apuesta de:");
         
+        jBmenu = new JButton("Menu");
+        jBmenu.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		Main m = new Main();
+        		m.setVisible(true);
+        		dispose();
+        	}
+        });
+        jBmenu.setFont(new Font("Arial", Font.PLAIN, 14));
+        jBmenu.setBackground(Color.RED);
+        
        
         GroupLayout layout = new GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -134,31 +158,41 @@ public class VentanaRuleta extends JFrame {
         		.addGroup(layout.createSequentialGroup()
         			.addGap(14)
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        				.addComponent(jLimg, GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jLimg, GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE)
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(jLapuesta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(layout.createSequentialGroup()
+        							.addComponent(jBrojo, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
+        							.addGap(14)
+        							.addComponent(jBverde, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+        							.addPreferredGap(ComponentPlacement.UNRELATED)
+        							.addComponent(jBnegro, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
+        					.addContainerGap())
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-        					.addGap(67)
-        					.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jLapuesta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
-        				.addGroup(layout.createSequentialGroup()
-        					.addComponent(jBrojo, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
-        					.addGap(14)
-        					.addComponent(jBverde, GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
-        					.addPreferredGap(ComponentPlacement.UNRELATED)
-        					.addComponent(jBnegro, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
-        			.addContainerGap())
+        					.addGap(61)
+        					.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+        					.addComponent(jBmenu)
+        					.addGap(20))))
         );
         layout.setVerticalGroup(
         	layout.createParallelGroup(Alignment.LEADING)
         		.addGroup(layout.createSequentialGroup()
-        			.addContainerGap()
-        			.addGroup(layout.createParallelGroup(Alignment.TRAILING)
-        				.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE)
-        				.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))
-        			.addPreferredGap(ComponentPlacement.RELATED)
+        			.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(19)
+        					.addComponent(jBaniadir))
+        				.addGroup(layout.createSequentialGroup()
+        					.addContainerGap()
+        					.addGroup(layout.createParallelGroup(Alignment.LEADING)
+        						.addComponent(jBmenu)
+        						.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))))
+        			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLapuesta)
         				.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
