@@ -30,6 +30,7 @@ public class VentanaRuleta extends JFrame {
 	 private JLabel jLapuesta;
 	 private JPanel jPsaldo;
 	 private JTextField jTxtapuesta;
+	 private int saldo= 0;
 	
 	    
      public VentanaRuleta() {
@@ -64,7 +65,9 @@ public class VentanaRuleta extends JFrame {
         jBaniadir.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		int cant = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dinero que quieres ingresar: "));
-        		jLsaldodinero.setText(cant+"€");
+        		int tot = cant +saldo;
+        		jLsaldodinero.setText(tot+"€");
+        		saldo = tot;
         	}
         });
 
@@ -92,7 +95,7 @@ public class VentanaRuleta extends JFrame {
         jLsaldo.setForeground(new java.awt.Color(51, 51, 51));
         jLsaldo.setText("Saldo:");
         
-        jLsaldodinero = new JLabel("0€");
+        jLsaldodinero = new JLabel(saldo+"€");
         jLsaldodinero.setFont(new java.awt.Font("Arial", 1, 16)); 
         jLsaldodinero.setForeground(new java.awt.Color(51, 51, 51));
 

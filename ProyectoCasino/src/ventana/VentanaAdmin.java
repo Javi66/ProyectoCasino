@@ -32,8 +32,6 @@ public class VentanaAdmin extends JFrame{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-//	private JButton btnImprimirUsuarios;
-//	private JTextField txtusuarios; 
 	private DefaultTableModel mDatos;
 	private JTable table;
 	private ArrayList<Usuario> usuarios;
@@ -83,20 +81,27 @@ public class VentanaAdmin extends JFrame{
 				Db.closeBD();
 			}
 		});
-	
-		JButton b = new JButton( "Usuarios" );
-		b.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
-		pBotonera.add( b );
-		b.addActionListener( new ActionListener() {
+		
+		JButton borrar = new JButton( "Borrar" );
+		borrar.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
+		pBotonera.add( borrar );
+		borrar.addActionListener( new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				verUsuarios();
+				int fil = table.getSelectedRow();
+				if(fil!=-1) {
+					String dni = mDatos.getValueAt(fil, 0).toString();
+					try {
+						Db.eliminarUsuario(dni);
+					} catch (SQLException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+					
+					verUsuarios();
+				}
 			}
 		});
-		
-		b = new JButton( "Borrar" );
-		b.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
-		pBotonera.add( b );
 		
 		JButton baniadir = new JButton("Añadir");
 		baniadir.addActionListener(new ActionListener() {
@@ -111,63 +116,14 @@ public class VentanaAdmin extends JFrame{
 				int numerotarjeta = Integer.parseInt(JOptionPane.showInputDialog("Introduce el numero de tarjeta: "));
 				Usuario u = new Usuario(dni, nom, apellido, edad, gmail, nomUsuario, contrasenia, numerotarjeta);
 				usuarios.add(u);
+				Db.anadirUsuario(u);
 				verUsuarios();
 			}
 		});
 		baniadir.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add(baniadir);
-		b.addActionListener( new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int fil = table.getSelectedRow();
-				if(fil!=-1) {
-					int dni = (int) mDatos.getValueAt(fil, 0);
-					String dnis= String.valueOf(dni);
-					try {
-						Db.eliminarUsuario(dnis);;
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					mDatos.removeRow(fil);
-					
-				}
-			}
-		});
 		
-		
-//		btnImprimirUsuarios = new JButton("Imprimir Usuarios");
-//		btnImprimirUsuarios.setForeground(Color.BLACK);
-//		btnImprimirUsuarios.setFont(new Font("Tahoma", Font.BOLD, 12));
-//		txtusuarios = new JTextField();
-//		txtusuarios.setBounds(162, 91, 147, 37);
-//		panel.add(txtusuarios);
-//		txtusuarios.setColumns(10);
-//		btnImprimirUsuarios.addActionListener(new ActionListener() {
-//			@Override
-//			public void actionPerformed(ActionEvent arg0) {
-//				Thread t = new Thread() {
-//					@Override
-//					public void run() {
-//						for (Usuario usuario : GestorUsuario.obtenerUsuariosOrdenados()) {
-//							System.out.println(usuario);
-//							txtusuarios.setText("Usuarios:"+" "+usuario);
-//							try {
-//								Thread.sleep(2000);
-//							} catch (Exception e) {
-//								e.printStackTrace();
-//							}
-//						}
-//					}
-//				};
-//				
-//				t.start();
-//			}
-//		});
-//	
-//		btnImprimirUsuarios.setBounds(162, 67, 147, 23);
-//		panel.add(btnImprimirUsuarios);
-//		
+				
 	}
 	
 	@SuppressWarnings("serial")
@@ -214,17 +170,18 @@ public class VentanaAdmin extends JFrame{
 			public void tableChanged(TableModelEvent e) {
 				// TODO Auto-generated method stub
 				int fil = e.getFirstRow();
-				String dni = (String) mDatos.getValueAt(fil, 1);
-				String nom = (String) mDatos.getValueAt(fil, 2);
-				String ape = (String) mDatos.getValueAt(fil, 3);
-				int edad = (int) mDatos.getValueAt(fil, 4);
-				String gmail = (String) mDatos.getValueAt(fil, 5);
-				String nomus = (String) mDatos.getValueAt(fil, 6);
-				String con = (String) mDatos.getValueAt(fil, 7);
-				int tarjeta = (int) mDatos.getValueAt(fil, 8);
+				String dni = (String) mDatos.getValueAt(fil, 0).toString();
+				String nom = (String) mDatos.getValueAt(fil, 1).toString();
+				String ape = (String) mDatos.getValueAt(fil, 2).toString();
+				int edad = Integer.parseInt(mDatos.getValueAt(fil, 3).toString());
+				String gmail = (String) mDatos.getValueAt(fil, 4).toString();
+				String nomus = (String) mDatos.getValueAt(fil, 5).toString();
+				String con = (String) mDatos.getValueAt(fil, 6).toString();
+				int tarjeta = Integer.parseInt(mDatos.getValueAt(fil, 7).toString());
 				
 				try {
 					Db.modificarUsuario(dni, nom, ape,edad,gmail,nomus,con,tarjeta);
+					
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
