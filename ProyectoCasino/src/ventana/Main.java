@@ -144,24 +144,7 @@ public class Main extends JFrame implements ActionListener {
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
 		
-		//Boton para reiniciar BD
-		btnReinicio = new JButton("Reiniciar BD");
-		btnReinicio.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				try {
-					Db.initDB("casino1.db", true);
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				Db.closeBD();
-				JOptionPane.showMessageDialog(null, "Base de datos reiniciada" , "Reinicio", JOptionPane.INFORMATION_MESSAGE);
-			}
-		});
-		btnReinicio.setForeground(Color.BLACK);
-		btnReinicio.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnReinicio.setBounds(700, 50, 200, 100);
-		contentPane.add(btnReinicio);
+		
 		//boton para abrir tabla
 		btnAbrirTabla.addActionListener(new ActionListener() {
 

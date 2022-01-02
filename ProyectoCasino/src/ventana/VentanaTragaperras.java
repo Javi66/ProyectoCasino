@@ -101,6 +101,12 @@ public class VentanaTragaperras extends JFrame {
 			btnPlay.setBorder(bevel);
 		}
 		
+		btnPlay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				saldo -= 2;
+			}
+		});
+		
 		getContentPane().add(btnPlay);
 		
 		panelInfo = new JPanel();
