@@ -27,16 +27,11 @@ private ArrayList<Usuario> usuarios;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
 		setSize(320,300);
-		setTitle( "Gestion de Pagos" );
-		JTable table = new JTable();
-		TreeMap<String, Usuario>usuarios = Db.obtenerMapaUsuario(null);
-		//Array String con los nombres de columna
 		
-		Vector<String> columnas = new Vector<String>( Arrays.asList( "Usuario", "NumCuenta", "Pagos","Saldo" ) );
-		DefaultTableModel model = new DefaultTableModel(  new Vector<Vector<Object>>(), columnas );
-		for(Usuario u:usuarios) {
-		model.addRow(new Object[] {"wqw","","",""});
-		table.setModel(model);}
+		Object[] columnas ={"Nombre ", "Apellido"};
+	    Object datos [][]= {{"Nombre 1","apellido"},{"dada","feef"}};
+		
+		JTable table = new JTable(datos,columnas);
 	JScrollPane scrollpane = new JScrollPane(table);
 	
 	

@@ -43,6 +43,7 @@ public class Main extends JFrame implements ActionListener {
 	private static JButton btnRuleta;
 	private static JButton btnTragaperras;
 	private JButton btnReinicio;
+	private JButton btnAbrirTabla;
 	/**
 	 * Cargar la aplicación
 	 */
@@ -117,7 +118,9 @@ public class Main extends JFrame implements ActionListener {
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		btnSalir.addActionListener(this);
-		
+		btnAbrirTabla= new JButton("Usuarios");
+		btnAbrirTabla.setForeground(new Color(0, 0, 0));
+		btnAbrirTabla.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnRuleta = new JButton("Ruleta");
 		btnRuleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -159,7 +162,17 @@ public class Main extends JFrame implements ActionListener {
 		btnReinicio.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnReinicio.setBounds(700, 50, 200, 100);
 		contentPane.add(btnReinicio);
-		
+		//boton para abrir tabla
+		btnAbrirTabla.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaGestiondePagos vg= new VentanaGestiondePagos();
+				dispose();
+				vg.setVisible(true);
+			}
+			
+		});
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
@@ -171,7 +184,8 @@ public class Main extends JFrame implements ActionListener {
 							.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)))
+							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+						.addComponent(btnAbrirTabla,Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
 					.addContainerGap(31, Short.MAX_VALUE))
 		);
 		gl_panel.setVerticalGroup(
@@ -186,6 +200,8 @@ public class Main extends JFrame implements ActionListener {
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAbrirTabla, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
