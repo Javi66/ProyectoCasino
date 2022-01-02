@@ -52,7 +52,7 @@ public class Main extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Main frame = new Main();
+					Main frame = new Main("");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,7 +65,7 @@ public class Main extends JFrame implements ActionListener {
 	 * Crear el JFrame.
 	 */
 	
-	public Main() {
+	public Main(String nomUsuario) {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 975, 650);
@@ -124,7 +124,7 @@ public class Main extends JFrame implements ActionListener {
 		btnRuleta = new JButton("Ruleta");
 		btnRuleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaRuleta vr = new VentanaRuleta();
+				VentanaRuleta vr = new VentanaRuleta(nomUsuario);
 				dispose();
 				vr.setVisible(true);
 				
@@ -136,7 +136,7 @@ public class Main extends JFrame implements ActionListener {
 		btnTragaperras = new JButton("Tragaperras");
 		btnTragaperras.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				VentanaTragaperras vt = new VentanaTragaperras();
+				VentanaTragaperras vt = new VentanaTragaperras(nomUsuario);
 				dispose();
 				vt.setVisible(true);
 			}

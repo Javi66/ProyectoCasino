@@ -33,11 +33,11 @@ public class VentanaRuleta extends JFrame {
 	 private int saldo= 0;
 	
 	    
-     public VentanaRuleta() {
-        initComponents();
+     public VentanaRuleta(String usuario) {
+        initComponents(usuario);
     }
   
-    private void initComponents() {
+    private void initComponents(String usuario) {
 
         jFrame1 = new JFrame();
         jTxtapuesta = new JTextField();
@@ -146,7 +146,7 @@ public class VentanaRuleta extends JFrame {
         jBmenu = new JButton("Menu");
         jBmenu.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		Main m = new Main();
+        		Main m = new Main(usuario);
         		m.setVisible(true);
         		dispose();
         	}
@@ -217,7 +217,7 @@ public class VentanaRuleta extends JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new VentanaRuleta().setVisible(true);
+                new VentanaRuleta("").setVisible(true);
             }
         });
     }

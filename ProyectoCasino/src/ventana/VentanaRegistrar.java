@@ -104,7 +104,7 @@ public class VentanaRegistrar extends JFrame  {
 					e1.printStackTrace();
 				}
 				
-				Main vl = new Main();
+				Main vl = new Main("");
 				vl.setVisible(true);
 			}
 		}); 
@@ -113,7 +113,7 @@ public class VentanaRegistrar extends JFrame  {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				Main vl = new Main();
+				Main vl = new Main("");
 				vl.setVisible(true);
 			}
 		});

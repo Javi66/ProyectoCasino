@@ -69,7 +69,7 @@ public class VentanaLogin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				Main vl = new Main();
+				Main vl = new Main("");
 				vl.setVisible(true);
 			}
 		});
@@ -101,7 +101,7 @@ public class VentanaLogin extends JFrame{
 							//Si el usuario es correcto cerramos esta y abrimos la principal
 							dispose();
 							Db.closeBD();
-							Main vl = new Main();
+							Main vl = new Main(usuario);
 							vl.setVisible(true);
 							Main.activarBotones();
 							
