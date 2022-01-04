@@ -103,7 +103,13 @@ public class VentanaTragaperras extends JFrame {
 		
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				saldo -= 2;
+				if(saldo<=1) {
+					JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+							JOptionPane.ERROR_MESSAGE);
+				} else {
+					saldo -= 2;
+					lblSaldo.setText("Saldo: " + saldo);
+				}
 			}
 		});
 		
