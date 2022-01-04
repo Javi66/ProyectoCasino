@@ -21,6 +21,7 @@ public class BDranking {
 	private static Connection con = null;
 	private static Logger logger = Logger.getLogger( "BaseDatos" );
 	private static Handler handler ;
+	
 	public static void prepararLogger() {
 		try {
 			handler = new FileHandler("BaseDatosRANKING.xml");
@@ -42,7 +43,7 @@ public class BDranking {
 			
 			if(primeraVez) {  //Si queremos reiniciar la BD esto ser� true
 				crearTablaRanking(nombreBD);
-				logger.log(Level.INFO, "Creada nueva tabla clientes");
+				logger.log(Level.INFO, "Creada nueva tabla Ranking");
 			}
 			return con;		
 		} catch (Exception e) {

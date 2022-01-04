@@ -1,37 +1,43 @@
 package ventana;
 
-import java.awt.Container;
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.lang.invoke.LambdaConversionException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
 import java.util.Vector;
 
-import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
-import clases.Usuario;
+import clases.Ranking;
+import database.BDranking;
 import database.Db;
 import java.awt.BorderLayout;
 public class VentanaRanking extends JFrame{
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 private JTable table;
-private ArrayList<Usuario> usuarios;
+private ArrayList<Ranking> rankings;
 private DefaultTableModel mDatos;
 
 	public  VentanaRanking() {
 		JPanel panelCentral= new JPanel();
 		getContentPane().add(panelCentral);
 		JPanel panelbotones = new JPanel();
+		table=new JTable();
+		table.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
+		getContentPane().add( new JScrollPane(table), BorderLayout.CENTER );
 		getContentPane().add(panelbotones,BorderLayout.SOUTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
@@ -39,23 +45,23 @@ private DefaultTableModel mDatos;
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				if (new File("casino1.db").exists()) {
+				if (new File("casino2.db").exists()) {
 					// Poner el parámetro a true si se quiere reiniciar la base de datos
 					try {
-						Db.initDB( "casino1.db", false );
+						Db.initDB( "casino2.db", false );
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}  // Abrir base de datos existente
 				} else {
 					try {
-						Db.initDB( "casino1.db", true );
+						Db.initDB( "casino2.db", true );
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}  // Crear base de datos con datos iniciales
 				}
-				MostrarUsuarios();  // Según se inicia la ventana se visualizan los productos
+				mostrarRankings();  // Según se inicia la ventana se visualizan los productos
 			}
 				
 			
@@ -64,15 +70,12 @@ private DefaultTableModel mDatos;
 			}}
 		);
 			
-		Object[] columnas ={"Usuario ", "Puntos "};
-	    Object datos [][]= {{"Nombre 1","apellido"},{"dada","feef"}};
 		
-		JTable table = new JTable(datos,columnas);
-	JScrollPane scrollpane = new JScrollPane(table);
+
 	
 	
 
-	getContentPane().add(scrollpane )
+	
 			;
 	
 
@@ -83,9 +86,9 @@ private DefaultTableModel mDatos;
 		ventanaRanking.setVisible(true);
 		System.out.println(ventanaRanking);
 	}
- private void mostrarUsuarios() {
+ private void mostrarRankings() {
 	 final long serialVersionUID = 1L;
-	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Usuario","Puntos" ) );
+	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "nomjuego","nombreusuario","numpartida","Puntaje" ) );
 	 mDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
@@ -99,4 +102,37 @@ private DefaultTableModel mDatos;
  }
 };
 	 
-	 usuarios = Db.getUsuarios() ;}}
+	 rankings = BDranking.getRankings() ;
+	 for (Ranking r : rankings) {
+			mDatos.addRow( new Object[] { r.getNomjuego(),r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
+		}
+	 table.setModel(mDatos);
+	 table.getColumnModel().getColumn(0).setMinWidth(140);
+		table.getColumnModel().getColumn(0).setMaxWidth(140);
+		table.getColumnModel().getColumn(1).setMinWidth(160);
+		table.getColumnModel().getColumn(1).setMaxWidth(160);
+		table.getColumnModel().getColumn(2).setMinWidth(160);
+		table.getColumnModel().getColumn(2).setMaxWidth(160);		
+		table.getColumnModel().getColumn(3).setMinWidth(140);
+		table.getColumnModel().getColumn(3).setMaxWidth(140);
+		
+		table.getModel().addTableModelListener(new TableModelListener() {
+			
+			public void tableChanged(TableModelEvent e) {
+				// TODO Auto-generated method stub
+				int fil = e.getFirstRow();
+				String nomjuego = (String) mDatos.getValueAt(fil, 0).toString();
+				String nombreusuario = (String) mDatos.getValueAt(fil, 1).toString();
+				int numpartida= Integer.parseInt(mDatos.getValueAt(fil, 3).toString());
+				int puntaje = Integer.parseInt(mDatos.getValueAt(fil, 7).toString());
+				
+				try {
+					BDranking.modificarRanking(nomjuego, nombreusuario, numpartida, puntaje);;
+					
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
+		}}
