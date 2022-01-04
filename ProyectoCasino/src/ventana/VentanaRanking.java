@@ -19,7 +19,7 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 
 import clases.Ranking;
-import database.BDranking;
+
 import database.Db;
 import java.awt.BorderLayout;
 public class VentanaRanking extends JFrame{
@@ -30,6 +30,7 @@ public class VentanaRanking extends JFrame{
 private JTable table;
 private ArrayList<Ranking> rankings;
 private DefaultTableModel mDatos;
+
 
 	public  VentanaRanking() {
 		JPanel panelCentral= new JPanel();
@@ -45,17 +46,17 @@ private DefaultTableModel mDatos;
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
-				if (new File("casino2.db").exists()) {
+				if (new File("casino1.db").exists()) {
 					// Poner el parámetro a true si se quiere reiniciar la base de datos
 					try {
-						Db.initDB( "casino2.db", false );
+						Db.initDB( "casino1.db", true );
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}  // Abrir base de datos existente
 				} else {
 					try {
-						Db.initDB( "casino2.db", true );
+						Db.initDB( "casino1.db", true );
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -81,7 +82,8 @@ private DefaultTableModel mDatos;
 
 }
 	public static void main (String[] args) {
-		
+	
+		Ranking r1= new Ranking("Tragaperras","nombreusuario",1,1);
 		VentanaRanking ventanaRanking = new VentanaRanking();
 		ventanaRanking.setVisible(true);
 		System.out.println(ventanaRanking);
@@ -102,7 +104,7 @@ private DefaultTableModel mDatos;
  }
 };
 	 
-	 rankings = BDranking.getRankings() ;
+	 rankings = Db.getRankings() ;
 	 for (Ranking r : rankings) {
 			mDatos.addRow( new Object[] { r.getNomjuego(),r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
 		}
@@ -116,23 +118,5 @@ private DefaultTableModel mDatos;
 		table.getColumnModel().getColumn(3).setMinWidth(140);
 		table.getColumnModel().getColumn(3).setMaxWidth(140);
 		
-		table.getModel().addTableModelListener(new TableModelListener() {
-			
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-				int fil = e.getFirstRow();
-				String nomjuego = (String) mDatos.getValueAt(fil, 0).toString();
-				String nombreusuario = (String) mDatos.getValueAt(fil, 1).toString();
-				int numpartida= Integer.parseInt(mDatos.getValueAt(fil, 3).toString());
-				int puntaje = Integer.parseInt(mDatos.getValueAt(fil, 7).toString());
-				
-				try {
-					BDranking.modificarRanking(nomjuego, nombreusuario, numpartida, puntaje);;
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 		}}

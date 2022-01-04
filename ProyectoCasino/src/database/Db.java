@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+import clases.Ranking;
 import clases.Usuario;
 
 
@@ -48,6 +49,8 @@ public class Db {
 			if(primeraVez) {  //Si queremos reiniciar la BD esto ser� true
 				crearTablaCliente(nombreBD);
 				logger.log(Level.INFO, "Creada nueva tabla clientes");
+				crearTablaRanking(nombreBD);
+				logger.log(Level.INFO, "Creada nueva tabla ranking");
 			}
 			return con;		
 		} catch (Exception e) {
@@ -178,6 +181,58 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 				int numerotarjeta = rs.getInt("numerotarjeta");
 				Usuario u = new Usuario(dni, nom, apellido, edad, gmail, nomUsuario, contrasenia, numerotarjeta);
 				ret.add(u);
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+	}
+	public static void crearTablaRanking(String nombreBD) throws SQLException{
+		try{
+			Statement stmt = con.createStatement();
+			String sentSQL = "DROP TABLE IF EXISTS ranking;";  //La eliminamos si ya existe
+			logger.log( Level.INFO, "Statement: " + sentSQL );
+			stmt.execute( sentSQL );
+			
+			//Despu�s creamos la tabla nueva
+			sentSQL = "CREATE TABLE ranking ( numpartida int PRIMARY KEY,nomjuego varchar(50), nombreusuario varchar(55),puntaje int);";
+			logger.log( Level.INFO, "Statement: " + sentSQL );
+			stmt.execute(sentSQL);
+			
+			stmt.close();
+			System.out.println("Valores introducidos correctamente");
+		}
+		catch(SQLException e) {
+			logger.log( Level.SEVERE, "No se ha podido ejecutar la sentencia" );
+		}
+		
+	}public static void anadirRanking(Ranking r) {
+		try (Statement stmt = con.createStatement()){
+			String sentSQL = "INSERT INTO ranking  VALUES('"+r.getNumpartida()+"','"+r.getNomjuego()+"','"+r.getNombreusuario()+"','"+r.getPuntaje()+")";
+			logger.log( Level.INFO, "Statement: " + sentSQL );
+			stmt.executeUpdate(sentSQL);
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			logger.log( Level.SEVERE, "Excepción", e );
+			e.printStackTrace();
+		}
+	}public static ArrayList<Ranking> getRankings() {
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Ranking> ret = new ArrayList<>();
+			String sent = "select * from ranking;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String nomjuego = rs.getString("nomjuego");
+				String nombreusuario = rs.getString("nombreusuario");
+				int numpartida = rs.getInt("numpartida");
+				int puntaje = rs.getInt("puntaje");
+				Ranking r = new Ranking(nomjuego, nombreusuario, numpartida, puntaje);
+				
+				
+				ret.add(r);
 			}
 			return ret;
 		} catch (Exception e) {

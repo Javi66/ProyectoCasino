@@ -12,6 +12,7 @@ public class Ranking implements Serializable, Entry<String, Ranking>{
 	private String nomjuego;
 	private int numpartida=0;
 	private int puntaje=0;
+	
 	public Ranking() {
 		super();
 		
