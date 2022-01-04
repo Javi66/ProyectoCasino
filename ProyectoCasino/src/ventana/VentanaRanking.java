@@ -18,12 +18,17 @@ import javax.swing.table.DefaultTableModel;
 
 import clases.Usuario;
 import database.Db;
-
-public class VentanaGestiondePagos extends JFrame{
+import java.awt.BorderLayout;
+public class VentanaRanking extends JFrame{
 private JTable table;
 private ArrayList<Usuario> usuarios;
-	public  VentanaGestiondePagos() {
+private DefaultTableModel mDatos;
+
+	public  VentanaRanking() {
 		JPanel panelCentral= new JPanel();
+		getContentPane().add(panelCentral);
+		JPanel panelbotones = new JPanel();
+		getContentPane().add(panelbotones,BorderLayout.SOUTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
 		setSize(320,300);
@@ -36,15 +41,16 @@ private ArrayList<Usuario> usuarios;
 	
 	
 
-	getContentPane().add(table )
+	getContentPane().add(scrollpane )
 			;
 	
 
 }
 	public static void main (String[] args) {
-		VentanaGestiondePagos ventanaGestiondePagos = new VentanaGestiondePagos();
-		ventanaGestiondePagos.setVisible(true);
-		System.out.println(ventanaGestiondePagos);
+		
+		VentanaRanking ventanaRanking = new VentanaRanking();
+		ventanaRanking.setVisible(true);
+		System.out.println(ventanaRanking);
 	}
 
 }
