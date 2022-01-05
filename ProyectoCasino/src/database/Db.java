@@ -207,7 +207,8 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			logger.log( Level.SEVERE, "No se ha podido ejecutar la sentencia" );
 		}
 		
-	}public static void anadirRanking(Ranking r) {
+	}
+	public static void anadirRanking(Ranking r) {
 		try (Statement stmt = con.createStatement()){
 			String sentSQL = "INSERT INTO ranking  VALUES('"+r.getNumpartida()+"','"+r.getNomjuego()+"','"+r.getNombreusuario()+"','"+r.getPuntaje()+")";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
@@ -218,7 +219,8 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
-	}public static ArrayList<Ranking> getRankings() {
+	}
+	public static ArrayList<Ranking> getRankings() {
 		try (Statement statement = con.createStatement()) {
 			ArrayList<Ranking> ret = new ArrayList<>();
 			String sent = "select * from ranking;";

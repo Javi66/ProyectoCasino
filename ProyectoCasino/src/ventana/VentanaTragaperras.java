@@ -88,8 +88,8 @@ public class VentanaTragaperras extends JFrame {
 		
 		try {
 			btnPlay = new JButton();
-			btnPlay.setBounds(950, 75, 250, 125);
-			ImageIcon play = new ImageIcon(getClass().getResource("/images/start.jpg"));
+			btnPlay.setBounds(950, 100, 250, 125);
+			ImageIcon play = new ImageIcon(getClass().getResource("/images/start2.jpg"));
 			Icon iconoPlay = new ImageIcon(play.getImage().getScaledInstance(btnPlay.getWidth(), btnPlay.getHeight(), Image.SCALE_DEFAULT));
 			btnPlay.setIcon(iconoPlay);
 		} catch(Exception e) {
