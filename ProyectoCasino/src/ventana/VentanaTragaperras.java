@@ -8,10 +8,14 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
 import javax.swing.border.*;
+
+import clases.Ranking;
+import database.Db;
 
 public class VentanaTragaperras extends JFrame {
 	
@@ -30,6 +34,7 @@ public class VentanaTragaperras extends JFrame {
 	
 	private int saldo = 0;
 	private int puntos = 0;
+	private int numpartida;
 	
 	public static ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
 	
@@ -79,6 +84,16 @@ public class VentanaTragaperras extends JFrame {
 		
 		btnMenu.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
+				try {
+					Db.initDB("casino1.db", false);
+					numpartida = Db.obtenerPartidas(usuario) + 1;
+					Ranking r = new Ranking("Tragaperras", usuario, numpartida, puntos);
+					Db.anadirRanking(r);
+					Db.closeBD();
+					} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		Main m = new Main(usuario);
         		m.setVisible(true);
         		dispose();
