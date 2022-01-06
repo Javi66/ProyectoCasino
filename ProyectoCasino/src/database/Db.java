@@ -242,6 +242,52 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			return null;
 		}
 	}
+	public static ArrayList<Ranking> getRankingstragaperras(){
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Ranking> ret = new ArrayList<>();
+			String sent = "select * from ranking where nomjuego like 'Tragaperras' order by puntaje desc;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String nomjuego = rs.getString("nomjuego");
+				String nombreusuario = rs.getString("nombreusuario");
+				int numpartida = rs.getInt("numpartida");
+				int puntaje = rs.getInt("puntaje");
+				Ranking r = new Ranking(nomjuego, nombreusuario, numpartida, puntaje);
+				
+				
+				ret.add(r);
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+
+	}
+	public static ArrayList<Ranking> getRankingsruleta(){
+		try (Statement statement = con.createStatement()) {
+			ArrayList<Ranking> ret = new ArrayList<>();
+			String sent = "select * from ranking where nomjuego like 'Ruleta' order by puntaje desc;";
+			logger.log( Level.INFO, "Statement: " + sent );
+			ResultSet rs = statement.executeQuery( sent );
+			while( rs.next() ) { // Leer el resultset
+				String nomjuego = rs.getString("nomjuego");
+				String nombreusuario = rs.getString("nombreusuario");
+				int numpartida = rs.getInt("numpartida");
+				int puntaje = rs.getInt("puntaje");
+				Ranking r = new Ranking(nomjuego, nombreusuario, numpartida, puntaje);
+				
+				
+				ret.add(r);
+			}
+			return ret;
+		} catch (Exception e) {
+			logger.log( Level.SEVERE, "Excepción", e );
+			return null;
+		}
+
+	}
 	
 	//Obtiene el numero de partidas que ha realizado un usuario
 	public static int obtenerPartidas(String nomusuario) {
