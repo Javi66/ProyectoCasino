@@ -1,4 +1,4 @@
-package jUnit;
+package clases;
 
 import static org.junit.Assert.*;
 
