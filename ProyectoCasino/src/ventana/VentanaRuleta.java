@@ -11,8 +11,16 @@ import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.Properties;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 
 
@@ -38,6 +46,21 @@ public class VentanaRuleta extends JFrame {
     }
   
     private void initComponents(String usuario) {
+   
+    	Properties properties = new Properties();
+    	
+    	try {
+			properties.loadFromXML(new FileInputStream("properties.xml"));
+			if (properties.containsKey(usuario)) {
+				saldo = Integer.parseInt(properties.getProperty(usuario));
+			}
+	    	
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+    	
+    	
 
         jFrame1 = new JFrame();
         jTxtapuesta = new JTextField();
@@ -211,7 +234,28 @@ public class VentanaRuleta extends JFrame {
         getContentPane().setLayout(layout);
 
         pack();
+        
+        this.addWindowListener( new WindowAdapter() {
+        	public void windowClosing( WindowEvent evt ) {
+        	
+        	
+        	properties.setProperty(usuario, String.valueOf(saldo));
+        	try {
+				properties.storeToXML(new FileOutputStream("properties.xml"), "casino");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+   
+        	
+        	
+        	
+        	}
+        } );
+        
+       
     }
+    
 
 
     public static void main(String args[]) {
