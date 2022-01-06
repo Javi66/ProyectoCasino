@@ -37,6 +37,8 @@ public class Ranking implements Serializable, Entry<String, Ranking>{
 		this.ruleta = ruleta;
 	}
 	
+	
+	
 	@Override
 	public String getKey() {
 		// TODO Auto-generated method stub

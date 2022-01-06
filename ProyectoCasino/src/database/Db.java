@@ -207,10 +207,9 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			logger.log( Level.SEVERE, "No se ha podido ejecutar la sentencia" );
 		}
 		
-	}
-	public static void anadirRanking(Ranking r) {
+	}public static void anadirRanking(Ranking r) {
 		try (Statement stmt = con.createStatement()){
-			String sentSQL = "INSERT INTO ranking  VALUES("+r.getNumpartida()+",'"+r.getNomjuego()+"','"+r.getNombreusuario()+"',"+r.getPuntaje()+")";
+			String sentSQL = "INSERT INTO ranking  VALUES('"+r.getNumpartida()+"','"+r.getNomjuego()+"','"+r.getNombreusuario()+"','"+r.getPuntaje()+")";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			stmt.executeUpdate(sentSQL);
 			stmt.close();
@@ -219,11 +218,10 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			logger.log( Level.SEVERE, "Excepción", e );
 			e.printStackTrace();
 		}
-	}
-	public static ArrayList<Ranking> getRankings() {
+	}public static ArrayList<Ranking> getRankings() {
 		try (Statement statement = con.createStatement()) {
 			ArrayList<Ranking> ret = new ArrayList<>();
-			String sent = "select * from ranking order by puntaje desc;";
+			String sent = "select * from ranking;";
 			logger.log( Level.INFO, "Statement: " + sent );
 			ResultSet rs = statement.executeQuery( sent );
 			while( rs.next() ) { // Leer el resultset
@@ -240,25 +238,6 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 		} catch (Exception e) {
 			logger.log( Level.SEVERE, "Excepción", e );
 			return null;
-		}
-	}
-	
-	//Obtiene el numero de partidas que ha realizado un usuario
-	public static int obtenerPartidas(String nomusuario) {
-		try(Statement stmt =con.createStatement()){
-			int res;
-			String sent = "select count(*) from ranking where nombreusuario='"+nomusuario+"';";
-			logger.log( Level.INFO, "Statement: " + sent );
-			ResultSet rs = stmt.executeQuery( sent );
-			if(rs==null) {
-				res = 0;
-			} else {
-				res = rs.getInt("count(*)");
-			}
-			return res;
-		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
-			return 0;
 		}
 	}
 
