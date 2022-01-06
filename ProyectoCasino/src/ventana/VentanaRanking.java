@@ -49,7 +49,7 @@ private DefaultTableModel mDatos;
 				if (new File("casino1.db").exists()) {
 					// Poner el parámetro a true si se quiere reiniciar la base de datos
 					try {
-						Db.initDB( "casino1.db", true );
+						Db.initDB( "casino1.db", false );
 					} catch (SQLException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -70,16 +70,7 @@ private DefaultTableModel mDatos;
 				Db.closeBD();
 			}}
 		);
-			
-		
-
-	
-	
-
-	
 			;
-	
-
 }
 	public static void main (String[] args) {
 	
