@@ -32,26 +32,28 @@ private JButton tragaperras;
 private JButton ruleta;
 private JButton Todo;
 
-	public  VentanaRanking() {
+	public  VentanaRanking(String usuario) {
 		JPanel panelCentral= new JPanel();
 		getContentPane().add(panelCentral);
 		JPanel panelbotones = new JPanel();
 		JButton tragaperras = new JButton("Tragaperras");
-	   
 		JButton ruleta= new JButton("Ruletas");
 		JButton todo = new JButton("Todo");
+		JButton menu = new JButton("MENU");
 		panelbotones.add(tragaperras);
 		panelbotones.add(ruleta);
 		panelbotones.add(todo);
+		panelbotones.add(menu);
 		table=new JTable();
 		table.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
 		getContentPane().add( new JScrollPane(table), BorderLayout.CENTER );
 		getContentPane().add(panelbotones,BorderLayout.SOUTH);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(300, 200, 975, 650);
-		setSize(320,300);
+		setSize(618,500);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		setTitle("Ventana Ranking");
 		addWindowListener( new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
@@ -106,19 +108,22 @@ private JButton Todo;
 				}
 				
 			});
+			menu.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Main m = new Main(usuario);
+	        		m.setVisible(true);
+	        		dispose();
+	        		if(usuario!="") {
+	        			Main.activarBotones();
+	        		}
+				}
+			});
 }
-	public static void main (String[] args) {
 	
-		Ranking r1= new Ranking("Tragaperras","nombreusuario",1,1);
-		VentanaRanking ventanaRanking = new VentanaRanking();
-		ventanaRanking.setTitle("Ventana Ranking");
-		ventanaRanking.setSize(1000, 500);
-		ventanaRanking.setVisible(true);
-		System.out.println(ventanaRanking);
-	}
  private void mostrarRankings() {
 	 final long serialVersionUID = 1L;
-	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "nomjuego","nombreusuario","numpartida","Puntaje" ) );
+	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Juego","Usuario","Partida","Puntaje" ) );
 	 mDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
@@ -150,7 +155,7 @@ private JButton Todo;
 		}
  private void mostrarRankingsTragaperras() {
 	 final long serialVersionUID = 1L;
-	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "nomjuego","nombreusuario","numpartida","Puntaje" ) );
+	 Vector<String> cabeceras = new Vector<String>( Arrays.asList("Usuario","Partida","Puntaje" ) );
 	 mDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
@@ -166,23 +171,21 @@ private JButton Todo;
 	 
 	 rankings = Db.getRankingstragaperras() ;
 	 for (Ranking r : rankings) {
-			mDatos.addRow( new Object[] { r.getNomjuego(),r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
+			mDatos.addRow( new Object[] {r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
 		}
 	 table.setModel(mDatos);
-	 table.getColumnModel().getColumn(0).setMinWidth(140);
-		table.getColumnModel().getColumn(0).setMaxWidth(140);
-		table.getColumnModel().getColumn(1).setMinWidth(160);
-		table.getColumnModel().getColumn(1).setMaxWidth(160);
-		table.getColumnModel().getColumn(2).setMinWidth(160);
-		table.getColumnModel().getColumn(2).setMaxWidth(160);		
-		table.getColumnModel().getColumn(3).setMinWidth(140);
-		table.getColumnModel().getColumn(3).setMaxWidth(140);
+	 table.getColumnModel().getColumn(0).setMinWidth(180);
+		table.getColumnModel().getColumn(0).setMaxWidth(180);
+		table.getColumnModel().getColumn(1).setMinWidth(210);
+		table.getColumnModel().getColumn(1).setMaxWidth(210);
+		table.getColumnModel().getColumn(2).setMinWidth(210);
+		table.getColumnModel().getColumn(2).setMaxWidth(210);		
 		
 		
 		}
  private void mostrarRankingsruletas() {
 	 final long serialVersionUID = 1L;
-	 Vector<String> cabeceras = new Vector<String>( Arrays.asList( "nomjuego","nombreusuario","numpartida","Puntaje" ) );
+	 Vector<String> cabeceras = new Vector<String>( Arrays.asList("Usuario","Partida","Puntaje" ) );
 	 mDatos = new DefaultTableModel(  // Inicializa el modelo
 				new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
 				cabeceras  // Cabeceras de la jtable
@@ -198,17 +201,16 @@ private JButton Todo;
 	 
 	 rankings = Db.getRankingsruleta() ;
 	 for (Ranking r : rankings) {
-			mDatos.addRow( new Object[] { r.getNomjuego(),r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
+			mDatos.addRow( new Object[] {r.getNombreusuario(),r.getNumpartida(),r.getPuntaje()} );
 		}
 	 table.setModel(mDatos);
-	 table.getColumnModel().getColumn(0).setMinWidth(140);
-		table.getColumnModel().getColumn(0).setMaxWidth(140);
-		table.getColumnModel().getColumn(1).setMinWidth(160);
-		table.getColumnModel().getColumn(1).setMaxWidth(160);
-		table.getColumnModel().getColumn(2).setMinWidth(160);
-		table.getColumnModel().getColumn(2).setMaxWidth(160);		
-		table.getColumnModel().getColumn(3).setMinWidth(140);
-		table.getColumnModel().getColumn(3).setMaxWidth(140);
+	 table.getColumnModel().getColumn(0).setMinWidth(180);
+		table.getColumnModel().getColumn(0).setMaxWidth(180);
+		table.getColumnModel().getColumn(1).setMinWidth(210);
+		table.getColumnModel().getColumn(1).setMaxWidth(210);
+		table.getColumnModel().getColumn(2).setMinWidth(210);
+		table.getColumnModel().getColumn(2).setMaxWidth(210);		
+		
 		
 		
 		}}

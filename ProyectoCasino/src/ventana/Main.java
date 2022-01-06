@@ -13,7 +13,9 @@ import clases.GestorUsuario;
 import clases.Usuario;
 import database.Db;
 
+import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
@@ -26,6 +28,7 @@ import java.time.format.DateTimeFormatter;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.Color;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,6 +47,7 @@ public class Main extends JFrame implements ActionListener {
 	private static JButton btnTragaperras;
 	private JButton btnReinicio;
 	private JButton btnRanking;
+	
 	
 	/**
 	 * Cargar la aplicación
@@ -120,9 +124,21 @@ public class Main extends JFrame implements ActionListener {
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		btnSalir.addActionListener(this);
-		btnRanking= new JButton("Ranking");
-		btnRanking.setForeground(new Color(0,0,0));
-		btnRanking.setFont(new Font("Tahoma",Font.BOLD,12));
+		try {
+			btnRanking = new JButton();
+			btnRanking.setBounds(75, 75, 100, 100);
+			btnRanking.setBackground(Color.WHITE);
+			ImageIcon rank = new ImageIcon(getClass().getResource("/images/cup.png"));
+			Icon iconoRank = new ImageIcon(rank.getImage().getScaledInstance(btnRanking.getWidth(), btnRanking.getHeight(), Image.SCALE_DEFAULT));
+			btnRanking.setIcon(iconoRank);
+			btnRanking.setBorder(BorderFactory.createEmptyBorder());
+			btnRanking.setContentAreaFilled(false);
+		} catch(Exception e) {
+			btnRanking = new JButton("Ranking");
+			btnRanking.setForeground(new Color(0,0,0));
+			btnRanking.setFont(new Font("Tahoma", Font.BOLD, 12));
+			
+		}
 		btnRuleta = new JButton("Ruleta");
 		btnRuleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -145,16 +161,16 @@ public class Main extends JFrame implements ActionListener {
 		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
+		
 		btnRanking.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
-				VentanaRanking vR= new VentanaRanking();
-				vR.setTitle("Ventana Ranking");
-				vR.setSize(618, 500);
+				VentanaRanking vR= new VentanaRanking(nomUsuario);
 				dispose();
 				vR.setVisible(true);
 			}
 		});
 		
+		getContentPane().add(btnRanking);
 	
 		
 		GroupLayout gl_panel = new GroupLayout(panel);
@@ -168,8 +184,7 @@ public class Main extends JFrame implements ActionListener {
 							.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
-							.addComponent(btnRanking, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
 					)
 					.addContainerGap(31, Short.MAX_VALUE))
 		);
@@ -185,8 +200,6 @@ public class Main extends JFrame implements ActionListener {
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(btnRanking, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);
