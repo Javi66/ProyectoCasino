@@ -43,6 +43,7 @@ public class Main extends JFrame implements ActionListener {
 	private static JButton btnRuleta;
 	private static JButton btnTragaperras;
 	private JButton btnReinicio;
+	private JButton btnRanking;
 	
 	/**
 	 * Cargar la aplicación
@@ -118,7 +119,9 @@ public class Main extends JFrame implements ActionListener {
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 12));
 
 		btnSalir.addActionListener(this);
-	
+		btnRanking= new JButton("Ranking");
+		btnRanking.setForeground(new Color(0,0,0));
+		btnRanking.setFont(new Font("Tahoma",Font.BOLD,12));
 		btnRuleta = new JButton("Ruleta");
 		btnRuleta.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -141,7 +144,15 @@ public class Main extends JFrame implements ActionListener {
 		});
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
+		btnRanking.addActionListener(new ActionListener() {
+			public void  actionPerformed(ActionEvent e) {
+				VentanaRanking vR= new VentanaRanking();
+				vR.setTitle("Ventana Ranking");
+				vR.setSize(618, 500);
+				dispose();
+				vR.setVisible(true);
+			}
+		});
 		
 	
 		
@@ -156,7 +167,8 @@ public class Main extends JFrame implements ActionListener {
 							.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+							.addComponent(btnRanking, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
 					)
 					.addContainerGap(31, Short.MAX_VALUE))
 		);
@@ -172,6 +184,8 @@ public class Main extends JFrame implements ActionListener {
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRanking, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(70, Short.MAX_VALUE))
 		);
 		panel.setLayout(gl_panel);

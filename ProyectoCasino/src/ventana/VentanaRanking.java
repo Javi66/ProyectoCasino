@@ -76,6 +76,8 @@ private DefaultTableModel mDatos;
 	
 		Ranking r1= new Ranking("Tragaperras","nombreusuario",1,1);
 		VentanaRanking ventanaRanking = new VentanaRanking();
+		ventanaRanking.setTitle("Ventana Ranking");
+		ventanaRanking.setSize(1000, 500);
 		ventanaRanking.setVisible(true);
 		System.out.println(ventanaRanking);
 	}
