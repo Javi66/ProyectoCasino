@@ -16,17 +16,17 @@ public class Icono {
 	}
 	
 	public Icono() {
-		this.X = 550;
-		this.Y = 50;
+		this.X = 115;
+		this.Y = 115;
 		this.icono = iconoRandom();
 		this.girando = false;
 	}
 	
 	public void girar(int cant) {
 		if(girando==true) {
-			if(Y+cant>550) {
+			if(Y+cant>115) {
 				icono = iconoRandom();
-				Y = Y+cant-600;
+				Y = Y+cant-165;
 			} else {
 				Y += cant;
 			}

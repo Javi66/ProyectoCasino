@@ -45,7 +45,6 @@ public class Main extends JFrame implements ActionListener {
 	private JButton btnRegistrarse;
 	private static JButton btnRuleta;
 	private static JButton btnTragaperras;
-	private JButton btnReinicio;
 	private JButton btnRanking;
 	
 	

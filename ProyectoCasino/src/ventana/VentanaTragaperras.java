@@ -12,8 +12,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.*;
 
+import clases.Icono;
 import clases.Ranking;
 import database.Db;
 
@@ -36,6 +38,13 @@ public class VentanaTragaperras extends JFrame {
 	private int puntos = 0;
 	private int numpartida;
 	
+	private Icono c11;
+	private Icono c12;
+	private Icono c21;
+	private Icono c22;
+	private Icono c31;
+	private Icono c32;
+	
 	public static ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
 	
 	public static void main(String[] args) {
@@ -43,6 +52,7 @@ public class VentanaTragaperras extends JFrame {
 		frame.setVisible(true);
 	}
 	
+	//nueva clase panelimagen para establecer el fondo de la ventana
 	public class PanelImagen extends JPanel{
 		ImageIcon imagen;
 		String direccion;
@@ -73,7 +83,7 @@ public class VentanaTragaperras extends JFrame {
 		p.setLayout(null);
 		setContentPane(p);
 		
-		
+		// LABELS, BOTONES Y PANEL INFO
 		btnMenu = new JButton("MENU");
 		btnMenu.setBounds(100, 600, 150, 75);
 		btnMenu.setBackground(Color.RED);
@@ -101,20 +111,14 @@ public class VentanaTragaperras extends JFrame {
         	}
 		});
 		
-		try {
-			btnPlay = new JButton();
-			btnPlay.setBounds(950, 100, 250, 125);
-			ImageIcon play = new ImageIcon(getClass().getResource("/images/start2.jpg"));
-			Icon iconoPlay = new ImageIcon(play.getImage().getScaledInstance(btnPlay.getWidth(), btnPlay.getHeight(), Image.SCALE_DEFAULT));
-			btnPlay.setIcon(iconoPlay);
-		} catch(Exception e) {
-			btnPlay = new JButton("PLAY");
-			btnPlay.setBackground(Color.GREEN);
-			btnPlay.setForeground(Color.WHITE);
-			btnPlay.setFont(new Font("Tahoma", Font.BOLD, 50));
-			btnPlay.setBounds(950, 100, 250, 125);
-			btnPlay.setBorder(bevel);
-		}
+		
+		btnPlay = new JButton("PLAY");
+		btnPlay.setBackground(Color.GREEN);
+		btnPlay.setForeground(Color.WHITE);
+		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 55));
+		btnPlay.setBounds(950, 100, 250, 125);
+		btnPlay.setBorder(bevel);
+		getContentPane().add(btnPlay);
 		
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -127,8 +131,6 @@ public class VentanaTragaperras extends JFrame {
 				}
 			}
 		});
-		
-		getContentPane().add(btnPlay);
 		
 		panelInfo = new JPanel();
 		panelInfo.setBorder(bevel);
@@ -177,6 +179,7 @@ public class VentanaTragaperras extends JFrame {
 		panelInfo.add(btnAniadir);
 		getContentPane().add(panelInfo);
 		
+		//rellenamos arraylist de iconos 
 		ImageIcon siete = new ImageIcon("/images/7.jpg");
 		ImageIcon bar = new ImageIcon("/images/bar.jpg");
 		ImageIcon campana = new ImageIcon("/images/campana.jpg");
@@ -199,7 +202,70 @@ public class VentanaTragaperras extends JFrame {
 		iconos.add(trebol);
 		iconos.add(uva);
 		
+		//creamos panel tragaperras
+		JPanel panelTragap = new JPanel();
+		panelTragap.setBorder(bevel);
+		panelTragap.setBounds(100, 100, 690, 240);
+		panelTragap.setBackground(Color.lightGray);
+		
+		JPanel panelTragap1 = new JPanel();
+		panelTragap1.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		
+		JPanel panelTragap2 = new JPanel();
+		panelTragap2.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		
+		JPanel panelTragap3 = new JPanel();
+		panelTragap3.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		
+		//organizamos el panel de la maquina tragaperras
+		GroupLayout tragapLayout = new GroupLayout(panelTragap);
+		panelTragap.setLayout(tragapLayout);
+		tragapLayout.setHorizontalGroup(
+				tragapLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(tragapLayout.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(panelTragap1, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
+					.addGap(15,15,15)
+					.addComponent(panelTragap2, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
+					.addGap(15,15,15)
+					.addComponent(panelTragap3, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
+		tragapLayout.setVerticalGroup(
+				tragapLayout.createParallelGroup(Alignment.LEADING)
+				.addGroup(tragapLayout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(tragapLayout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+							.addComponent(panelTragap1, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+							.addComponent(panelTragap2, GroupLayout.Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+							.addComponent(panelTragap3, GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
+							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+				);
+		getContentPane().add(panelTragap);
+		
+		//Hacemos los tres carretes a partir del array de iconos
+		//CARRETE 1
+		c11 = new Icono();
+		c11.setX(115);
+		c12 = new Icono();
+		c12.setX(115);
+		c12.setY(c11.getY()-210);
+		
+		//CARRETE 2
+		c21 = new Icono();
+		c21.setX(340);
+		c22 = new Icono();
+		c22.setX(340);
+		c22.setY(c21.getY()-210);
+		
+		//CARRETE 2
+		c31 = new Icono();
+		c31.setX(565);
+		c32 = new Icono();
+		c32.setX(565);
+		c32.setY(c31.getY()-210);
+		
+		
 	}
 	
-
 }
