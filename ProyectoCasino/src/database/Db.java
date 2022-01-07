@@ -310,7 +310,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 
 	
 	public static int contarUsuarios() throws SQLException {
-		Statement statement = conexion.createStatement();
+		Statement statement = con.createStatement();
 		String sent = "select count(*) from usuario";
 		ResultSet rs = statement.executeQuery(sent);
 		int resul = rs.getInt(1);
