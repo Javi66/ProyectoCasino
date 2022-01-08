@@ -43,6 +43,8 @@ public class VentanaTragaperras extends JFrame {
 	private int b = 0;
 	private int c = 0;
 	
+	ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
+	
 	private Random r = new Random();
 	
 	public static void main(String[] args) {
@@ -81,8 +83,28 @@ public class VentanaTragaperras extends JFrame {
 		p.setLayout(null);
 		setContentPane(p);
 		
-		ArrayList<ImageIcon> iconos = Tragaperras.arrayIconos();
-		
+		//rellenamos arraylist de iconos 
+		ImageIcon siete = new ImageIcon((getClass().getResource("/images/7.jpg")));
+		ImageIcon bar = new ImageIcon(getClass().getResource("/images/bar.jpg"));
+		ImageIcon campana = new ImageIcon(getClass().getResource("/images/campana.jpg"));
+		ImageIcon cerezas = new ImageIcon(getClass().getResource("/images/cerezas.jpg"));
+		ImageIcon diamante = new ImageIcon(getClass().getResource("/images/diamante.jpg"));
+		ImageIcon dolar = new ImageIcon(getClass().getResource("/images/dolar.jpg"));
+		ImageIcon limon = new ImageIcon(getClass().getResource("/images/limon.jpg"));
+		ImageIcon sandia = new ImageIcon(getClass().getResource("/images/sandia.jpg"));
+		ImageIcon trebol = new ImageIcon(getClass().getResource("/images/trebol.jpg"));
+		ImageIcon uva = new ImageIcon(getClass().getResource("/images/uva.jpg"));
+			
+		iconos.add(siete);
+		iconos.add(bar);
+		iconos.add(campana);
+		iconos.add(cerezas);
+		iconos.add(diamante);
+		iconos.add(dolar);
+		iconos.add(limon);
+		iconos.add(sandia);
+		iconos.add(trebol);
+		iconos.add(uva);
 		
 		// LABELS, BOTONES Y PANEL INFO
 		btnMenu = new JButton("MENU");
@@ -174,7 +196,9 @@ public class VentanaTragaperras extends JFrame {
 		JLabel lblTragap2 = new JLabel();
 		JLabel lblTragap3 = new JLabel();
 		
-		lblTragap1.setIcon(iconos.get(a));
+		Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		
+		lblTragap1.setIcon(icon1);
 		lblTragap2.setIcon(iconos.get(b));
 		lblTragap3.setIcon(iconos.get(c));
 		
@@ -184,18 +208,17 @@ public class VentanaTragaperras extends JFrame {
 		panelTragap.setBounds(100, 100, 690, 240);
 		panelTragap.setBackground(Color.lightGray);
 		
-		JPanel panelTragap1 = new JPanel(new FlowLayout());
+		JPanel panelTragap1 = new JPanel();
 		panelTragap1.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		panelTragap1.setLayout(null);
 		
 		JPanel panelTragap2 = new JPanel();
 		panelTragap2.setBorder(new BevelBorder(BevelBorder.LOWERED));
+		panelTragap2.setLayout(null);
 		
 		JPanel panelTragap3 = new JPanel();
 		panelTragap3.setBorder(new BevelBorder(BevelBorder.LOWERED));
-			
-		//panelTragap1.add(lblTragap1);
-		//panelTragap2.add(lblTragap2);
-		//panelTragap3.add(lblTragap3);
+		panelTragap3.setLayout(null);
 		
 		//organizamos el panel de la maquina tragaperras
 		GroupLayout tragapLayout = new GroupLayout(panelTragap);
@@ -222,56 +245,13 @@ public class VentanaTragaperras extends JFrame {
 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				);
 		
-		 GroupLayout panelTragap1L = new GroupLayout(panelTragap1);
-		 	panelTragap1.setLayout(panelTragap1L);
-		 	panelTragap1L.setHorizontalGroup(
-		 		panelTragap1L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap1L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap1)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
-		 	panelTragap1L.setVerticalGroup(
-		 		panelTragap1L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap1L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap1)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
-
-		    GroupLayout panelTragap2L = new GroupLayout(panelTragap2);
-		    panelTragap2.setLayout(panelTragap2L);
-		    panelTragap2L.setHorizontalGroup(
-		    	panelTragap2L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap2L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap2)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
-		    panelTragap2L.setVerticalGroup(
-		    	panelTragap2L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap2L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap2)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
-
-		    GroupLayout panelTragap3L = new GroupLayout(panelTragap3);
-		    panelTragap3.setLayout(panelTragap3L);
-		    panelTragap3L.setHorizontalGroup(
-		    	panelTragap3L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap3L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap3)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
-		    panelTragap3L.setVerticalGroup(
-		    	panelTragap3L.createParallelGroup(GroupLayout.Alignment.LEADING)
-		        .addGroup(panelTragap3L.createSequentialGroup()
-		            .addContainerGap()
-		            .addComponent(lblTragap3)
-		            .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-		        );
+		panelTragap1.add(lblTragap1);
+		panelTragap2.add(lblTragap2);
+		panelTragap3.add(lblTragap3);
+		
+		lblTragap1.setBounds(0,0,210,210);
+		lblTragap2.setBounds(0,0,210,210);
+		lblTragap3.setBounds(0,0,210,210);
 		
 		getContentPane().add(panelTragap);
 		
@@ -289,7 +269,7 @@ public class VentanaTragaperras extends JFrame {
 					lblTragap1.setIcon(iconos.get(a));
 					lblTragap2.setIcon(iconos.get(b));
 					lblTragap3.setIcon(iconos.get(c));
-					Tragaperras.score(puntos, a, b, c);
+					puntos = puntos + Tragaperras.score(puntos, a, b, c);
 					lblPuntaje.setText("Puntos: "+ puntos);
 				}
 			}
