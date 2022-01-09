@@ -82,7 +82,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			stmt.execute( sentSQL );
 			
 			//Despu�s creamos la tabla nueva
-			sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), nomUsuario varchar(55), contrasenia varchar(55), numerotarjeta int);";
+			sentSQL = "CREATE TABLE usuario ( dni varchar(9) PRIMARY KEY, nombre varchar(55), apellido varchar(55), edad int, gmail varchar(55), nomUsuario varchar(55), contrasenia varchar(55), numerotarjeta int, unique (nomUsuario));";
 			logger.log( Level.INFO, "Statement: " + sentSQL );
 			stmt.execute(sentSQL);
 			

@@ -166,7 +166,7 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
         lblSaldo.setForeground(new java.awt.Color(51, 51, 51));
         lblSaldo.setBounds(50, 100, 250, 40);
         
-        lblInfo = new JLabel("Cada tirada vale 20");
+        lblInfo = new JLabel("Cada tirada vale 2");
         lblInfo.setFont(new java.awt.Font("Arial", 1, 22)); 
         lblInfo.setForeground(new java.awt.Color(51, 51, 51));
         lblInfo.setBounds(50, 200, 250, 40);

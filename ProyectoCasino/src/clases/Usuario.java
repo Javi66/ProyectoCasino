@@ -115,7 +115,7 @@ public class Usuario implements Serializable, Entry<String, Usuario>{
 	public String toString() {
 		return "Usuario [dni=" + dni + ", nombre=" + nombre + ", apellido=" + apellido + ", edad=" + edad + ", gmail="
 				+ gmail + ", nomUsuario=" + nomUsuario + ", contrasenia=" + contrasenia
-				+ ", numerotargeta=" + numerotarjeta + "]";
+				+ ", numerotarjeta=" + numerotarjeta + "]";
 	}
 
 	@Override
