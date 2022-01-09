@@ -2,6 +2,7 @@ package ventana;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -9,6 +10,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
@@ -21,7 +24,7 @@ import clases.Ranking;
 import clases.Tragaperras;
 import database.Db;
 
-public class VentanaTragaperras extends JFrame {
+public class VentanaTragaperras extends JFrame implements MouseListener{
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -36,6 +39,10 @@ public class VentanaTragaperras extends JFrame {
 	private JLabel lblPuntaje;
 	private JLabel lblUsuario;
 	private JLabel lblResult;
+	private JLabel lblTragap1;
+	private JLabel lblTragap2;
+	private JLabel lblTragap3;
+	private JLabel lblAyuda;
 	
 	private int saldo = 0;
 	private int puntos = 0;
@@ -115,6 +122,7 @@ public class VentanaTragaperras extends JFrame {
 		btnMenu.setForeground(Color.WHITE);
 		btnMenu.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnMenu.setBorder(bevel);
+		btnMenu.addMouseListener(this);
 		getContentPane().add(btnMenu);
 		
 		btnMenu.addActionListener(new ActionListener(){
@@ -143,6 +151,7 @@ public class VentanaTragaperras extends JFrame {
 		btnPlay.setFont(new Font("Tahoma", Font.BOLD, 55));
 		btnPlay.setBounds(950, 100, 250, 125);
 		btnPlay.setBorder(bevel);
+		btnPlay.addMouseListener(this);
 		getContentPane().add(btnPlay);
 		
 		
@@ -172,13 +181,35 @@ public class VentanaTragaperras extends JFrame {
         lblPuntaje.setForeground(new java.awt.Color(51, 51, 51));
         lblPuntaje.setBounds(50, 150, 250, 40);
         
-        lblResult = new JLabel("", SwingConstants.CENTER);
+        lblResult = new JLabel("TIRADA", SwingConstants.CENTER);
 		lblResult.setBounds(100, 400, 690, 150);
 		lblResult.setOpaque(true);
 		lblResult.setBackground(new java.awt.Color(51, 51, 51));
 		lblResult.setForeground(Color.WHITE);
 		lblResult.setFont(new java.awt.Font("Arial", 1, 30));
 		getContentPane().add(lblResult);
+		
+		try {
+			lblAyuda = new JLabel();
+			lblAyuda.setBounds(350, 600, 75, 75);
+			lblAyuda.setBackground(Color.WHITE);
+			ImageIcon ayuda = new ImageIcon(getClass().getResource("/images/help.png"));
+			Icon iconoAyuda = new ImageIcon(ayuda.getImage().getScaledInstance(lblAyuda.getWidth(), lblAyuda.getHeight(), Image.SCALE_DEFAULT));
+			lblAyuda.setIcon(iconoAyuda);
+			lblAyuda.setBorder(BorderFactory.createEmptyBorder());
+		} catch(Exception e) {
+			lblAyuda = new JLabel("AYUDA", SwingConstants.CENTER);
+			lblAyuda.setBounds(350, 600, 150, 75);
+			lblAyuda.setOpaque(true);
+			lblAyuda.setBackground(Color.BLACK);
+			lblAyuda.setForeground(Color.WHITE);
+			lblAyuda.setFont(new Font("Tahoma", Font.BOLD, 30));
+		}
+		lblAyuda.addMouseListener(this);
+		
+		getContentPane().add(lblAyuda);
+		
+		
 		
 		btnAniadir = new JButton("Añadir dinero");
         btnAniadir.addActionListener(new ActionListener() {
@@ -193,6 +224,7 @@ public class VentanaTragaperras extends JFrame {
         btnAniadir.setForeground(Color.BLACK);
         btnAniadir.setFont(new Font("Arial", 1, 22));
         btnAniadir.setBounds(50, 275, 250, 75);
+        btnAniadir.addMouseListener(this);
         
 		panelInfo.add(lblInfo);
 		panelInfo.add(lblSaldo);
@@ -201,10 +233,6 @@ public class VentanaTragaperras extends JFrame {
 		panelInfo.add(btnAniadir);
 		getContentPane().add(panelInfo);
 		
-		//label tragaperras
-		JLabel lblTragap1 = new JLabel();
-		JLabel lblTragap2 = new JLabel();
-		JLabel lblTragap3 = new JLabel();
 		
 		//creamos panel tragaperras
 		JPanel panelTragap = new JPanel();
@@ -250,6 +278,10 @@ public class VentanaTragaperras extends JFrame {
 				);
 		
 		//Ajustamos los iconos que saldrán en la tragaperras
+		lblTragap1 = new JLabel();
+		lblTragap2 = new JLabel();
+		lblTragap3 = new JLabel();
+		
 		panelTragap1.add(lblTragap1);
 		panelTragap2.add(lblTragap2);
 		panelTragap3.add(lblTragap3);
@@ -277,23 +309,77 @@ public class VentanaTragaperras extends JFrame {
 				} else {
 					saldo -= 2;
 					lblSaldo.setText("Saldo: " + saldo);
-					a = r.nextInt(iconos.size()); //Genera un número random para elegir la imagen de entre todos los iconos
-					b = r.nextInt(iconos.size());
-					c = r.nextInt(iconos.size());
-					Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-					Icon icon2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-					Icon icon3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-					lblTragap1.setIcon(icon1);
-					lblTragap2.setIcon(icon2);
-					lblTragap3.setIcon(icon3);
-					scoreTirada = Tragaperras.score(a, b, c); //Llamamos al método de la clase tragaperras para calcular los puntos
-					puntos = puntos + scoreTirada;
-					lblPuntaje.setText("Puntos: "+ puntos);
-					lblResult.setText("Has hecho una tirada de "+ scoreTirada +" puntos");
+					play();
+					
 				}
 			}
 		});
 		
 	}
 	
+	public void play() {
+		try {
+			Thread.sleep(400);
+		} catch(Exception e){
+			System.out.println(e);
+		}
+		a = r.nextInt(iconos.size()); //Genera un número random para elegir la imagen de entre todos los iconos
+		b = r.nextInt(iconos.size());
+		c = r.nextInt(iconos.size());
+		Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icon2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icon3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		lblTragap1.setIcon(icon1);
+		lblTragap2.setIcon(icon2);
+		lblTragap3.setIcon(icon3);
+		scoreTirada = Tragaperras.score(a, b, c, true); //Llamamos al método de la clase tragaperras para calcular los puntos
+		puntos = puntos + scoreTirada;
+		lblPuntaje.setText("Puntos: "+ puntos);
+		lblResult.setText("Has hecho una tirada de "+ scoreTirada +" puntos");
+		if (a==8||b==8||c==8) { //SI HAY UN TREBOL, NUEVA TIRADA
+			try{
+				Thread.sleep(400);
+				JOptionPane.showMessageDialog(null, "Tienes una tirada gratis", "Suerte!!", JOptionPane.INFORMATION_MESSAGE);
+			} catch(Exception e) {
+				System.out.println(e);
+			}
+			play();
+		}
+	}
+	
+	//Cambiamos el cursor para cuando se entra a un boton o al label de ayuda
+	public void mouseEntered(MouseEvent e) {
+		if(e.getSource() == lblAyuda || e.getSource() == btnPlay || e.getSource() == btnMenu || e.getSource() == btnAniadir) {
+			lblAyuda.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			btnPlay.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			btnMenu.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			btnAniadir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		}
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		if(e.getSource() == lblAyuda) {
+			
+		}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
 }

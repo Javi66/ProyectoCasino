@@ -15,12 +15,14 @@ public class Tragaperras extends Juego{
 	* iconos(9) = uva
 	*/
 	
-	public static int score(int a, int b, int c) {
+	public static int score(int a, int b, int c, boolean primeraVez) {
 		int sc = 0;
 		//CADA SIGNO DE DOLAR SUMA 200PTS (no dan recompensa por linea)
-		if(a==5) {sc += 200;}
-		if(b==5) {sc += 200;}
-		if(c==5) {sc += 200;}
+		if(primeraVez) {
+			if(a==5) {sc += 200;}
+			if(b==5) {sc += 200;}
+			if(c==5) {sc += 200;}
+		}
 		
 		//AJUSTAMOS SCORE CUANDO SE HACE LINEA DE 3
 		//Todos los casos con 3 coincidentes 2 con comodin, o 1 con dos comodines
@@ -40,40 +42,40 @@ public class Tragaperras extends Juego{
 			}
 			
 		//Todos los casos con 2 coincidentes y sin comodines
-		}else if(a==b||b==c||a==c && a!=5||b!=5){		
+		}else if(a==b||b==c||a==c && (a!=5||b!=5)){		
 			if(a==0 && b==0||b==0 && c==0||a==0 && c==0) {				//2 7s
-				sc = 200;
+				sc += 200;
 			}else if(a==2 && b==2||b==2 && c==2||a==2 && c==2){			//2 Campanas
-				sc = 150;
+				sc += 150;
 			}else if(a==4 && b==4||b==4 && c==4||a==4 && c==4){			//2 Diamantes
-				sc = 175;
+				sc += 175;
 			}else if(a==8 && b==8||b==8 && c==8||a==8 && c==8){			//2 Trebol
-				sc = 100;
+				sc += 100;
 			}else if(a==3||a==6||a==7||a==9||b==3||b==6||b==7||b==9){			//2 Frutas
-				sc = 50;
+				sc += 50;
 			}
 			
 		//Ninguna coincide pero hay un comodín	
 		}else if(a==1||b==1||c==1){ 
 			if(a==1) {
-				if(score(b,b,c)>score(c,b,c)){
-					sc = score(b,b,c);		//Como es un comodín, volvemos a llamar a la función score con el valor que obtenga un resultado mayor (RECURSIVIDAD)
+				if(score(b,b,c, false)>score(c,b,c, false)){
+					sc += score(b,b,c, false);		//Como es un comodín, volvemos a llamar a la función score con el valor que obtenga un resultado mayor (RECURSIVIDAD)
 				} else {
-					sc = score(c,b,c);
+					sc += score(c,b,c, false);
 				}
 			}
 			if(b==1) {
-				if(score(a,a,c)>score(a,c,c)){
-					sc = score(a,a,c);
+				if(score(a,a,c, false)>score(a,c,c, false)){
+					sc += score(a,a,c, false);
 				} else {
-					sc = score(a,c,c);
+					sc += score(a,c,c, false);
 				}
 			}
 			if(c==1) {
-				if(score(a,b,a)>score(a,b,b)){
-					sc = score(a,b,a);
+				if(score(a,b,a, false)>score(a,b,b, false)){
+					sc += score(a,b,a, false);
 				} else {
-					sc = score(a,b,b);
+					sc += score(a,b,b, false);
 				}
 			}
 		}
