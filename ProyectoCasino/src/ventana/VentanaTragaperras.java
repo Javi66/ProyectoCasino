@@ -35,6 +35,7 @@ public class VentanaTragaperras extends JFrame {
 	private JLabel lblInfo;
 	private JLabel lblPuntaje;
 	private JLabel lblUsuario;
+	private JLabel lblResult;
 	
 	private int saldo = 0;
 	private int puntos = 0;
@@ -42,6 +43,7 @@ public class VentanaTragaperras extends JFrame {
 	private int a = 0;
 	private int b = 0;
 	private int c = 0;
+	private int scoreTirada;
 	
 	ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
 	
@@ -169,6 +171,14 @@ public class VentanaTragaperras extends JFrame {
         lblPuntaje.setFont(new java.awt.Font("Arial", 1, 22)); 
         lblPuntaje.setForeground(new java.awt.Color(51, 51, 51));
         lblPuntaje.setBounds(50, 150, 250, 40);
+        
+        lblResult = new JLabel("", SwingConstants.CENTER);
+		lblResult.setBounds(100, 400, 690, 150);
+		lblResult.setOpaque(true);
+		lblResult.setBackground(new java.awt.Color(51, 51, 51));
+		lblResult.setForeground(Color.WHITE);
+		lblResult.setFont(new java.awt.Font("Arial", 1, 30));
+		getContentPane().add(lblResult);
 		
 		btnAniadir = new JButton("Añadir dinero");
         btnAniadir.addActionListener(new ActionListener() {
@@ -195,12 +205,6 @@ public class VentanaTragaperras extends JFrame {
 		JLabel lblTragap1 = new JLabel();
 		JLabel lblTragap2 = new JLabel();
 		JLabel lblTragap3 = new JLabel();
-		
-		Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-		
-		lblTragap1.setIcon(icon1);
-		lblTragap2.setIcon(iconos.get(b));
-		lblTragap3.setIcon(iconos.get(c));
 		
 		//creamos panel tragaperras
 		JPanel panelTragap = new JPanel();
@@ -245,16 +249,26 @@ public class VentanaTragaperras extends JFrame {
 							.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 				);
 		
+		//Ajustamos los iconos que saldrán en la tragaperras
 		panelTragap1.add(lblTragap1);
 		panelTragap2.add(lblTragap2);
 		panelTragap3.add(lblTragap3);
 		
-		lblTragap1.setBounds(0,0,210,210);
-		lblTragap2.setBounds(0,0,210,210);
-		lblTragap3.setBounds(0,0,210,210);
+		lblTragap1.setBounds(2,2,206,206);
+		lblTragap2.setBounds(2,2,210,210);
+		lblTragap3.setBounds(2,2,210,210);
+		
+		Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icon2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icon3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		
+		lblTragap1.setIcon(icon1);
+		lblTragap2.setIcon(icon2);
+		lblTragap3.setIcon(icon3);
 		
 		getContentPane().add(panelTragap);
 		
+		//Accion que realiza el boton Play
 		btnPlay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(saldo<=1) {
@@ -263,14 +277,19 @@ public class VentanaTragaperras extends JFrame {
 				} else {
 					saldo -= 2;
 					lblSaldo.setText("Saldo: " + saldo);
-					a = r.nextInt(iconos.size());
+					a = r.nextInt(iconos.size()); //Genera un número random para elegir la imagen de entre todos los iconos
 					b = r.nextInt(iconos.size());
 					c = r.nextInt(iconos.size());
-					lblTragap1.setIcon(iconos.get(a));
-					lblTragap2.setIcon(iconos.get(b));
-					lblTragap3.setIcon(iconos.get(c));
-					puntos = puntos + Tragaperras.score(puntos, a, b, c);
+					Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+					Icon icon2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+					Icon icon3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+					lblTragap1.setIcon(icon1);
+					lblTragap2.setIcon(icon2);
+					lblTragap3.setIcon(icon3);
+					scoreTirada = Tragaperras.score(a, b, c); //Llamamos al método de la clase tragaperras para calcular los puntos
+					puntos = puntos + scoreTirada;
 					lblPuntaje.setText("Puntos: "+ puntos);
+					lblResult.setText("Has hecho una tirada de "+ scoreTirada +" puntos");
 				}
 			}
 		});
