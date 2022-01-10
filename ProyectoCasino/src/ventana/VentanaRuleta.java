@@ -70,23 +70,26 @@ public class VentanaRuleta extends JFrame {
         jPsaldo = new JPanel();
         jLsaldo = new JLabel();
         jBrojo = new JButton();
-        jBrojo.addActionListener(new ActionListener() {
+       jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		eleccion = "rojo";
+        		mensajeTirada(girarRuleta(eleccion));
         	
         	}
         });
         jBverde = new JButton();
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		eleccion = "verde";
+        		mensajeTirada(girarRuleta(eleccion));
         		
         	}
         });
         jBnegro = new JButton();
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		
+        		eleccion = "negro";
+        		mensajeTirada(girarRuleta(eleccion));
         	}
         });
         jLimg = new JLabel();
@@ -339,5 +342,16 @@ public class VentanaRuleta extends JFrame {
 		return ganado;
     };
     
-   
+ 
+	public static void mensajeTirada(boolean ganado) {
+    	if (ganado) {
+    		JOptionPane.showMessageDialog(null, "¡Has ganado!", "Resultado.",JOptionPane.INFORMATION_MESSAGE);
+    		System.out.println("GANADO");
+    	}else {
+    		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado.",JOptionPane.INFORMATION_MESSAGE);
+    		System.out.println("PERDIDO");
+    		
+    	}
+    	
+    }
 }
