@@ -17,6 +17,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Properties;
 import java.awt.Color;
 import java.awt.Font;
@@ -252,10 +253,49 @@ public class VentanaRuleta extends JFrame {
         	
         	}
         } );
-        
+        HashMap<Integer,String> ruletamap = new HashMap();
+        ruletamap.put(0, "verde");
+        ruletamap.put(1, "rojo");
+        ruletamap.put(2, "negro");
+        ruletamap.put(3, "rojo");
+        ruletamap.put(4, "negro");
+        ruletamap.put(5, "rojo");
+        ruletamap.put(6, "negro");
+        ruletamap.put(7, "rojo");
+        ruletamap.put(8, "negro");
+        ruletamap.put(9, "rojo");
+        ruletamap.put(10, "negro");
+        ruletamap.put(11, "negro");
+        ruletamap.put(12, "rojo");
+        ruletamap.put(13, "negro");
+        ruletamap.put(14, "rojo");
+        ruletamap.put(15, "negro");
+        ruletamap.put(16, "rojo");
+        ruletamap.put(17, "negro");
+        ruletamap.put(18, "rojo");
+        ruletamap.put(19, "rojo");
+        ruletamap.put(20, "negro");
+        ruletamap.put(21, "rojo");
+        ruletamap.put(22, "negro");
+        ruletamap.put(23, "rojo");
+        ruletamap.put(24, "negro");
+        ruletamap.put(25, "rojo");
+        ruletamap.put(26, "negro");
+        ruletamap.put(27, "rojo");
+        ruletamap.put(28, "negro");
+        ruletamap.put(29, "negro");
+        ruletamap.put(30, "rojo");
+        ruletamap.put(31, "negro");
+        ruletamap.put(32, "rojo");
+        ruletamap.put(33, "negro");
+        ruletamap.put(34, "rojo");
+        ruletamap.put(35, "negro");
+        ruletamap.put(36, "rojo");
+     
        
     }
     
+   
 
 
     public static void main(String args[]) {

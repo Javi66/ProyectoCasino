@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Ruleta extends Juego {
 
-	private int casillas= 37;
+	private int numeros= 36;
 	private String color;
 	
 	
@@ -12,18 +12,18 @@ public class Ruleta extends Juego {
 		super();
 	}
 
-	public Ruleta(int casillas, String color) {
+	public Ruleta(int numeros, String color) {
 		super();
-		this.casillas = casillas;
+		this.numeros = numeros;
 		this.color = color;
 	}
 
 	public int getCasillas() {
-		return casillas;
+		return numeros;
 	}
 
-	public void setCasillas(int casillas) {
-		this.casillas = casillas;
+	public void setCasillas(int numeros) {
+		this.numeros = numeros;
 	}
 	
 	public String getColor() {
@@ -36,18 +36,18 @@ public class Ruleta extends Juego {
 
 	@Override
 	public String toString() {
-		return "Ruleta [casillas=" + casillas + ", color=" + color + ", getCasillas()=" + getCasillas()
+		return "Ruleta [numeros=" + numeros + ", color=" + color + ", getCasillas()=" + getCasillas()
 				+ ", getColor()=" + getColor() + ", getGiros()=" + getGiros() + ", getDineroapostado()="
 				+ getDineroapostado() + ", getUsuario()=" + getUsuario() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
 	 public int giraRuleta (){
 	        
-	        int posicion;
+	        int numero;
 	        Random random = new Random();
-	        //Calcular una posicion aleatoria de la ruleta
-	        posicion = random.nextInt(casillas);
-	        return posicion;
+	        //Calcular un numero aleatoria de la ruleta
+	        numero = random.nextInt(numeros);
+	        return numero;
 	    }
 	
 
