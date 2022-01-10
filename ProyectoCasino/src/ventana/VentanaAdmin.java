@@ -189,6 +189,17 @@ public class VentanaAdmin extends JFrame{
 			}
 		});
 	}
-	
+
+	//MÃ©️todo que recorre la informaciÃ³n de los usuarios de forma recursiva y los escribe en un fichero de texto
+		@SuppressWarnings("unused")
+		private void escribirUsuariosEnFichero(int fila, DefaultTableModel mDatos, PrintWriter pw) {
+			if(fila<mDatos.getRowCount()) {
+				String dni = (String) mDatos.getValueAt(fila, 0);
+				String nom = (String)mDatos.getValueAt(fila, 1);
+				int edad = (int)mDatos.getValueAt(fila, 3);
+				pw.println(dni+" "+nom+" "+edad);
+				escribirUsuariosEnFichero(fila+1, mDatos, pw);
+			}
+		
 	
 }
