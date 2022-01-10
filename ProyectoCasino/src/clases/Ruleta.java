@@ -41,14 +41,15 @@ public class Ruleta extends Juego {
 				+ getDineroapostado() + ", getUsuario()=" + getUsuario() + ", toString()=" + super.toString()
 				+ ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + "]";
 	}
-	 public int giraRuleta (){
-	        
-	        int numero;
-	        Random random = new Random();
-	        //Calcular un numero aleatoria de la ruleta
-	        numero = random.nextInt(numeros);
-	        return numero;
-	    }
+	
+	public int giraRuleta (){
+        
+        int numero;
+        Random random = new Random();
+        //Calcular un numero aleatoria de la ruleta
+        numero = random.nextInt(numeros);
+        return numero;
+    }
 	
 
 }

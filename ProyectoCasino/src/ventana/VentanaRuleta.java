@@ -291,6 +291,7 @@ public class VentanaRuleta extends JFrame {
         ruletamap.put(34, "rojo");
         ruletamap.put(35, "negro");
         ruletamap.put(36, "rojo");
+        
      
        
     }
