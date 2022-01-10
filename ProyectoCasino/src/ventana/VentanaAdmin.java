@@ -1,5 +1,6 @@
 package ventana;
 
+import java.io.PrintWriter;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -201,5 +202,5 @@ public class VentanaAdmin extends JFrame{
 				escribirUsuariosEnFichero(fila+1, mDatos, pw);
 			}
 		
-	
+		}	
 }
