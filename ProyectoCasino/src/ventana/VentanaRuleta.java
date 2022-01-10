@@ -43,7 +43,9 @@ public class VentanaRuleta extends JFrame {
 	 private int saldo= 0;
 	 private String eleccion = "";
 	 public static JLabel lblNumero;
-	
+	 public static boolean ganado = false;
+	 private int puntos = 0;
+	 private JLabel lblpuntos;
 	    
      public VentanaRuleta(String usuario) {
         initComponents(usuario);
@@ -72,24 +74,73 @@ public class VentanaRuleta extends JFrame {
         jBrojo = new JButton();
        jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		eleccion = "rojo";
-        		mensajeTirada(girarRuleta(eleccion));
-        	
+        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+							JOptionPane.ERROR_MESSAGE);
+        		}else{
+        			if(ganado) {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			int tot = puntos + saldo;
+            			lblpuntos.setText("Puntos:"+""+tot);
+            			puntos = tot;
+            			eleccion = "rojo";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}else {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			eleccion = "rojo";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}
+        			
+        		}
         	}
         });
         jBverde = new JButton();
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		eleccion = "verde";
-        		mensajeTirada(girarRuleta(eleccion));
-        		
+        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+							JOptionPane.ERROR_MESSAGE);
+        		}else{
+        			if(ganado) {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			puntos = puntos + 10;
+            			eleccion = "rojo";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}else {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			eleccion = "verde";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}
+        			
+        		}   		
+        	
         	}
         });
         jBnegro = new JButton();
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		eleccion = "negro";
-        		mensajeTirada(girarRuleta(eleccion));
+        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+							JOptionPane.ERROR_MESSAGE);
+        		}else{
+        			if(ganado) {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			puntos = puntos + 10;
+            			eleccion = "rojo";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}else {
+        				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
+            			jLsaldodinero.setText("" + saldo);
+            			eleccion = "negro";
+                		mensajeTirada(girarRuleta(eleccion));
+        			}
+        			
+        		}
         	}
         });
         jLimg = new JLabel();
@@ -123,15 +174,15 @@ public class VentanaRuleta extends JFrame {
    
 
         jTxtapuesta.setFont(new java.awt.Font("Arial", 0, 16));
-        jTxtapuesta.setText("0");
+       
        
         jLsaldo.setFont(new java.awt.Font("Arial", 1, 16)); 
-        jLsaldo.setForeground(new java.awt.Color(51, 51, 51));
+        jLsaldo.setForeground(Color.BLACK);
         jLsaldo.setText("Saldo:");
         
         jLsaldodinero = new JLabel(saldo+"€");
         jLsaldodinero.setFont(new java.awt.Font("Arial", 1, 16)); 
-        jLsaldodinero.setForeground(new java.awt.Color(51, 51, 51));
+        jLsaldodinero.setForeground(Color.BLACK);
 
         javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPsaldo);
         jPanel12Layout.setHorizontalGroup(
@@ -189,6 +240,12 @@ public class VentanaRuleta extends JFrame {
         jBmenu.setBackground(Color.RED);
         
         lblNumero = new JLabel("Numero: ");
+        lblNumero.setForeground(Color.BLACK);
+        lblNumero.setFont(new Font("Tahoma", Font.BOLD, 16));
+        
+        lblpuntos = new JLabel("Puntos:"+" "+puntos);
+        lblpuntos.setForeground(Color.BLACK);
+        lblpuntos.setFont(new Font("Arial", Font.BOLD, 16));
         
         
         
@@ -203,23 +260,26 @@ public class VentanaRuleta extends JFrame {
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
         						.addComponent(jLimg, GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE)
         						.addGroup(layout.createSequentialGroup()
-        							.addComponent(jLapuesta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
-        							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
-        							.addGap(59)
-        							.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
-        						.addGroup(layout.createSequentialGroup()
         							.addComponent(jBrojo, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
         							.addGap(14)
         							.addComponent(jBverde, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
         							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(jBnegro, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)))
+        							.addComponent(jBnegro, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE))
+        						.addGroup(layout.createSequentialGroup()
+        							.addGroup(layout.createParallelGroup(Alignment.TRAILING)
+        								.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
+        								.addGroup(layout.createSequentialGroup()
+        									.addComponent(jLapuesta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
+        									.addPreferredGap(ComponentPlacement.UNRELATED)
+        									.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)))
+        							.addGap(59)
+        							.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE)))
         					.addContainerGap())
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
-        					.addGap(61)
-        					.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
+        					.addGap(8)
+        					.addComponent(lblpuntos, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
         					.addComponent(jBmenu)
         					.addGap(20))))
         );
@@ -228,14 +288,17 @@ public class VentanaRuleta extends JFrame {
         		.addGroup(layout.createSequentialGroup()
         			.addGroup(layout.createParallelGroup(Alignment.LEADING)
         				.addGroup(layout.createSequentialGroup()
-        					.addGap(19)
-        					.addComponent(jBaniadir))
-        				.addGroup(layout.createSequentialGroup()
         					.addContainerGap()
         					.addGroup(layout.createParallelGroup(Alignment.LEADING)
-        						.addComponent(jBmenu)
-        						.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 41, GroupLayout.PREFERRED_SIZE))))
-        			.addGap(18)
+        						.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 33, Short.MAX_VALUE)
+        						.addComponent(jBmenu)))
+        				.addGroup(layout.createSequentialGroup()
+        					.addGap(19)
+        					.addGroup(layout.createParallelGroup(Alignment.BASELINE)
+        						.addComponent(lblpuntos, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+        						.addComponent(jBaniadir))
+        					.addGap(11)))
+        			.addGap(26)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLapuesta)
         				.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
@@ -247,7 +310,7 @@ public class VentanaRuleta extends JFrame {
         				.addComponent(jBrojo, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jBnegro, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
         				.addComponent(jBverde, GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE))
-        			.addContainerGap(22, Short.MAX_VALUE))
+        			.addGap(22))
         );
         getContentPane().setLayout(layout);
 
@@ -287,7 +350,7 @@ public class VentanaRuleta extends JFrame {
     
     
     public static  boolean girarRuleta(String eleccion) {
-    	boolean ganado = false;
+   
     	 HashMap<Integer,String> ruletamap = new HashMap();
          ruletamap.put(0, "verde");
          ruletamap.put(1, "rojo");
