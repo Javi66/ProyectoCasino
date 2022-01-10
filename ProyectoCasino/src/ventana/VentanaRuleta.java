@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Properties;
+import java.util.Random;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Window;
@@ -40,6 +41,8 @@ public class VentanaRuleta extends JFrame {
 	 private JPanel jPsaldo;
 	 private JTextField jTxtapuesta;
 	 private int saldo= 0;
+	 private String eleccion = "";
+	 public static JLabel lblNumero;
 	
 	    
      public VentanaRuleta(String usuario) {
@@ -61,7 +64,6 @@ public class VentanaRuleta extends JFrame {
 			e1.printStackTrace();
 		}
     	
-    	
 
         jFrame1 = new JFrame();
         jTxtapuesta = new JTextField();
@@ -70,16 +72,21 @@ public class VentanaRuleta extends JFrame {
         jBrojo = new JButton();
         jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        	
         	}
         });
         jBverde = new JButton();
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
+        		
         	}
         });
         jBnegro = new JButton();
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+        		
         	}
         });
         jLimg = new JLabel();
@@ -178,6 +185,10 @@ public class VentanaRuleta extends JFrame {
         jBmenu.setFont(new Font("Arial", Font.PLAIN, 14));
         jBmenu.setBackground(Color.RED);
         
+        lblNumero = new JLabel("Numero: ");
+        
+        
+        
        
         GroupLayout layout = new GroupLayout(getContentPane());
         layout.setHorizontalGroup(
@@ -191,7 +202,9 @@ public class VentanaRuleta extends JFrame {
         						.addGroup(layout.createSequentialGroup()
         							.addComponent(jLapuesta, GroupLayout.PREFERRED_SIZE, 89, GroupLayout.PREFERRED_SIZE)
         							.addPreferredGap(ComponentPlacement.UNRELATED)
-        							.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE))
+        							.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, 364, GroupLayout.PREFERRED_SIZE)
+        							.addGap(59)
+        							.addComponent(lblNumero, GroupLayout.PREFERRED_SIZE, 166, GroupLayout.PREFERRED_SIZE))
         						.addGroup(layout.createSequentialGroup()
         							.addComponent(jBrojo, GroupLayout.PREFERRED_SIZE, 228, GroupLayout.PREFERRED_SIZE)
         							.addGap(14)
@@ -203,7 +216,7 @@ public class VentanaRuleta extends JFrame {
         					.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
         					.addGap(61)
         					.addComponent(jBaniadir, GroupLayout.PREFERRED_SIZE, 141, GroupLayout.PREFERRED_SIZE)
-        					.addPreferredGap(ComponentPlacement.RELATED, 281, Short.MAX_VALUE)
+        					.addPreferredGap(ComponentPlacement.RELATED, 303, Short.MAX_VALUE)
         					.addComponent(jBmenu)
         					.addGap(20))))
         );
@@ -222,7 +235,8 @@ public class VentanaRuleta extends JFrame {
         			.addGap(18)
         			.addGroup(layout.createParallelGroup(Alignment.BASELINE)
         				.addComponent(jLapuesta)
-        				.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+        				.addComponent(jTxtapuesta, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+        				.addComponent(lblNumero))
         			.addPreferredGap(ComponentPlacement.UNRELATED)
         			.addComponent(jLimg, GroupLayout.PREFERRED_SIZE, 408, GroupLayout.PREFERRED_SIZE)
         			.addPreferredGap(ComponentPlacement.RELATED)
@@ -253,46 +267,7 @@ public class VentanaRuleta extends JFrame {
         	
         	}
         } );
-        HashMap<Integer,String> ruletamap = new HashMap();
-        ruletamap.put(0, "verde");
-        ruletamap.put(1, "rojo");
-        ruletamap.put(2, "negro");
-        ruletamap.put(3, "rojo");
-        ruletamap.put(4, "negro");
-        ruletamap.put(5, "rojo");
-        ruletamap.put(6, "negro");
-        ruletamap.put(7, "rojo");
-        ruletamap.put(8, "negro");
-        ruletamap.put(9, "rojo");
-        ruletamap.put(10, "negro");
-        ruletamap.put(11, "negro");
-        ruletamap.put(12, "rojo");
-        ruletamap.put(13, "negro");
-        ruletamap.put(14, "rojo");
-        ruletamap.put(15, "negro");
-        ruletamap.put(16, "rojo");
-        ruletamap.put(17, "negro");
-        ruletamap.put(18, "rojo");
-        ruletamap.put(19, "rojo");
-        ruletamap.put(20, "negro");
-        ruletamap.put(21, "rojo");
-        ruletamap.put(22, "negro");
-        ruletamap.put(23, "rojo");
-        ruletamap.put(24, "negro");
-        ruletamap.put(25, "rojo");
-        ruletamap.put(26, "negro");
-        ruletamap.put(27, "rojo");
-        ruletamap.put(28, "negro");
-        ruletamap.put(29, "negro");
-        ruletamap.put(30, "rojo");
-        ruletamap.put(31, "negro");
-        ruletamap.put(32, "rojo");
-        ruletamap.put(33, "negro");
-        ruletamap.put(34, "rojo");
-        ruletamap.put(35, "negro");
-        ruletamap.put(36, "rojo");
-        
-     
+
        
     }
     
@@ -306,4 +281,63 @@ public class VentanaRuleta extends JFrame {
             }
         });
     }
+    
+    
+    public static  boolean girarRuleta(String eleccion) {
+    	boolean ganado = false;
+    	 HashMap<Integer,String> ruletamap = new HashMap();
+         ruletamap.put(0, "verde");
+         ruletamap.put(1, "rojo");
+         ruletamap.put(2, "negro");
+         ruletamap.put(3, "rojo");
+         ruletamap.put(4, "negro");
+         ruletamap.put(5, "rojo");
+         ruletamap.put(6, "negro");
+         ruletamap.put(7, "rojo");
+         ruletamap.put(8, "negro");
+         ruletamap.put(9, "rojo");
+         ruletamap.put(10, "negro");
+         ruletamap.put(11, "negro");
+         ruletamap.put(12, "rojo");
+         ruletamap.put(13, "negro");
+         ruletamap.put(14, "rojo");
+         ruletamap.put(15, "negro");
+         ruletamap.put(16, "rojo");
+         ruletamap.put(17, "negro");
+         ruletamap.put(18, "rojo");
+         ruletamap.put(19, "rojo");
+         ruletamap.put(20, "negro");
+         ruletamap.put(21, "rojo");
+         ruletamap.put(22, "negro");
+         ruletamap.put(23, "rojo");
+         ruletamap.put(24, "negro");
+         ruletamap.put(25, "rojo");
+         ruletamap.put(26, "negro");
+         ruletamap.put(27, "rojo");
+         ruletamap.put(28, "negro");
+         ruletamap.put(29, "negro");
+         ruletamap.put(30, "rojo");
+         ruletamap.put(31, "negro");
+         ruletamap.put(32, "rojo");
+         ruletamap.put(33, "negro");
+         ruletamap.put(34, "rojo");
+         ruletamap.put(35, "negro");
+         ruletamap.put(36, "rojo");
+         
+         Random random = new Random();
+         int numero = random.nextInt(36);
+   
+         System.out.println(numero);
+         lblNumero.setText("Numero:" +" "+String.valueOf(numero) + ", " + ruletamap.get(numero));
+         
+         String color = ruletamap.get(numero);
+         
+         if (color.equals(eleccion)) {
+        	 ganado = true;
+         }
+    	
+		return ganado;
+    };
+    
+   
 }
