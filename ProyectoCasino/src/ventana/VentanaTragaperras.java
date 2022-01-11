@@ -1,10 +1,8 @@
 package ventana;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
@@ -14,6 +12,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -22,6 +21,11 @@ import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.*;
@@ -58,9 +62,12 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	private int c = 0;
 	private int scoreTirada;
 	
+	public Clip clip;
+	
 	ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
 	
 	private Random r = new Random();
+	
 	
 	public static void main(String[] args) {
 		VentanaTragaperras frame = new VentanaTragaperras("");
@@ -352,6 +359,7 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	}
 	
 	public void play() {
+		ReproducirSonido("tragamonedas.wav");
 		try {
 			Thread.sleep(400);
 		} catch(Exception e){
@@ -431,5 +439,21 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void ReproducirSonido(String archivo){
+		String path = new File("").getAbsolutePath() + "\\src\\audios\\"+archivo+"";
+        File sound = new File(path);
+
+        try {
+            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+            Clip c = AudioSystem.getClip();
+            c.open(ais); 
+            c.start(); 
+
+            Thread.sleep((int)(c.getMicrosecondLength() * 0.001));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+	 }
 	
 }

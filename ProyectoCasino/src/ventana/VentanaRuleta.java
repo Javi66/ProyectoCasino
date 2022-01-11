@@ -85,6 +85,7 @@ public class VentanaRuleta extends JFrame {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
@@ -114,6 +115,7 @@ public class VentanaRuleta extends JFrame {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
@@ -144,6 +146,7 @@ public class VentanaRuleta extends JFrame {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
