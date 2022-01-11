@@ -51,9 +51,11 @@ public class VentanaRuleta extends JFrame {
 	 public static boolean ganado = false;
 	 private int puntos = 0;
 	 private JLabel lblpuntos;
+	 private int numpartida;
 	    
      public VentanaRuleta(String usuario) {
         initComponents(usuario);
+        setLocationRelativeTo(null);
     }
   
     private void initComponents(String usuario) {
@@ -79,23 +81,27 @@ public class VentanaRuleta extends JFrame {
         jBrojo = new JButton();
        jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
+        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			try {
+						Thread.sleep(400);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+        			eleccion = "rojo";
+        			ganado = girarRuleta(eleccion);
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
-            			lblpuntos.setText("Puntos:"+""+totganado);
-            			puntos = totganado;
-            			eleccion = "rojo";
-                		mensajeTirada(girarRuleta(eleccion));
+            			puntos = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
+            			lblpuntos.setText("Puntos: "+puntos);
+                		mensajeTirada(true);
         			}else {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			eleccion = "rojo";
-                		mensajeTirada(girarRuleta(eleccion));
+                		mensajeTirada(false);
         			}
         			
         		}
@@ -104,23 +110,27 @@ public class VentanaRuleta extends JFrame {
         jBverde = new JButton();
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
+        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			try {
+						Thread.sleep(400);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+        			eleccion = "verde";
+        			ganado = girarRuleta(eleccion);
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
-            			lblpuntos.setText("Puntos:"+""+totganado);
-            			puntos = totganado;
-            			eleccion = "verde";
-                		mensajeTirada(girarRuleta(eleccion));
+            			puntos = puntos + Integer.parseInt(jTxtapuesta.getText())*200;
+            			lblpuntos.setText("Puntos: "+puntos);
+                		mensajeTirada(true);
         			}else {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			eleccion = "verde";
-                		mensajeTirada(girarRuleta(eleccion));
+                		mensajeTirada(false);
         			}
         			
         		}   		
@@ -130,23 +140,27 @@ public class VentanaRuleta extends JFrame {
         jBnegro = new JButton();
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
+        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
+        			try {
+						Thread.sleep(400);
+					} catch (InterruptedException e1) {
+						e1.printStackTrace();
+					}
+        			eleccion = "negro";
+        			ganado = girarRuleta(eleccion);
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
-            			lblpuntos.setText("Puntos:"+""+totganado);
-            			puntos = totganado;
-            			eleccion = "negro";
-                		mensajeTirada(girarRuleta(eleccion));
+            			puntos = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
+            			lblpuntos.setText("Puntos: "+puntos);
+                		mensajeTirada(true);
         			}else {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			eleccion = "negro";
-                		mensajeTirada(girarRuleta(eleccion));
+                		mensajeTirada(false);
         			}
         			
         		}
@@ -160,7 +174,7 @@ public class VentanaRuleta extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		int cant = Integer.parseInt(JOptionPane.showInputDialog("Introduce el dinero que quieres ingresar: "));
         		int tot = cant +saldo;
-        		jLsaldodinero.setText(tot+"€");
+        		jLsaldodinero.setText(tot+"$");
         		saldo = tot;
         	}
         });
@@ -189,7 +203,7 @@ public class VentanaRuleta extends JFrame {
         jLsaldo.setForeground(Color.BLACK);
         jLsaldo.setText("Saldo:");
         
-        jLsaldodinero = new JLabel(saldo+"€");
+        jLsaldodinero = new JLabel(saldo+" $");
         jLsaldodinero.setFont(new java.awt.Font("Arial", 1, 16)); 
         jLsaldodinero.setForeground(Color.BLACK);
 
@@ -242,6 +256,9 @@ public class VentanaRuleta extends JFrame {
         	public void actionPerformed(ActionEvent e) {
 				try {
 					Db.initDB("casino1.db", false);
+					numpartida = Db.obtenerPartidas(usuario) + 1;
+					Ranking r = new Ranking("Ruleta", usuario, numpartida, puntos);
+					Db.anadirRanking(r);
 					Db.closeBD();
 					} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -250,20 +267,12 @@ public class VentanaRuleta extends JFrame {
         		Main m = new Main(usuario);
         		m.setVisible(true);
         		dispose();
-        		Main.activarBotones();
-        	}
-        });
-        jBmenu.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Main m = new Main(usuario);
-        		m.setVisible(true);
-        		dispose();
         		if(usuario!="") {
         			Main.activarBotones();
         		}
-			}
-		});
+        	}
+        });
+       
         
         jBmenu.setFont(new Font("Arial", Font.PLAIN, 14));
         jBmenu.setBackground(Color.RED);
@@ -307,7 +316,7 @@ public class VentanaRuleta extends JFrame {
         				.addGroup(layout.createSequentialGroup()
         					.addComponent(jPsaldo, GroupLayout.PREFERRED_SIZE, 127, GroupLayout.PREFERRED_SIZE)
         					.addGap(8)
-        					.addComponent(lblpuntos, GroupLayout.PREFERRED_SIZE, 86, GroupLayout.PREFERRED_SIZE)
+        					.addComponent(lblpuntos, GroupLayout.PREFERRED_SIZE, 110, GroupLayout.PREFERRED_SIZE)
         					.addPreferredGap(ComponentPlacement.RELATED, 411, Short.MAX_VALUE)
         					.addComponent(jBmenu)
         					.addGap(20))))
@@ -426,6 +435,8 @@ public class VentanaRuleta extends JFrame {
          
          if (color.equals(eleccion)) {
         	 ganado = true;
+         } else {
+        	 ganado = false;
          }
     	
 		return ganado;
@@ -434,7 +445,7 @@ public class VentanaRuleta extends JFrame {
  
 	public static void mensajeTirada(boolean ganado) {
     	if (ganado) {
-    		JOptionPane.showMessageDialog(null, "¡Has ganado!", "Resultado.",JOptionPane.INFORMATION_MESSAGE);
+    		JOptionPane.showMessageDialog(null, "�Has ganado!", "Resultado.",JOptionPane.INFORMATION_MESSAGE);
     		System.out.println("GANADO");
     	}else {
     		JOptionPane.showMessageDialog(null, "Has perdido", "Resultado.",JOptionPane.INFORMATION_MESSAGE);
