@@ -12,8 +12,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Random;
 
 import javax.swing.*;
@@ -91,6 +97,34 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 		p.setBorder(new EmptyBorder(5,5,5,5));
 		p.setLayout(null);
 		setContentPane(p);
+		
+		//Cargamos el saldo del fichero properties
+		Properties properties = new Properties();
+		try {
+			properties.loadFromXML(new FileInputStream("properties.xml"));
+			if (properties.containsKey(usuario)) {
+				saldo = Integer.parseInt(properties.getProperty(usuario));
+			}
+	    	
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		 this.addWindowListener( new WindowAdapter() {
+	        	public void windowClosing( WindowEvent evt ) {
+	        	
+	        	
+	        	properties.setProperty(usuario, String.valueOf(saldo));
+	        	try {
+					properties.storeToXML(new FileOutputStream("properties.xml"), "casino");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	      	
+	        	}
+		 });
 		
 		//rellenamos arraylist de iconos 
 		ImageIcon siete = new ImageIcon((getClass().getResource("/images/7.jpg")));
@@ -397,4 +431,5 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
