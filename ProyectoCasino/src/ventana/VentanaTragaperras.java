@@ -30,6 +30,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.*;
 
+import clases.Juego;
 import clases.Ranking;
 import clases.Tragaperras;
 import database.Db;
@@ -182,6 +183,13 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
         		m.setVisible(true);
         		dispose();
         		Main.activarBotones();
+        		properties.setProperty(usuario, String.valueOf(saldo));
+            	try {
+    				properties.storeToXML(new FileOutputStream("properties.xml"), "casino");
+    			} catch (IOException ex) {
+    				// TODO Auto-generated catch block
+    				ex.printStackTrace();
+    			}
         	}
 		});
 		
@@ -359,7 +367,7 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	}
 	
 	public void play() {
-		ReproducirSonido("tragamonedas.wav");
+		Juego.ReproducirSonido("tragamonedas.wav");
 		try {
 			Thread.sleep(400);
 		} catch(Exception e){
@@ -440,20 +448,5 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 		
 	}
 	
-	public static void ReproducirSonido(String archivo){
-		String path = new File("").getAbsolutePath() + "\\src\\audios\\"+archivo+"";
-        File sound = new File(path);
-
-        try {
-            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
-            Clip c = AudioSystem.getClip();
-            c.open(ais); 
-            c.start(); 
-
-            Thread.sleep((int)(c.getMicrosecondLength() * 0.001));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-	 }
 	
 }

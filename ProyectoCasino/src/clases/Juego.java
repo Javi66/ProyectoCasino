@@ -66,16 +66,21 @@ public abstract class Juego {
 		}
 		
 		
-		public static void ReproducirSonido(String nombreSonido){
-		       try {
-		        AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
-		        Clip clip = AudioSystem.getClip();
-		        clip.open(audioInputStream);
-		        clip.start();
-		       } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
-		         System.out.println("Error al reproducir el sonido.");
-		       }
-		}
+		public static void ReproducirSonido(String archivo){
+			String path = new File("").getAbsolutePath() + "\\src\\audios\\"+archivo+"";
+	        File sound = new File(path);
+
+	        try {
+	            AudioInputStream ais = AudioSystem.getAudioInputStream(sound);
+	            Clip c = AudioSystem.getClip();
+	            c.open(ais); 
+	            c.start(); 
+
+	            Thread.sleep((int)(c.getMicrosecondLength() * 0.001));
+	        } catch (Exception e) {
+	            System.out.println(e.getMessage());
+	        }
+		 }
 		
 	
 

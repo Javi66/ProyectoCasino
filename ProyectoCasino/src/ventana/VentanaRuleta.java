@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import clases.Juego;
 import clases.Ranking;
 import database.Db;
 
@@ -81,11 +82,11 @@ public class VentanaRuleta extends JFrame {
         jBrojo = new JButton();
        jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        		if(saldo<Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
-        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
+        			Juego.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
@@ -111,11 +112,11 @@ public class VentanaRuleta extends JFrame {
         jBverde = new JButton();
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        		if(saldo<Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
-        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
+        			Juego.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
@@ -142,11 +143,11 @@ public class VentanaRuleta extends JFrame {
         jBnegro = new JButton();
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		if(saldo<=Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
+        		if(saldo<Integer.parseInt(jTxtapuesta.getText())||jTxtapuesta.getText().isEmpty()) {
         			JOptionPane.showMessageDialog(null, "Apuesta una cantidad que te puedas permitir", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
-        			VentanaTragaperras.ReproducirSonido("ruleta.wav");
+        			Juego.ReproducirSonido("ruleta.wav");
         			try {
 						Thread.sleep(400);
 					} catch (InterruptedException e1) {
@@ -273,6 +274,13 @@ public class VentanaRuleta extends JFrame {
         		if(usuario!="") {
         			Main.activarBotones();
         		}
+        		properties.setProperty(usuario, String.valueOf(saldo));
+            	try {
+    				properties.storeToXML(new FileOutputStream("properties.xml"), "casino");
+    			} catch (IOException ex) {
+    				// TODO Auto-generated catch block
+    				ex.printStackTrace();
+    			}
         	}
         });
        
