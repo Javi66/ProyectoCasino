@@ -10,6 +10,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import clases.Ranking;
+import database.Db;
+
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -17,6 +21,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
 import java.util.Random;
@@ -75,15 +80,15 @@ public class VentanaRuleta extends JFrame {
        jBrojo.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			int tot = puntos + saldo;
-            			lblpuntos.setText("Puntos:"+""+tot);
-            			puntos = tot;
+            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
+            			lblpuntos.setText("Puntos:"+""+totganado);
+            			puntos = totganado;
             			eleccion = "rojo";
                 		mensajeTirada(girarRuleta(eleccion));
         			}else {
@@ -100,14 +105,16 @@ public class VentanaRuleta extends JFrame {
         jBverde.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			puntos = puntos + 10;
-            			eleccion = "rojo";
+            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
+            			lblpuntos.setText("Puntos:"+""+totganado);
+            			puntos = totganado;
+            			eleccion = "verde";
                 		mensajeTirada(girarRuleta(eleccion));
         			}else {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
@@ -124,14 +131,16 @@ public class VentanaRuleta extends JFrame {
         jBnegro.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		if(saldo<=1||jTxtapuesta.getText().isEmpty()) {
-        			JOptionPane.showMessageDialog(null, "No tienes saldo", "Error",
+        			JOptionPane.showMessageDialog(null, "Apuesta dinero", "Error",
 							JOptionPane.ERROR_MESSAGE);
         		}else{
         			if(ganado) {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
             			jLsaldodinero.setText("" + saldo);
-            			puntos = puntos + 10;
-            			eleccion = "rojo";
+            			int totganado = puntos + Integer.parseInt(jTxtapuesta.getText())*10;
+            			lblpuntos.setText("Puntos:"+""+totganado);
+            			puntos = totganado;
+            			eleccion = "negro";
                 		mensajeTirada(girarRuleta(eleccion));
         			}else {
         				saldo = saldo- Integer.parseInt(jTxtapuesta.getText());
@@ -231,11 +240,31 @@ public class VentanaRuleta extends JFrame {
         jBmenu = new JButton("Menu");
         jBmenu.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
+				try {
+					Db.initDB("casino1.db", false);
+					Db.closeBD();
+					} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         		Main m = new Main(usuario);
         		m.setVisible(true);
         		dispose();
+        		Main.activarBotones();
         	}
         });
+        jBmenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Main m = new Main(usuario);
+        		m.setVisible(true);
+        		dispose();
+        		if(usuario!="") {
+        			Main.activarBotones();
+        		}
+			}
+		});
+        
         jBmenu.setFont(new Font("Arial", Font.PLAIN, 14));
         jBmenu.setBackground(Color.RED);
         
@@ -327,10 +356,7 @@ public class VentanaRuleta extends JFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-   
-        	
-        	
-        	
+      	
         	}
         } );
 
