@@ -360,7 +360,22 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(e.getSource() == lblAyuda) {
-			
+			JOptionPane.showMessageDialog(lblAyuda, " 777 = 1000pts"
+					+ "\n 77 = 200pts"
+					+ "\n 3 Diamantes = 850pts"
+					+ "\n 2 Diamantes = 175pts"
+					+ "\n 3 Campanas = 750pts"
+					+ "\n 2 Campanas = 150pts"
+					+ "\n 3 Treboles o 3 Comodines (BAR) = 500pts"
+					+ "\n 2 Treboles = 100pts"
+					+ "\n 3 Frutas = 250pts"
+					+ "\n 2 Frutas = 50pts"
+					+ "\n "
+					+ "\n SIGNOS ESPECIALES:"
+					+ "\n Cada dolar son 200pts adicionales"
+					+ "\n Si hay un trebol es una tirada gratis adicional"
+					+ "\n Cada 'BAR' es un comodin, y actua como la combinacion que de mas puntos", "Ayuda: Tabla de Puntuaciones", 3);
+			 
 		}
 		
 	}

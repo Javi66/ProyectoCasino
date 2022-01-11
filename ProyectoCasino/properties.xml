@@ -1,8 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 <comment>casino</comment>
-<entry key="saldo">60</entry>
-<entry key="8">66</entry>
 <entry key="">60</entry>
+<entry key="8">66</entry>
+<entry key="juan">509</entry>
+<entry key="saldo">60</entry>
 </properties>
