@@ -82,7 +82,17 @@ public class VentanaAdmin extends JFrame{
 				Db.closeBD();
 			}
 		});
+		JButton salir = new JButton("Salir");
+		salir.setFont(new Font( "Arial", Font.PLAIN, 12));
 		
+		salir.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				Main vl = new Main("");
+				vl.setVisible(true);
+			}
+		});
 		JButton borrar = new JButton( "Borrar" );
 		borrar.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add( borrar );
@@ -123,6 +133,7 @@ public class VentanaAdmin extends JFrame{
 		});
 		baniadir.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add(baniadir);
+		pBotonera.add( salir );
 		
 				
 	}

@@ -79,17 +79,30 @@ public class VentanaLogin extends JFrame{
 			public void actionPerformed(ActionEvent arg0) {
 				String usuario = textousuario.getText();
 				String contrasenya = String.valueOf(textocontra.getPassword());
+				String admin = "admin";
 				if (usuario.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe un nombre de usuario", "Error", JOptionPane.ERROR_MESSAGE);
 				} else if (contrasenya.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contrase�a", "Error", JOptionPane.ERROR_MESSAGE);
-				} else {
+				} else if( usuario.equals(admin)  && contrasenya.equals(admin)) {
+				
+					JOptionPane.showMessageDialog(null, "Bienvenido administrador " , "Credenciales correctas.", JOptionPane.INFORMATION_MESSAGE);
+					//Si el usuario es correcto cerramos esta y abrimos la principal
+					dispose();
+					
+					Main vl = new Main(usuario);
+					vl.setVisible(true);
+					Main.activarBotones();
+					Main.activarBotonAdmin();
+				}  else {
 					try {
 						Db.initDB("casino1.db", false);
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
+					
 					TreeMap<String, Usuario> tmUsuarios = new TreeMap<>();
 					tmUsuarios = Db.obtenerMapaUsuario();
 					if(tmUsuarios.containsKey(usuario)) {

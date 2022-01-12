@@ -46,6 +46,7 @@ public class Main extends JFrame implements ActionListener {
 	private static JButton btnRuleta;
 	private static JButton btnTragaperras;
 	private JButton btnRanking;
+	private static JButton btnAdmin;
 	
 	
 	/**
@@ -121,7 +122,9 @@ public class Main extends JFrame implements ActionListener {
 		btnSalir = new JButton("Salir");
 		btnSalir.setForeground(new Color(0, 0, 0));
 		btnSalir.setFont(new Font("Tahoma", Font.BOLD, 12));
-
+		btnAdmin= new JButton("Administracion");
+		btnAdmin.setForeground(new Color(0, 0, 0));
+		btnAdmin.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnSalir.addActionListener(this);
 		try {
 			btnRanking = new JButton();
@@ -158,9 +161,22 @@ public class Main extends JFrame implements ActionListener {
 				vt.setVisible(true);
 			}
 		});
+		
 		btnTragaperras.setForeground(Color.BLACK);
 		btnTragaperras.setFont(new Font("Tahoma", Font.BOLD, 12));
-		
+		btnAdmin.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				VentanaAdmin va= new VentanaAdmin();
+				va.setSize(1000, 500);
+				dispose();
+				va.setVisible(true);
+			}
+			
+		});
+		getContentPane().add(btnAdmin);
+		btnAdmin.setVisible(false);
 		btnRanking.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				VentanaRanking vR= new VentanaRanking(nomUsuario);
@@ -183,7 +199,8 @@ public class Main extends JFrame implements ActionListener {
 							.addComponent(btnTragaperras, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnRuleta, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 							.addComponent(btnIniciarSesion, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
+							.addComponent(btnRegistrarse, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+							.addComponent(btnAdmin, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE))
 					)
 					.addContainerGap(31, Short.MAX_VALUE))
 		);
@@ -197,6 +214,8 @@ public class Main extends JFrame implements ActionListener {
 					.addComponent(btnRuleta, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnTragaperras, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnAdmin, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSalir, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(70, Short.MAX_VALUE))
@@ -282,6 +301,9 @@ reloj.start();
 			btnRuleta.setEnabled(true);
 			btnTragaperras.setEnabled(true);
 		 
+		}
+		public static void activarBotonAdmin(){
+			btnAdmin.setVisible(true);
 		}
 }
 		
