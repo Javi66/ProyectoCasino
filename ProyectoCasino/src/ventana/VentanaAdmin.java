@@ -37,22 +37,25 @@ public class VentanaAdmin extends JFrame{
 	private JTable table;
 	private ArrayList<Usuario> usuarios;
 	public static void main(String[] args) {
-		VentanaAdmin va = new VentanaAdmin();
-		va.getContentPane().setBackground(Color.BLACK);
-		va.setTitle("Ventana Admin");
-		va.setSize(1000, 500);
-		va.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		VentanaAdmin va = new VentanaAdmin("admin");
 		va.setVisible(true);
 		
 		}
 	
-	public VentanaAdmin() {
+	public VentanaAdmin(String admin) {
+		
+		getContentPane().setBackground(Color.BLACK);
+		setTitle("Ventana Admin");
+		setSize(1300, 500);
+		setLocationRelativeTo(null);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panel = new JPanel();
 		getContentPane().add(panel, BorderLayout.CENTER);
 		panel.setLayout(null);
 		table = new JTable();
 		table.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
+		
 		JPanel pBotonera = new JPanel();
 		getContentPane().add( new JScrollPane(table), BorderLayout.CENTER );
 		getContentPane().add( pBotonera, BorderLayout.SOUTH );
@@ -60,7 +63,7 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void windowOpened(WindowEvent e) {
 				if (new File("casino1.db").exists()) {
-					// Poner el parámetro a true si se quiere reiniciar la base de datos
+					// Poner el parÃ¡metro a true si se quiere reiniciar la base de datos
 					try {
 						Db.initDB( "casino1.db", false );
 					} catch (SQLException e1) {
@@ -75,7 +78,7 @@ public class VentanaAdmin extends JFrame{
 						e1.printStackTrace();
 					}  // Crear base de datos con datos iniciales
 				}
-				verUsuarios();  // Según se inicia la ventana se visualizan los productos
+				verUsuarios();  // SegÃºn se inicia la ventana se visualizan los productos
 			}
 			@Override
 			public void windowClosed(WindowEvent e) {
@@ -89,8 +92,9 @@ public class VentanaAdmin extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				dispose();
-				Main vl = new Main("");
+				Main vl = new Main(admin);
 				vl.setVisible(true);
+				Main.activarBotones();
 			}
 		});
 		JButton borrar = new JButton( "Borrar" );
@@ -114,7 +118,7 @@ public class VentanaAdmin extends JFrame{
 			}
 		});
 		
-		JButton baniadir = new JButton("Añadir");
+		JButton baniadir = new JButton("AÃ±adir");
 		baniadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String dni =  JOptionPane.showInputDialog("Introduce el dni: ");
@@ -142,7 +146,7 @@ public class VentanaAdmin extends JFrame{
 	private void verUsuarios() {
 		Vector<String> cabeceras = new Vector<String>( Arrays.asList( "Dni", "Nombre","Apellido","Edad","Gmail", "Nombre usuario","Contrasenia","Tarjeta" ) );
 		mDatos = new DefaultTableModel(  // Inicializa el modelo
-			new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacíos de momento
+			new Vector<Vector<Object>>(),  // Datos de la jtable (vector de vectores) - vacÃ­os de momento
 			cabeceras  // Cabeceras de la jtable
 				) {
 			
@@ -159,7 +163,7 @@ public class VentanaAdmin extends JFrame{
 			mDatos.addRow( new Object[] { u.getDni(), u.getNombre(),u.getApellido(),u.getEdad(),u.getGmail(), u.getNomUsuario(), u.getContrasenia(), u.getNumerotarjeta() } );
 		}
 		table.setModel( mDatos );
-		// Pone tamaños a las columnas de la tabla
+		// Pone tamaÃ±os a las columnas de la tabla
 		table.getColumnModel().getColumn(0).setMinWidth(140);
 		table.getColumnModel().getColumn(0).setMaxWidth(140);
 		table.getColumnModel().getColumn(1).setMinWidth(160);
@@ -202,7 +206,7 @@ public class VentanaAdmin extends JFrame{
 		});
 	}
 
-	//MÃ©️todo que recorre la informaciÃ³n de los usuarios de forma recursiva y los escribe en un fichero de texto
+	//MÃƒÂ©ï¸�todo que recorre la informaciÃƒÂ³n de los usuarios de forma recursiva y los escribe en un fichero de texto
 		@SuppressWarnings("unused")
 		private void escribirUsuariosEnFichero(int fila, DefaultTableModel mDatos, PrintWriter pw) {
 			if(fila<mDatos.getRowCount()) {

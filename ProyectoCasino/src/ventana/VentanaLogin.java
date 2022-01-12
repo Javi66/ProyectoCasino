@@ -85,15 +85,12 @@ public class VentanaLogin extends JFrame{
 				} else if (contrasenya.isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Escribe una contrase�a", "Error", JOptionPane.ERROR_MESSAGE);
 				} else if( usuario.equals(admin)  && contrasenya.equals(admin)) {
-				
+					//SI EL USUARIO ES ADMIN ABRIMOS UN MAIN PARA ADMIN
 					JOptionPane.showMessageDialog(null, "Bienvenido administrador " , "Credenciales correctas.", JOptionPane.INFORMATION_MESSAGE);
-					//Si el usuario es correcto cerramos esta y abrimos la principal
 					dispose();
-					
 					Main vl = new Main(usuario);
 					vl.setVisible(true);
 					Main.activarBotones();
-					Main.activarBotonAdmin();
 				}  else {
 					try {
 						Db.initDB("casino1.db", false);

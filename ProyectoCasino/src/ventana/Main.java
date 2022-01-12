@@ -168,8 +168,7 @@ public class Main extends JFrame implements ActionListener {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				VentanaAdmin va= new VentanaAdmin();
-				va.setSize(1000, 500);
+				VentanaAdmin va= new VentanaAdmin("admin");
 				dispose();
 				va.setVisible(true);
 			}
@@ -177,6 +176,11 @@ public class Main extends JFrame implements ActionListener {
 		});
 		getContentPane().add(btnAdmin);
 		btnAdmin.setVisible(false);
+		
+		if(nomUsuario.equals("admin")) {
+			activarBotonAdmin();
+		}
+		
 		btnRanking.addActionListener(new ActionListener() {
 			public void  actionPerformed(ActionEvent e) {
 				VentanaRanking vR= new VentanaRanking(nomUsuario);
