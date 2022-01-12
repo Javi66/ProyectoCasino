@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,12 +19,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Random;
+import java.util.TimerTask;
+import java.util.Timer;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.*;
@@ -62,8 +59,14 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	private int b = 0;
 	private int c = 0;
 	private int scoreTirada;
+	private int count = 0;		//cont y count se usan para el metodo de imagenes de relleno
+	private int cont = 0;
+	private int x;
+	private int y;
+	private int z;
 	
-	public Clip clip;
+	boolean fin = false;
+	
 	
 	ArrayList<ImageIcon> iconos = new ArrayList<ImageIcon>();
 	
@@ -358,7 +361,7 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 				} else {
 					saldo -= 2;
 					lblSaldo.setText("Saldo: " + saldo);
-					play();
+					imagenesRelleno(); //Primero llamamos a este método el cual llama a play
 					
 				}
 			}
@@ -367,21 +370,15 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 	}
 	
 	public void play() {
-		Juego.ReproducirSonido("tragamonedas.wav");
-		try {
-			Thread.sleep(400);
-		} catch(Exception e){
-			System.out.println(e);
-		}
 		a = r.nextInt(iconos.size()); //Genera un número random para elegir la imagen de entre todos los iconos
 		b = r.nextInt(iconos.size());
 		c = r.nextInt(iconos.size());
-		Icon icon1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-		Icon icon2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-		Icon icon3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
-		lblTragap1.setIcon(icon1);
-		lblTragap2.setIcon(icon2);
-		lblTragap3.setIcon(icon3);
+		Icon icono1 = new ImageIcon(iconos.get(a).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icono2 = new ImageIcon(iconos.get(b).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		Icon icono3 = new ImageIcon(iconos.get(c).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+		lblTragap1.setIcon(icono1);
+		lblTragap2.setIcon(icono2);
+		lblTragap3.setIcon(icono3);
 		scoreTirada = Tragaperras.score(a, b, c, true); //Llamamos al método de la clase tragaperras para calcular los puntos
 		puntos = puntos + scoreTirada;
 		lblPuntaje.setText("Puntos: "+ puntos);
@@ -393,9 +390,98 @@ public class VentanaTragaperras extends JFrame implements MouseListener{
 			} catch(Exception e) {
 				System.out.println(e);
 			}
-			play();
+			imagenesRelleno();
 		}
 	}
+	
+	public void imagenesRelleno() {	//metodo para que salgan imagenes en la tragaperra antes de la correcta
+		//al llamarlo en cada tirada reproducimos el sonido nada más iniciar
+		Juego.ReproducirSonido("tragamonedas.wav");
+		int milis = 100;
+		Timer timer;
+		TimerTask task;
+		
+		task = new TimerTask() {
+			
+			@Override
+			public void run() {
+				switch(cont) {
+					case 0:
+						cont=1;
+						x = r.nextInt(iconos.size()); 
+						y = r.nextInt(iconos.size());
+						z = r.nextInt(iconos.size());
+						Icon icon1 = new ImageIcon(iconos.get(x).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon2 = new ImageIcon(iconos.get(y).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon3 = new ImageIcon(iconos.get(z).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						lblTragap1.setIcon(icon1);
+						lblTragap2.setIcon(icon2);
+						lblTragap3.setIcon(icon3);
+						count+=1;
+						break;
+					case 1:
+						cont=2;
+						x = r.nextInt(iconos.size()); 
+						y = r.nextInt(iconos.size());
+						z = r.nextInt(iconos.size());
+						Icon icon4 = new ImageIcon(iconos.get(x).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon5 = new ImageIcon(iconos.get(y).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon6 = new ImageIcon(iconos.get(z).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						lblTragap1.setIcon(icon4);
+						lblTragap2.setIcon(icon5);
+						lblTragap3.setIcon(icon6);
+						count+=1;
+						break;
+					case 2:
+						cont=3;
+						x = r.nextInt(iconos.size()); 
+						y = r.nextInt(iconos.size());
+						z = r.nextInt(iconos.size());
+						Icon icon7 = new ImageIcon(iconos.get(x).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon8 = new ImageIcon(iconos.get(y).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon9 = new ImageIcon(iconos.get(z).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						lblTragap1.setIcon(icon7);
+						lblTragap2.setIcon(icon8);
+						lblTragap3.setIcon(icon9);
+						count+=1;
+						break;
+					case 3:
+						cont=4;
+						x = r.nextInt(iconos.size()); 
+						y = r.nextInt(iconos.size());
+						z = r.nextInt(iconos.size());
+						Icon icon10 = new ImageIcon(iconos.get(x).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon11 = new ImageIcon(iconos.get(y).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon12 = new ImageIcon(iconos.get(z).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						lblTragap1.setIcon(icon10);
+						lblTragap2.setIcon(icon11);
+						lblTragap3.setIcon(icon12);
+						count+=1;
+						break;
+					case 4:
+						cont=0;
+						x = r.nextInt(iconos.size()); 
+						y = r.nextInt(iconos.size());
+						z = r.nextInt(iconos.size());
+						Icon icon13 = new ImageIcon(iconos.get(x).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon14 = new ImageIcon(iconos.get(y).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						Icon icon15 = new ImageIcon(iconos.get(z).getImage().getScaledInstance(lblTragap1.getWidth(), lblTragap1.getHeight(), Image.SCALE_DEFAULT));
+						lblTragap1.setIcon(icon13);
+						lblTragap2.setIcon(icon14);
+						lblTragap3.setIcon(icon15);
+						count = 0;
+						play(); //llamamos a play e instantaneamente terminamos de enseñar otras imágenes
+						cancel();
+						break;
+				}
+				
+			}
+			
+		};
+		timer = new Timer();
+		timer.scheduleAtFixedRate(task, 0, milis);
+	}
+	
 	
 	//Cambiamos el cursor para cuando se entra a un boton o al label de ayuda
 	public void mouseEntered(MouseEvent e) {
