@@ -31,6 +31,7 @@ private DefaultTableModel mDatos;
 private JButton tragaperras;
 private JButton ruleta;
 private JButton Todo;
+private JButton btnguardarArchivo;
 
 	public  VentanaRanking(String usuario) {
 		JPanel panelCentral= new JPanel();
@@ -40,10 +41,12 @@ private JButton Todo;
 		JButton ruleta= new JButton("Ruletas");
 		JButton todo = new JButton("Todo");
 		JButton menu = new JButton("MENU");
+		JButton btnguardarArchivo = new JButton("Guardar Archivo");
 		panelbotones.add(tragaperras);
 		panelbotones.add(ruleta);
 		panelbotones.add(todo);
 		panelbotones.add(menu);
+		panelbotones.add(btnguardarArchivo);
 		table=new JTable();
 		table.setFont( new Font( "Arial", Font.PLAIN, 14 ) );
 		getContentPane().add( new JScrollPane(table), BorderLayout.CENTER );
@@ -119,7 +122,19 @@ private JButton Todo;
 	        		}
 				}
 			});
-}
+		
+			btnguardarArchivo.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					guardarTabla();
+					
+				}
+				
+			});
+
+	
+	}
 	
  private void mostrarRankings() {
 	 final long serialVersionUID = 1L;
@@ -213,4 +228,29 @@ private JButton Todo;
 		
 		
 		
-		}}
+}
+	private void guardarTabla() {
+	 
+	 PrintWriter pw = null;
+		try {
+			pw = new PrintWriter("Ranking.txt");
+			JTable jt = (JTable) table.getModel(); 
+			for(int i=0;i<jt.getRowCount();i++) {
+				String j = (String) jt.getValueAt(i, 0);
+				String u = (String) jt.getValueAt(i, 1);
+				int pa = (int) jt.getValueAt(i, 2);
+				int pu = (int) jt.getValueAt(i, 3);
+				pw.println(j + ", " + u + ", " + pa + ", " + pu);
+			}
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} finally {
+			if(pw!=null) {
+				pw.flush();
+				pw.close();
+			}
+		}
+		
+	}
+
