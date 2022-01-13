@@ -98,12 +98,8 @@ public class VentanaAdmin extends JFrame{
 			}
 		});
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		pBotonera.add(btnNewButton);
+		
+		
 		JButton borrar = new JButton( "Borrar" );
 		borrar.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add( borrar );
