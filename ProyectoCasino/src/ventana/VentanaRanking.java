@@ -235,7 +235,7 @@ private JButton btnguardarArchivo;
 	 PrintWriter pw = null;
 		try {
 			pw = new PrintWriter("Ranking.txt");
-			JTable jt = (JTable) table.getModel(); 
+			TableModel jt = table.getModel();
 			for(int i=0;i<jt.getRowCount();i++) {
 				String j = (String) jt.getValueAt(i, 0);
 				String u = (String) jt.getValueAt(i, 1);
