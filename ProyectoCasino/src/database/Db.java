@@ -55,7 +55,7 @@ public class Db {
 			return con;		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			e.printStackTrace();
 			return null;
 		}
@@ -68,7 +68,7 @@ public class Db {
 				con.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
-				logger.log( Level.SEVERE, "Excepción", e );
+				logger.log( Level.SEVERE, "Excepcion", e );
 				e.printStackTrace();
 			}
 		}
@@ -102,7 +102,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			e.printStackTrace();
 		}
 	}
@@ -117,7 +117,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			e.printStackTrace();
 		}
 	}
@@ -126,6 +126,15 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 		String sent = "delete from usuario where dni = '"+dni + "'";
 		logger.log( Level.SEVERE, "Statement: " + sent );
 		statement.executeUpdate(sent);
+		
+		String sent2 = "select nomUsuario from usuario where dni = '"+dni + "'";
+		logger.log( Level.INFO, "Statement: " + sent2 );
+		ResultSet rs = statement.executeQuery( sent2 );
+		while( rs.next() ) { // Leer el resultset
+			String nomusuario = rs.getString("nomjuego");
+			eliminarRankings(nomusuario);
+		}
+		
 	}
 	public static void modificarUsuario(String dni, String nom,String apellido,Integer edad,String gmail,String nomUsuario,String contrasenia, Integer tarjeta) throws SQLException {
 		Statement statement = con.createStatement();
@@ -157,7 +166,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			return tmUsuarios;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			e.printStackTrace();
 			return null;
 		}
@@ -183,7 +192,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			return null;
 		}
 	}
@@ -215,7 +224,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			stmt.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			e.printStackTrace();
 		}
 	}
@@ -237,7 +246,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			return null;
 		}
 	}
@@ -259,7 +268,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			return null;
 		}
 
@@ -282,7 +291,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			}
 			return ret;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			return null;
 		}
 
@@ -302,7 +311,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 			}
 			return res;
 		} catch (Exception e) {
-			logger.log( Level.SEVERE, "Excepción", e );
+			logger.log( Level.SEVERE, "Excepcion", e );
 			return 0;
 		}
 	}
@@ -317,5 +326,15 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 		return resul;
 	}
 	
+	public static void eliminarRankings(String nomusuario) throws SQLException {
+		try(Statement statement = con.createStatement()){
+			String sent = "delete from ranking where nombreusuario = '"+nomusuario + "'";
+			logger.log( Level.INFO, "Statement: " + sent );
+			statement.executeUpdate(sent);
+		} catch (Exception e){
+			logger.log( Level.SEVERE, "Excepcion", e );
+		}
+		
+	}
 }
 

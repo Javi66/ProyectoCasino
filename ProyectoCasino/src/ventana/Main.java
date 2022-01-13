@@ -76,6 +76,7 @@ public class Main extends JFrame implements ActionListener {
 		setBounds(100, 100, 975, 650);
 		setResizable(false);
 		setLocationRelativeTo(null);
+		
 
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
