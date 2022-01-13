@@ -25,6 +25,18 @@ public class Tests {
 		Db.closeBD();
 	}
 	
+	
+	@Test
+	public void test1() {	
+		Usuario u = new Usuario("786385023F", "A", "B", 18, "dfghjk","iug","uyg",2);
+		u.setNombre("Javier");
+		u.setApellido("Pombo");
+		u.setEdad(19);
+		assertEquals("Javier", u.getNombre());
+		assertEquals("Pombo", u.getApellido());
+		assertEquals(19, u.getEdad());
+	}
+	
 	@Test
 	public void test() {
 		try {
@@ -38,5 +50,6 @@ public class Tests {
 			e.printStackTrace();
 		}
 	}
+	
 
 }

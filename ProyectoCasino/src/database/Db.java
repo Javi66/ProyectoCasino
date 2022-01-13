@@ -129,7 +129,7 @@ public static void crearTablaCliente(String nombreBD) throws SQLException{
 	}
 	public static void modificarUsuario(String dni, String nom,String apellido,Integer edad,String gmail,String nomUsuario,String contrasenia, Integer tarjeta) throws SQLException {
 		Statement statement = con.createStatement();
-		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"',edad='"+edad+"',gmail="+gmail+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+"',numerotarjeta='"+tarjeta+"' where dni='"+dni + "';";
+		String sent = "update usuario set nombre='"+nom+"',apellido='"+apellido+"',edad='"+edad+"',gmail="+gmail+"',nomUsuario="+nomUsuario+"',contrasenia="+contrasenia+"',numerotarjeta='"+tarjeta+"' where dni='"+dni + "'";
 		logger.log( Level.INFO, "Statement: " + sent );
 		statement.executeUpdate(sent);
 	}

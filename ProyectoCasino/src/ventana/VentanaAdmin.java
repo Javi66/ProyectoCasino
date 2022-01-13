@@ -97,6 +97,13 @@ public class VentanaAdmin extends JFrame{
 				Main.activarBotones();
 			}
 		});
+		
+		JButton btnNewButton = new JButton("New button");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		pBotonera.add(btnNewButton);
 		JButton borrar = new JButton( "Borrar" );
 		borrar.setFont( new Font( "Arial", Font.PLAIN, 12 ) );
 		pBotonera.add( borrar );
@@ -116,6 +123,36 @@ public class VentanaAdmin extends JFrame{
 					verUsuarios();
 				}
 			}
+		});
+		
+		
+		this.addWindowListener(new WindowAdapter() {
+		    public void windowClosing(WindowEvent e) {
+		    	table.getModel().addTableModelListener(new TableModelListener() {
+					
+					public void tableChanged(TableModelEvent e) {
+						for( int i = 0; i<table.getRowCount(); i++) {
+							String dni = (String) mDatos.getValueAt(i, 0).toString();
+							String nom = (String) mDatos.getValueAt(i, 1).toString();
+							String ape = (String) mDatos.getValueAt(i, 2).toString();
+							int edad = Integer.parseInt(mDatos.getValueAt(i, 3).toString());
+							String gmail = (String) mDatos.getValueAt(i, 4).toString();
+							String nomus = (String) mDatos.getValueAt(i, 5).toString();
+							String con = (String) mDatos.getValueAt(i, 6).toString();
+							int tarjeta = Integer.parseInt(mDatos.getValueAt(i, 7).toString());
+							
+							try {
+								Db.modificarUsuario(dni, nom, ape,edad,gmail,nomus,con,tarjeta);
+								
+							} catch (SQLException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						
+					}
+				});
+		    }
 		});
 		
 		JButton baniadir = new JButton("AÃ±adir");
@@ -181,29 +218,7 @@ public class VentanaAdmin extends JFrame{
 		table.getColumnModel().getColumn(7).setMinWidth(180);
 		table.getColumnModel().getColumn(7).setMaxWidth(180);
 		
-		table.getModel().addTableModelListener(new TableModelListener() {
-			
-			public void tableChanged(TableModelEvent e) {
-				// TODO Auto-generated method stub
-				int fil = e.getFirstRow();
-				String dni = (String) mDatos.getValueAt(fil, 0).toString();
-				String nom = (String) mDatos.getValueAt(fil, 1).toString();
-				String ape = (String) mDatos.getValueAt(fil, 2).toString();
-				int edad = Integer.parseInt(mDatos.getValueAt(fil, 3).toString());
-				String gmail = (String) mDatos.getValueAt(fil, 4).toString();
-				String nomus = (String) mDatos.getValueAt(fil, 5).toString();
-				String con = (String) mDatos.getValueAt(fil, 6).toString();
-				int tarjeta = Integer.parseInt(mDatos.getValueAt(fil, 7).toString());
-				
-				try {
-					Db.modificarUsuario(dni, nom, ape,edad,gmail,nomus,con,tarjeta);
-					
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
+		
 	}
 
 	//MÃƒÂ©ï¸�todo que recorre la informaciÃƒÂ³n de los usuarios de forma recursiva y los escribe en un fichero de texto
